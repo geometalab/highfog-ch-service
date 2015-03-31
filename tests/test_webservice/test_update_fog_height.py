@@ -4,25 +4,12 @@ Created: 20.03.2015
 '''
 from webservice.testbase import DatabaseTestCase
 from webservice.update_fog_height import UpdateFogHeight
-from StringIO import StringIO
 from datetime import datetime
 from webservice.models import Heights, db
 import ext_config
 
 
-class UpdateFogHeightTest(DatabaseTestCase):
-
-
-    @staticmethod
-    def get_test_file():
-        '''
-        Returns a StringIO object of a sample CSV file with pressure data
-        '''
-        a = open("test_webservice/forecast_201503160900.csv")
-        testfile = StringIO()
-        testfile.write(a.read())
-        a.close()
-        return testfile
+class TestUpdateFogHeightTest(DatabaseTestCase):
 
     def test_get_file_from_ftp(self):
         update = UpdateFogHeight()

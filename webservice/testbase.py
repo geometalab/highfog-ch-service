@@ -6,6 +6,7 @@ Setup for unit tests
 from flask_testing import TestCase
 from . import app, db
 from models import Heights
+from StringIO import StringIO
 
 
 class BaseTestCase(TestCase):
@@ -38,6 +39,17 @@ class DatabaseTestCase(TestCase):
         db.metadata.create_all(db.engine, tables=[
             Heights.__table__
         ])
+
+    @staticmethod
+    def get_test_file():
+        '''
+        Returns a StringIO object of a sample CSV file with pressure data
+        '''
+        a = open("test_webservice/forecast_201503160900.csv")
+        testfile = StringIO()
+        testfile.write(a.read())
+        a.close()
+        return testfile
 
     def tearDown(self):
         '''

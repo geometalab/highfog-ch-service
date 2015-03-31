@@ -4,18 +4,21 @@ Created: 19.03.2015
 Views for request handling
 '''
 from flask import Blueprint, jsonify
-from models import db, TestTable
+from update_fog_height import UpdateFogHeight
 
-web_service = Blueprint("webservice", __name__)
+webservice = Blueprint("webservice", __name__)
 
 
-@web_service.route('/v1/')
-def hello_world():
-    query1 = db.session.query(TestTable).all()[0].test
-    query2 = db.session.query(TestTable).all()[1].test
-    hello = {query1: query2}
+@webservice.route('/v1/')
+def index():
+    hello = {'Hello': 'world!'}
     return jsonify(hello)
 
-@web_service.route('/v1/fogmap')
+@webservice.route('/v1/fogmap')
 def fogmap():
     return jsonify({'Fog': 'Here', 'NoFog': 'There'})
+
+@webservice.route('/v1/update')
+def update():
+    UpdateFogHeight().update()
+    return 'Data Updated'

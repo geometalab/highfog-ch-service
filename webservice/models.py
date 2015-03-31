@@ -9,9 +9,10 @@ from data import db
 db = db
 
 
-class TestTable(db.Model):
-    __tablename__ = 'test'
+class Heights(db.Model):
+    __tablename__ = 'heights'
     __bind_key__ = 'internal'
 
     id = db.Column(db.Integer, primary_key=True)
-    test = db.Column(db.String(100))
+    height = db.Column(db.Float)
+    date = db.Column(db.DateTime(timezone=False))

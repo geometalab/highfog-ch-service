@@ -5,7 +5,7 @@ Setup for unit tests
 '''
 from flask_testing import TestCase
 from . import app, db
-from models import TestTable
+from models import Heights
 
 
 class BaseTestCase(TestCase):
@@ -36,7 +36,7 @@ class DatabaseTestCase(TestCase):
         Setup Database with all tables from model
         '''
         db.metadata.create_all(db.engine, tables=[
-            TestTable.__table__
+            Heights.__table__
         ])
 
     def tearDown(self):
@@ -45,5 +45,5 @@ class DatabaseTestCase(TestCase):
         '''
         db.session.remove()
         db.metadata.drop_all(db.engine, tables=[
-            TestTable.__table__
+            Heights.__table__
         ])

@@ -10,19 +10,14 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = (
         'postgresql://hochnebelkarte:hochnebelkarte@localhost:5434/hochnebelkarte'
     )
-    SQLALCHEMY_BINDS = {
-        'internal': SQLALCHEMY_DATABASE_URI,
-        'eosmdb': 'postgresql://postgres:postgres@localhost:5434/postgres'
-    }
     SQLALCHEMY_ECHO = False
 
 
 class TestConfig(BaseConfig):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI =(
+    SQLALCHEMY_DATABASE_URI = (
         'postgresql://hochnebelkarte:hochnebelkarte@localhost:5434/tester'
     )
     SQLALCHEMY_BINDS = {
-        'internal': SQLALCHEMY_DATABASE_URI,
-        'eosmdb': 'postgresql://postgres:postgres@localhost:5434/postgres'
+        'internal': SQLALCHEMY_DATABASE_URI
     }

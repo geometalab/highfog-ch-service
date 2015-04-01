@@ -4,8 +4,8 @@ Created: 19.03.2015
 Setup for unit tests
 '''
 from flask_testing import TestCase
-from . import app, db
-from models import Heights
+from webservice import app, db
+from webservice.models import Heights
 from StringIO import StringIO
 
 

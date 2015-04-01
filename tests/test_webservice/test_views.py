@@ -3,12 +3,15 @@ Created: 19.03.2015
 @author: Dennis Ligtenberg
 Unittests for views
 '''
-from webservice.testbase import DatabaseTestCase
+from tests.testbase import DatabaseTestCase
 from webservice.models import Heights, db
 from webservice.update_fog_height import UpdateFogHeight
 
 
 class TestViews(DatabaseTestCase):
+    '''
+    Tests for views of the webservice
+    '''
 
     def test_update(self):
         update = UpdateFogHeight()
@@ -28,5 +31,5 @@ class TestViews(DatabaseTestCase):
         data = update.pressure_to_height(data)
         update.update_database(data)
 
-        response = self.client.get('/v1/get_heights').json
+        response = self.client.get('/v1/heights').json
         self.assertEqual(response['heights'][0]['height'], 1017.48886368041)

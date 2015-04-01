@@ -2,9 +2,10 @@
 Created: 20.03.2015
 @author: Dennis Ligtenberg
 '''
-from webservice.testbase import DatabaseTestCase
-from webservice.update_fog_height import UpdateFogHeight
 from datetime import datetime
+
+from tests.testbase import DatabaseTestCase
+from webservice.update_fog_height import UpdateFogHeight
 from webservice.models import Heights, db
 import ext_config
 

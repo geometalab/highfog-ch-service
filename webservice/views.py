@@ -27,10 +27,10 @@ def update():
     return 'Data Updated'
 
 
-@webservice.route('/v1/get_heights')
+@webservice.route('/v1/heights')
 def get_heights():
     heights = []
     query = db.session.query(Heights).all()
     for entry in query:
-        heights.append({'height': entry.height, 'date': entry.date})
+        heights.append({'height': entry.height, 'date': entry.date.strftime("%y-%m-%d %H:%M:%S")})
     return jsonify(heights=heights)

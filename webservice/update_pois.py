@@ -47,6 +47,7 @@ cursor.execute("""
 if cursor.rowcount:
     db.session.query(Pois).delete()
     for row in cursor:
+        print row
         new_entry = Pois(
             osm_id=row[3],
             name=row[1],

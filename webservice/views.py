@@ -5,15 +5,17 @@ Views for request handling
 '''
 from flask import Blueprint, jsonify
 from update_fog_height import UpdateFogHeight
-from models import Heights, db
+from models import Heights, Pois, db
+from geojson import Feature, FeatureCollection, dumps
+from geoalchemy2.shape import to_shape
+from json import loads
 
 webservice = Blueprint("webservice", __name__)
 
 
 @webservice.route('/v1/')
 def index():
-    hello = {'Hello': 'world!'}
-    return jsonify(hello)
+    return 'Welcome to the highfog webservice!'
 
 
 @webservice.route('/v1/fogmap')
@@ -31,6 +33,25 @@ def update():
 def get_heights():
     heights = []
     query = db.session.query(Heights).all()
-    for entry in query:
-        heights.append({'height': entry.height, 'date': entry.date.strftime("%y-%m-%d %H:%M:%S")})
+    for row in query:
+        heights.append({'height': row.height, 'date': row.date.strftime("%y-%m-%d %H:%M:%S")})
     return jsonify(heights=heights)
+
+
+@webservice.route('/v1/pois/')
+def get_pois():
+    pois = []
+    query = db.session.query(Pois).all()
+
+    for row in query:
+        geometry = to_shape(row.geometry)
+        feature = Feature(
+            id=row.osm_id,
+            geometry=geometry,
+            properties={
+                "name": row.name,
+                "height": row.height
+            }
+        )
+        pois.append(feature)
+    return jsonify(loads(dumps(FeatureCollection(pois))))

@@ -24,3 +24,12 @@ class Pois(db.Model):
     name = db.Column(db.Text)
     height = db.Column(db.Float)
     geometry = db.Column(Geometry('POINT'))
+
+
+class PublicTransport(db.Model):
+    __tablename__ = 'public_transport'
+
+    osm_id = db.Column(db.BigInteger, primary_key=True)
+    name = db.Column(db.Text)
+    geometry = db.Column(Geometry('POINT'))
+    uic_name = db.Column(db.Text)

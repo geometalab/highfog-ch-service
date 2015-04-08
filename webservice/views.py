@@ -3,12 +3,16 @@ Created: 19.03.2015
 @author: Dennis Ligtenberg
 Views for request handling
 '''
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from update_fog_height import UpdateFogHeight
 from models import Heights, Pois, db
-from geojson import Feature, FeatureCollection, dumps
+from geojson import Feature, FeatureCollection
 from geoalchemy2.shape import to_shape
-from json import loads
+from geoalchemy2 import func
+from shapely.geometry import geo
+from shapely.wkt import dumps
+from crossdomain import crossdomain
+
 
 webservice = Blueprint("webservice", __name__)
 
@@ -40,8 +44,17 @@ def get_heights():
 
 @webservice.route('/v1/pois/')
 def get_pois():
+    # Dict with Bounds (minx, miny, maxx, maxy from the GET parameters)
+    bounds = {
+        'minx': float(request.args.get('minx')),
+        'miny': float(request.args.get('miny')),
+        'maxx': float(request.args.get('maxx')),
+        'maxy': float(request.args.get('maxy'))
+    }
+
     pois = []
-    query = db.session.query(Pois).all()
+    bbox = geo.box(bounds['minx'], bounds['miny'], bounds['maxx'], bounds['maxy'])
+    query = db.session.query(Pois).filter(func.ST_Within(Pois.geometry, dumps(bbox))).all()
 
     for row in query:
         geometry = to_shape(row.geometry)
@@ -54,4 +67,4 @@ def get_pois():
             }
         )
         pois.append(feature)
-    return jsonify(loads(dumps(FeatureCollection(pois))))
+    return jsonify(FeatureCollection(pois))

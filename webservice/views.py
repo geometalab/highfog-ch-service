@@ -23,17 +23,20 @@ def index():
 
 
 @webservice.route('/v1/fogmap')
+@crossdomain(origin='*')
 def fogmap():
     return jsonify({'Fog': 'Here', 'NoFog': 'There'})
 
 
 @webservice.route('/v1/update')
+@crossdomain(origin='*')
 def update():
     UpdateFogHeight().update()
     return 'Data Updated'
 
 
 @webservice.route('/v1/heights')
+@crossdomain(origin='*')
 def get_heights():
     heights = []
     query = db.session.query(Heights).all()
@@ -43,6 +46,7 @@ def get_heights():
 
 
 @webservice.route('/v1/pois/')
+@crossdomain(origin='*')
 def get_pois():
     # Dict with Bounds (minx, miny, maxx, maxy from the GET parameters)
     bounds = {

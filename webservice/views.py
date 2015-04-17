@@ -5,14 +5,9 @@ Views for request handling
 '''
 from flask import Blueprint, jsonify, request
 from update_fog_height import UpdateFogHeight
-from models import Heights, Pois, db
-from geojson import Feature, FeatureCollection
-from geoalchemy2.shape import to_shape
-from geoalchemy2 import func
-from shapely.geometry import geo
-from shapely.wkt import dumps
 from crossdomain import crossdomain
-
+from query_issuer import pois_at_time, get_heights, stops_within_bounds, height_by_time
+from datetime import datetime
 
 webservice = Blueprint("webservice", __name__)
 
@@ -20,12 +15,6 @@ webservice = Blueprint("webservice", __name__)
 @webservice.route('/v1/')
 def index():
     return 'Welcome to the highfog webservice!'
-
-
-@webservice.route('/v1/fogmap')
-@crossdomain(origin='*')
-def fogmap():
-    return jsonify({'Fog': 'Here', 'NoFog': 'There'})
 
 
 @webservice.route('/v1/update')
@@ -37,38 +26,48 @@ def update():
 
 @webservice.route('/v1/heights')
 @crossdomain(origin='*')
-def get_heights():
-    heights = []
-    query = db.session.query(Heights).all()
-    for row in query:
-        heights.append({'height': row.height, 'date': row.date.strftime("%y-%m-%d %H:%M:%S")})
-    return jsonify(heights=heights)
+def heights():
+    return jsonify(heights=get_heights())
 
 
 @webservice.route('/v1/pois/')
 @crossdomain(origin='*')
 def get_pois():
+    year = request.args.get('y')
+    month = request.args.get('m')
+    day = request.args.get('d')
+    hour = request.args.get('h')
+    timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+    pois = pois_at_time(timestamp)
+    return jsonify(pois)
+
+
+@webservice.route('/v1/public_transport/')
+@crossdomain(origin='*')
+def public_transport():
     # Dict with Bounds (minx, miny, maxx, maxy from the GET parameters)
+    year = request.args.get('y')
+    month = request.args.get('m')
+    day = request.args.get('d')
+    hour = request.args.get('h')
+    timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+
     bounds = {
         'minx': float(request.args.get('minx')),
         'miny': float(request.args.get('miny')),
         'maxx': float(request.args.get('maxx')),
         'maxy': float(request.args.get('maxy'))
     }
+    stops = stops_within_bounds(bounds, timestamp)
+    return jsonify(stops)
 
-    pois = []
-    bbox = geo.box(bounds['minx'], bounds['miny'], bounds['maxx'], bounds['maxy'])
-    query = db.session.query(Pois).filter(func.ST_Within(Pois.geometry, dumps(bbox))).all()
 
-    for row in query:
-        geometry = to_shape(row.geometry)
-        feature = Feature(
-            id=row.osm_id,
-            geometry=geometry,
-            properties={
-                "name": row.name,
-                "height": row.height
-            }
-        )
-        pois.append(feature)
-    return jsonify(FeatureCollection(pois))
+@webservice.route('/v1/height_at_time/')
+@crossdomain(origin='*')
+def height_at_time():
+    year = request.args.get('y')
+    month = request.args.get('m')
+    day = request.args.get('d')
+    hour = request.args.get('h')
+    timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+    return jsonify({'height': height_by_time(timestamp)})

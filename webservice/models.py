@@ -33,3 +33,4 @@ class PublicTransport(db.Model):
     name = db.Column(db.Text)
     geometry = db.Column(Geometry('POINT'))
     uic_name = db.Column(db.Text)
+    height = db.Column(db.Float)

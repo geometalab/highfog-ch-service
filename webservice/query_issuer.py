@@ -26,7 +26,10 @@ def height_by_time(time):
     if time.hour % FORECAST_INTERVAL != 0:
         time += timedelta(hours=1)
     query = db.session.query(Heights).filter(Heights.date == time).first()
-    return query.height
+    if query:
+        return query.height
+    else:
+        return 0
 
 
 def pois_at_time(timestamp):

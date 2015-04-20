@@ -37,7 +37,7 @@ class TestViews(DatabaseTestCase):
     def test_pois(self):
         update = UpdateFogHeight()
         update.update()
-        url = '/v1/pois/?minx=874586.691776&miny=5935368.32345&maxx=1053008.39186&maxy=6065208.87423' \
+        url = '/v1/pois/?minx=874586.691776&miny=5935368.32345&maxx=1053008.39186&maxy=6065208.87423&y=2015&m=04&d=16&h=18' \
               '&y=2015&m=04&d=16&h=18'
         response = self.client.get(url).json
         self.assertEqual(response['type'], 'FeatureCollection')

@@ -8,6 +8,8 @@ from update_fog_height import UpdateFogHeight
 from crossdomain import crossdomain
 from query_issuer import pois_at_time, get_heights, stops_within_bounds, height_by_time
 from datetime import datetime
+import urllib2
+import ast
 
 webservice = Blueprint("webservice", __name__)
 
@@ -23,6 +25,12 @@ def update():
     UpdateFogHeight().update()
     return 'Data Updated'
 
+@webservice.route('/v1/height_at_point')
+@crossdomain(origin='*')
+def height_at_point():
+    x = request.args.get('x')
+    y = request.args.get('y')
+    return '1'
 
 @webservice.route('/v1/heights')
 @crossdomain(origin='*')
@@ -39,11 +47,10 @@ def get_pois():
         day = request.args.get('d')
         hour = request.args.get('h')
         timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+        pois = pois_at_time(timestamp)
+        return jsonify(pois)
     except TypeError:
         abort(400)
-
-    pois = pois_at_time(timestamp)
-    return jsonify(pois)
 
 
 @webservice.route('/v1/public_transport/')
@@ -63,11 +70,10 @@ def public_transport():
             'maxx': float(request.args.get('maxx')),
             'maxy': float(request.args.get('maxy'))
         }
+        stops = stops_within_bounds(bounds, timestamp)
+        return jsonify(stops)
     except TypeError:
         abort(400)
-
-    stops = stops_within_bounds(bounds, timestamp)
-    return jsonify(stops)
 
 
 @webservice.route('/v1/height_at_time/')
@@ -78,8 +84,7 @@ def height_at_time():
         month = request.args.get('m')
         day = request.args.get('d')
         hour = request.args.get('h')
+        timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+        return jsonify({'height': height_by_time(timestamp)})
     except TypeError:
         abort(400)
-
-    timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
-    return jsonify({'height': height_by_time(timestamp)})

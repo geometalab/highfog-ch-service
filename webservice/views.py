@@ -8,15 +8,8 @@ from update_fog_height import UpdateFogHeight
 from crossdomain import crossdomain
 from query_issuer import pois_at_time, get_heights, stops_within_bounds, height_by_time
 from datetime import datetime
-import urllib2
-import ast
 
 webservice = Blueprint("webservice", __name__)
-
-
-@webservice.route('/v1/')
-def index():
-    return 'Welcome to the highfog webservice!'
 
 
 @webservice.route('/v1/update')
@@ -24,6 +17,7 @@ def index():
 def update():
     UpdateFogHeight().update()
     return 'Data Updated'
+
 
 @webservice.route('/v1/height_at_point')
 @crossdomain(origin='*')

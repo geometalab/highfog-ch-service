@@ -19,13 +19,6 @@ def update():
     return 'Data Updated'
 
 
-@webservice.route('/v1/height_at_point')
-@crossdomain(origin='*')
-def height_at_point():
-    x = request.args.get('x')
-    y = request.args.get('y')
-    return '1'
-
 @webservice.route('/v1/heights')
 @crossdomain(origin='*')
 def heights():

@@ -40,7 +40,7 @@ def pois_at_time(timestamp):
 
     max_height = height_by_time(timestamp)
 
-    query = db.session.query(Pois).filter(Pois.height <= max_height).all()
+    query = db.session.query(Pois).filter(Pois.height >= max_height).all()
     for row in query:
         geometry = to_shape(row.geometry)
         feature = Feature(
@@ -63,7 +63,7 @@ def stops_within_bounds(bounds, timestamp):
 
     bbox = geo.box(bounds['minx'], bounds['miny'], bounds['maxx'], bounds['maxy'])
     query = db.session.query(PublicTransport).filter(func.ST_Within(PublicTransport.geometry, dumps(bbox)))\
-        .filter(PublicTransport.height <= max_height).all()
+        .filter(PublicTransport.height >= max_height).all()
 
     for row in query:
         geometry = to_shape(row.geometry)

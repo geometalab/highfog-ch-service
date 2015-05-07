@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head lang="de">
-    <meta charset="UTF-8">
-    <meta name="author" content="Dennis Ligtenberg">
-    <meta name="description" content="Hochnebel App - Eine interaktive Schweizer Freizeit-Wetterkarte als mobiles Web App">
-    <meta name="keywords" content="Hochnebel, Nebel, Schweiz">
+    <head lang="de">
+        <meta charset="UTF-8">
+        <meta name="author" content="Dennis Ligtenberg">
+        <meta name="description" content="Hochnebel App - Eine interaktive Schweizer Freizeit-Wetterkarte als mobiles Web App">
+        <meta name="keywords" content="Hochnebel, Karte, Hochnebelkarte,Nebel, Schweiz">
 
-    <!-- Tells the mobile browser not to do any unwanted scaling -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!-- Tells the mobile browser not to do any unwanted scaling -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>Hochnebelkarte Schweiz</title>
-</head>
-<body>
-    <!-- Container for the actual map added by Leaflet -->
-    <div id="map" class="leaflet-container"></div>
-</body>
+        <title>Hochnebelkarte Schweiz</title>
+
+        <!-- Self css -->
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- Libs css -->
+        <link rel="stylesheet" href="libs/leaflet/leaflet.css">
+
+    </head>
+    <body>
+        <!-- Container for the actual map added by Leaflet -->
+        <div id="map" class="leaflet-container"></div>
+    </body>
+
+    <!-- Libs js-->
+    <script src="libs/jquery/jquery-2.1.4.min.js"></script>
+    <script src="libs/leaflet/leaflet.js"></script>
+
+    <!-- Self js -->
+    <script src="js/main.js"></script>
 </html>

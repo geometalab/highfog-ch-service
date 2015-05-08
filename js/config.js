@@ -19,8 +19,8 @@ var config = {
         }
     },
 
-    // Swiss bounding box in Lat/Long coordinates from http://giswiki.hsr.ch/Geographische_Koordinaten#Bounding_Box
-    swiss_bounds:[45.45627757127799,5.69091796875,47.92738566360356,10.5194091796875 ],
+    // Swiss bounding box in Lat/Long coordinates
+    swiss_bounds:[45.7300, 5.8000, 47.9000, 10.600],
 
     // Zoom settings
     min_zoom:9,

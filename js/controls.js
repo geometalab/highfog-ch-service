@@ -33,7 +33,7 @@ var mapControls = (function(){
         return L.FitBounds;
     }
 
-    function zoomToLocation(e){
+    function zoomToLocation(e, map){
         L.ZoomToLocation = L.Control.extend({
             // position the element in the topleft corner of the map under the zoom controls
             options: {

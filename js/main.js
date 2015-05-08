@@ -33,7 +33,7 @@ $(document).ready(function () {
     map.on('locationfound', function(e){
         L.marker(e.latlng).addTo(map);
 
-        L.ZoomToLocation = mapControls.zoomToLocation(e);
+        L.ZoomToLocation = mapControls.zoomToLocation(e, map);
         map.addControl(new L.ZoomToLocation());
     });
 

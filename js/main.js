@@ -29,5 +29,11 @@ $(document).ready(function () {
         "OSM Swiss-Style":swissStyle,
         "Mapbox Satellite":mapbox
     };
+
+    L.FitBounds = mapControls.boundControl(baseMap.bounds());
+
+    // add control elements to the map
     L.control.layers(baseMaps).addTo(map);
+    map.addControl(new L.FitBounds());
+
 });

@@ -5,6 +5,7 @@
 
 var mapControls = (function(){
 
+    // control element to zoom the map view to the full extent of switzerland
     function fitBoundControl(bounds){
         L.FitBounds = L.Control.extend({
 
@@ -32,8 +33,35 @@ var mapControls = (function(){
         return L.FitBounds;
     }
 
+    function zoomToLocation(e){
+        L.ZoomToLocation = L.Control.extend({
+            // position the element in the topleft corner of the map under the zoom controls
+            options: {
+                position: 'topleft'
+            },
+
+            onAdd: function (map) {
+                // create control element with standard leaflet control styling
+                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar zoomposition'),
+                    link = L.DomUtil.create('a', '', container);
+                link.href = '#';
+                link.title = 'Zur momentanen Position zoomen';
+                link.innerHTML = '&#8982;';
+
+                // use leaflets fitBounds method to fit view to the bounds
+                L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
+                    map.setView(e.latlng, 14)
+                });
+
+                return container;
+            }
+        });
+        return L.ZoomToLocation;
+    }
+
     return{
-        boundControl:fitBoundControl
+        boundControl:fitBoundControl,
+        zoomToLocation:zoomToLocation
     };
 
 })();

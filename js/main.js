@@ -30,8 +30,17 @@ $(document).ready(function () {
         "Mapbox Satellite":mapbox
     };
 
-    L.FitBounds = mapControls.boundControl(baseMap.bounds());
+    map.locate();
+    map.on('locationfound', function(e){
+        L.marker(e.latlng).addTo(map);
+        var radius = e.accuracy / 2;
+        L.circle(e.latlng, radius).addTo(map);
 
+        L.ZoomToLocation = mapControls.zoomToLocation(e, map);
+        map.addControl(new L.ZoomToLocation());
+    });
+
+    L.FitBounds = mapControls.boundControl(baseMap.bounds());
     // add control elements to the map
     L.control.layers(baseMaps).addTo(map);
     map.addControl(new L.FitBounds());

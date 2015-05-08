@@ -4,15 +4,14 @@
  */
 
 $(document).ready(function () {
-
     // Swiss Style background map
-    var  swissStyle = baseMap.createLayer(
+    var swissStyle = baseMap.createLayer(
        config.background_maps.swiss_style.url,
        config.background_maps.swiss_style.attribution_url,
        config.background_maps.swiss_style.attribution_text
     );
 
-    // Mapbox Satellite backround map
+    // Mapbox Satellite background map
     var mapbox = baseMap.createLayer(
         config.background_maps.mapbox_satellite.url,
         config.background_maps.mapbox_satellite.attribution_url,
@@ -33,10 +32,8 @@ $(document).ready(function () {
     map.locate();
     map.on('locationfound', function(e){
         L.marker(e.latlng).addTo(map);
-        var radius = e.accuracy / 2;
-        L.circle(e.latlng, radius).addTo(map);
 
-        L.ZoomToLocation = mapControls.zoomToLocation(e, map);
+        L.ZoomToLocation = mapControls.zoomToLocation(e);
         map.addControl(new L.ZoomToLocation());
     });
 
@@ -45,4 +42,5 @@ $(document).ready(function () {
     L.control.layers(baseMaps).addTo(map);
     map.addControl(new L.FitBounds());
 
+    error.showError('Ungültige URL Parameter übergeben!');
 });

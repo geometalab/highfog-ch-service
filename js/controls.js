@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by dligtenb on 08.05.2015.
  * Module for creating control elements on the map
  */
@@ -40,7 +40,7 @@ var mapControls = (function(){
                 position: 'topleft'
             },
 
-            onAdd: function (map) {
+            onAdd: function () {
                 // create control element with standard leaflet control styling
                 var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar zoomposition'),
                     link = L.DomUtil.create('a', '', container);

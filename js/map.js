@@ -4,7 +4,6 @@
  */
 
 var baseMap = (function(){
-
     // creates leaflet bounds from numerical coordinates
     function createBounds(){
         var p1 = new L.LatLng(config.swiss_bounds[0], config.swiss_bounds[1]),

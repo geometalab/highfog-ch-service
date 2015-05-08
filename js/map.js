@@ -49,7 +49,7 @@ var baseMap = (function(){
     return{
         create:createMap,
         createLayer:createLayer,
-        bounds:createBounds()
+        bounds:createBounds
     };
 
 })();

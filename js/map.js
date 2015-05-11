@@ -113,8 +113,10 @@ var position = (function(){
         if(!checkUrl()){
             var center = loadCookies();
             var hash = new L.Hash(map);
-            var latlng = new L.latLng(center[0], center[1]);
-            map.setView(latlng, center[2])
+            if (center) {
+                var latlng = new L.latLng(center[0], center[1]);
+                map.setView(latlng, center[2])
+            }
         }
         else{
             var hash = new L.Hash(map);

@@ -1,6 +1,6 @@
 /**
  * Created by dligtenb on 07.05.2015.
- * Main JavaScript file
+ * Main JavaScript file, Initializes map
  */
 
 $(document).ready(function () {
@@ -18,10 +18,8 @@ $(document).ready(function () {
         config.background_maps.mapbox_satellite.attribution_text
     );
 
-    var mapCenter = [46.7803,8.1985];
-
     // initiate map
-    var map = baseMap.create(swissStyle, mapCenter);
+    var map = baseMap.create(swissStyle);
 
     // add base tiles to the map
     var baseMaps={

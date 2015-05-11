@@ -34,6 +34,7 @@ var mapControls = (function(){
     }
 
     function zoomToLocation(e, map){
+        console.log(e);
         L.ZoomToLocation = L.Control.extend({
             // position the element in the topleft corner of the map under the zoom controls
             options: {

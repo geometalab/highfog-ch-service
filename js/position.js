@@ -1,7 +1,8 @@
 /**
  * Created by dligtenb on 11.05.2015.
+ * Module for all positioning related functionalities
  */
-// Module for all positioning related functionalities
+
 var position = (function(){
 
     // returns true if url hash exists and is valid, false if not
@@ -14,16 +15,16 @@ var position = (function(){
             if (splitted.length == 3){
                 var zoom = parseInt(splitted[0].substr(1)),
                     lat = parseFloat(splitted[1]),
-                    long = parseFloat(splitted[2]);
+                    lng = parseFloat(splitted[2]);
                 // check if parameters are within the swiss bounds and the allowed zoom levels
                 if (zoom >= config.min_zoom && zoom <= config.max_zoom &&
                     lat >= config.swiss_bounds[0] && lat <= config.swiss_bounds[2] &&
-                    long >= config.swiss_bounds[1] && long <= config.swiss_bounds[3]
+                    lng >= config.swiss_bounds[1] && lng <= config.swiss_bounds[3]
                 ){
                     return true
                 }
             }
-            error.showError('Ungültiger weblink!');
+            error.showError('Ungültiger Weblink!');
             return false
         }
         else{
@@ -31,10 +32,11 @@ var position = (function(){
         }
     }
 
-    // returns the content from element in cookies with name cname, from http://www.w3schools.com/js/js_cookies.asp
-    function readCookie(cname, cookies) {
+    // returns the content from element in cookies with name cname
+    // from http://www.w3schools.com/js/js_cookies.asp chapter "A Function to Get a Cookie"
+    function readCookie(cname, cookie) {
         var name = cname + "=";
-        var ca = cookies.split(';');
+        var ca = cookie.split(';');
         for(var i=0; i<ca.length; i++) {
             var c = ca[i];
             while (c.charAt(0)==' ') c = c.substring(1);
@@ -45,12 +47,12 @@ var position = (function(){
 
     // load position data from cookies, returns false if fails
     function centerFromCookies(){
-        var cookies = document.cookie;
-        if (cookies) {
+        var cookie = document.cookie;
+        if (cookie) {
             var center = [];
-            center[0] = readCookie('lat', cookies);
-            center[1] = readCookie('lng', cookies);
-            center[2] = readCookie('zoom', cookies);
+            center[0] = readCookie('lat', cookie);
+            center[1] = readCookie('lng', cookie);
+            center[2] = readCookie('zoom', cookie);
             return center
         }
         return false

@@ -22,7 +22,7 @@ var baseMap = (function(){
         }).fitBounds(bounds);
     }
 
-    // returns a tile layer with predefined attributions
+    // returns a tile layer witcreateh predefined attributions
     function createTileLayer(source, attribution){
         return L.tileLayer(source, {
             attribution: attribution,

@@ -117,6 +117,10 @@ var position = (function(){
                 var latlng = new L.latLng(center[0], center[1]);
                 map.setView(latlng, center[2])
             }
+            else{
+                var latlng = new L.latLng(46.8259, 8.2000);
+                map.setView(latlng, 9)
+            }
         }
         else{
             var hash = new L.Hash(map);

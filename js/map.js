@@ -33,10 +33,11 @@ var baseMap = (function(){
 
     // create a predefined attribution with a given url and text
     function createAttribution (url, urlText){
-        return "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | " +
+        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>About this map</a> | " +
             "Map data &copy; <a href=" + url + ">" + urlText + "</a> | " +
-            "<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | " +
-            "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
+            "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | " +
+            "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a> | " +
+            "<a href='http://twitter.com/geometalab'>t</a>";
     }
 
     // create background layers

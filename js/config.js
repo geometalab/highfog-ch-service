@@ -21,6 +21,7 @@ var config = {
 
     // Swiss bounding box in Lat/Long coordinates
     swiss_bounds:[45.7300, 5.8000, 47.9000, 10.600],
+    swiss_center:[46.8259, 8.2000],
 
     // Zoom settings
     min_zoom:9,

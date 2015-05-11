@@ -29,9 +29,9 @@ $(document).ready(function () {
         "Mapbox Satellite":mapbox
     };
 
-    position.getStartPosition(map);
-
-    position.savePositionToCookies(map);
+    position.setStartPosition(map);
+    // initiate position updater
+    position.updateCookies(map);
 
     map.locate();
     map.on('locationfound', function(e){

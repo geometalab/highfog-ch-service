@@ -29,6 +29,10 @@ $(document).ready(function () {
         "Mapbox Satellite":mapbox
     };
 
+    position.getStartPosition(map);
+
+    position.savePositionToCookies(map);
+
     map.locate();
     map.on('locationfound', function(e){
         L.marker(e.latlng).addTo(map);
@@ -42,5 +46,4 @@ $(document).ready(function () {
     L.control.layers(baseMaps).addTo(map);
     map.addControl(new L.FitBounds());
 
-    error.showError('Ungültige URL Parameter übergeben!');
 });

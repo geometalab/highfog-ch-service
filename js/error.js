@@ -4,14 +4,16 @@
  */
 var error = (function(){
     function showError(message){
-        console.log(message)
+        // Add error message to DOM element
         $('#message').html(message);
         $('#error').show();
 
+        // Fade message out on click
         $('#close').click(function() {
             $("#error").fadeOut('slow');
         });
 
+        // Fade out after 5 seconds
         $(function() {
             setTimeout(function() {
                 $("#error").fadeOut('slow');

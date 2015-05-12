@@ -15,14 +15,14 @@ var mapControls = (function(){
             },
 
             onAdd: function (map) {
-                // create control element with standard leaflet control styling
-                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar fitbounds'),
-                    link = L.DomUtil.create('a', '', container);
+                // createMap control element with standard leaflet control styling
+                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar fitbounds'),
+                    link = L.DomUtil.createMap('a', '', container);
                 link.href = '#';
                 link.title = 'Zur gesamten Schweiz zoomen';
                 link.innerHTML = 'CH';
 
-                // use leaflets fitBounds method to fit view to the bounds
+                // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
                     map.fitBounds(bounds);
                 });
@@ -34,7 +34,6 @@ var mapControls = (function(){
     }
 
     function zoomToLocation(e, map){
-        console.log(e);
         L.ZoomToLocation = L.Control.extend({
             // position the element in the topleft corner of the map under the zoom controls
             options: {
@@ -42,14 +41,14 @@ var mapControls = (function(){
             },
 
             onAdd: function () {
-                // create control element with standard leaflet control styling
-                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar zoomposition'),
-                    link = L.DomUtil.create('a', '', container);
+                // createMap control element with standard leaflet control styling
+                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar zoomposition'),
+                    link = L.DomUtil.createMap('a', '', container);
                 link.href = '#';
                 link.title = 'Zur momentanen Position zoomen';
                 link.innerHTML = '&#8982;';
 
-                // use leaflets fitBounds method to fit view to the bounds
+                // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
                     map.setView(e.latlng, 14)
                 });

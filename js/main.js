@@ -4,6 +4,7 @@
  */
 
 $(document).ready(function () {
+
     // Swiss Style background map
     var swissStyle = baseMap.createLayer(
        config.background_maps.swiss_style.url,
@@ -26,9 +27,12 @@ $(document).ready(function () {
         opacity: 0.8
     });
 
+    // markerClusterGroups for displayed points
+    var peaks_group = new L.markerClusterGroup();
+    var stops_group = new L.markerClusterGroup();
 
     // initiate map
-    var map = baseMap.create(swissStyle, fogLayer);
+    var map = baseMap.createMap(swissStyle, fogLayer, peaks_group, stops_group);
 
     // background map control group
     var baseMaps={
@@ -38,12 +42,15 @@ $(document).ready(function () {
 
     // overlay map control group
     var overlayMaps={
-        "Fog": fogLayer
+        "Nebel":fogLayer,
+        "Bergspitzen":peaks_group,
+        "Oev-Haltestellen":stops_group
     };
 
     // Add current fog overlay
     var now = new Date();
     fog.updateFog(now, fogLayer);
+    peaks.loadPeaks(now, peaks_group, map);
 
     position.setStartPosition(map);
     // initiate position updater
@@ -57,7 +64,7 @@ $(document).ready(function () {
         map.addControl(new L.ZoomToLocation());
     });
 
-    L.FitBounds = mapControls.boundControl(baseMap.bounds());
+    L.FitBounds = mapControls.boundControl(baseMap.createBounds());
     // add control elements to the map
     L.control.layers(baseMaps, overlayMaps).addTo(map);
     map.addControl(new L.FitBounds());

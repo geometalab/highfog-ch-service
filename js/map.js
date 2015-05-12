@@ -4,25 +4,25 @@
  */
 // module for adding the base maps
 var baseMap = (function(){
-    // creates leaflet bounds from numerical coordinates
+    // creates leaflet createBounds from numerical coordinates
     function createBounds(){
         var p1 = new L.LatLng(config.swiss_bounds[0], config.swiss_bounds[1]),
             p2 = new L.LatLng(config.swiss_bounds[2], config.swiss_bounds[3]);
         return L.latLngBounds(p1, p2);
     }
 
-    // initiates the actual map with default tiles in the background, fits the map to swiss bounds
-    function createMap(defaultMap, fogLayer){
+    // initiates the actual map with default tiles in the background, fits the map to swiss createBounds
+    function createMap(defaultMap, fogLayer, peaks, stops){
 
         var bounds = createBounds();
 
         return L.map('map',{
             maxBounds:bounds,
-            layers:[defaultMap, fogLayer]
+            layers:[defaultMap, fogLayer, peaks, stops]
         }).fitBounds(bounds);
     }
 
-    // returns a tile layer witcreateh predefined attributions
+    // returns a tile layer wit predefined attributions
     function createTileLayer(source, attribution){
         return L.tileLayer(source, {
             attribution: attribution,
@@ -31,7 +31,7 @@ var baseMap = (function(){
         });
     }
 
-    // create a predefined attribution with a given url and text
+    // createMap a predefined attribution with a given url and text
     function createAttribution (url, urlText){
         return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>About this map</a> | " +
             "Map data &copy; <a href=" + url + ">" + urlText + "</a> | " +
@@ -40,16 +40,16 @@ var baseMap = (function(){
             "<a href='http://twitter.com/geometalab'>t</a>";
     }
 
-    // create background layers
+    // createMap background layers
     function createLayer(tileSource, attributionSource, description ){
         var attribution = createAttribution(attributionSource, description);
         return createTileLayer(tileSource, attribution);
     }
 
     return{
-        create:createMap,
+        createMap:createMap,
         createLayer:createLayer,
-        bounds:createBounds
+        createBounds:createBounds
     };
 
 })();
@@ -63,8 +63,9 @@ var fog = (function(){
             month = date_time.getMonth() + 1,
             // round the hourly forecast to 3 hours
             hour = 3 * Math.round(date_time.getHours() / 3),
-            year = date_time.getFullYear(),
-            url = config.height_at_time_url +
+            year = date_time.getFullYear();
+
+        var url = config.height_at_time_url +
                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';
         // JQuery AJAX request for getting the height data, shows error if not successful
         $.ajax({

@@ -16,7 +16,7 @@ var position = (function(){
                 var zoom = parseInt(splitted[0].substr(1)),
                     lat = parseFloat(splitted[1]),
                     lng = parseFloat(splitted[2]);
-                // check if parameters are within the swiss bounds and the allowed zoom levels
+                // check if parameters are within the swiss createBounds and the allowed zoom levels
                 if (zoom >= config.min_zoom && zoom <= config.max_zoom &&
                     lat >= config.swiss_bounds[0] && lat <= config.swiss_bounds[2] &&
                     lng >= config.swiss_bounds[1] && lng <= config.swiss_bounds[3]

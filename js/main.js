@@ -18,14 +18,32 @@ $(document).ready(function () {
         config.background_maps.mapbox_satellite.attribution_text
     );
 
-    // initiate map
-    var map = baseMap.create(swissStyle);
+    // empty layer for the Fog overlay
+    var fogLayer = L.tileLayer('',{
+        minZoom: 9,
+        maxZoom: 18,
+        maxNativeZoom: 12,
+        opacity: 0.8
+    });
 
-    // add base tiles to the map
+
+    // initiate map
+    var map = baseMap.create(swissStyle, fogLayer);
+
+    // background map control group
     var baseMaps={
         "OSM Swiss-Style":swissStyle,
         "Mapbox Satellite":mapbox
     };
+
+    // overlay map control group
+    var overlayMaps={
+        "Fog": fogLayer
+    };
+
+    // Add current fog overlay
+    var now = new Date();
+    fog.updateFog(now, fogLayer);
 
     position.setStartPosition(map);
     // initiate position updater
@@ -41,7 +59,7 @@ $(document).ready(function () {
 
     L.FitBounds = mapControls.boundControl(baseMap.bounds());
     // add control elements to the map
-    L.control.layers(baseMaps).addTo(map);
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
     map.addControl(new L.FitBounds());
 
 });

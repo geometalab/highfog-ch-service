@@ -2,7 +2,7 @@
  * Created by dligtenb on 08.05.2015.
  * Modules for base map functionalities
  */
-// Module for adding the base maps
+// module for adding the base maps
 var baseMap = (function(){
     // creates leaflet bounds from numerical coordinates
     function createBounds(){
@@ -12,13 +12,13 @@ var baseMap = (function(){
     }
 
     // initiates the actual map with default tiles in the background, fits the map to swiss bounds
-    function createMap(defaultTiles){
+    function createMap(defaultMap, fogLayer){
 
         var bounds = createBounds();
 
         return L.map('map',{
             maxBounds:bounds,
-            layers:[defaultTiles]
+            layers:[defaultMap, fogLayer]
         }).fitBounds(bounds);
     }
 

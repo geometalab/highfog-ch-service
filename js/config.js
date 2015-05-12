@@ -35,6 +35,7 @@ var config = {
 
     // highfog-ch webservice URLs
     heights_url:"http://sifsv-80047.hsr.ch/v1/heights/",
+    height_at_time_url:"http://sifsv-80047.hsr.ch/v1/height_at_time/",
     peaks_url:"http://sifsv-80047.hsr.ch/v1/pois/",
     public_transport_url:"http://sifsv-80047.hsr.ch/v1/public_transport/",
 

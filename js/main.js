@@ -20,9 +20,9 @@ $(document).ready(function () {
 
     // empty layer for the Fog overlay
     var fogLayer = L.tileLayer('',{
-        minZoom: 9,
-        maxZoom: 18,
-        maxNativeZoom: 12,
+        minZoom: config.min_zoom,
+        maxZoom: config.max_zoom,
+        maxNativeZoom: 14,
         opacity: 0.8
     });
 

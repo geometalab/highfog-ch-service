@@ -59,31 +59,37 @@ var fog = (function(){
 
     function updateFog(date_time, fogLayer){
         var day = date_time.getDate(),
-        // month +1 because getMonth() returns a value starting at 0
+            // month +1 because getMonth() returns a value starting at 0
             month = date_time.getMonth() + 1,
-            hour = date_time.getHours(),
+            // round the hourly forecast to 3 hours
+            hour = 3 * Math.round(date_time.getHours() / 3),
             year = date_time.getFullYear(),
-            url = 'http://sifsv-80047.hsr.ch/v1/height_at_time/' +
+            url = config.height_at_time_url +
                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';
-
-        // async. ajax request to retreive fog height
-        $.getJSON(url, function(response){
-
-            // round the fog to 20
-            var rounded_height = (20 * Math.round(response.height / 20));
-
-            // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL
-            if (rounded_height <= 2000 &&rounded_height >= 500) {
-                var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
-                fogLayer.setUrl(url);
-            }
-            else if(rounded_height <= 2000){
+        // JQuery AJAX request for getting the height data, shows error if not successful
+        $.ajax({
+            url:url,
+            dataType:'json',
+            success:function(response){
+                // round the fog to 20
+                var rounded_height = (20 * Math.round(response.height / 20));
+                // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL
+                if (rounded_height <= 2000 &&rounded_height >= 500) {
+                    var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
+                    fogLayer.setUrl(url);
+                }
+                else if(rounded_height <= 2000){
+                    fogLayer.setUrl('');
+                    error.showError('Nebelgrenze über der anzeigbaren Höhe!');
+                }
+                else{
+                    fogLayer.setUrl('');
+                    error.showError('Nebelgrenze unter der anzeigbaren Höhe!');
+                }
+            },
+            error:function(){
                 fogLayer.setUrl('');
-                error.showError('Nebelgrenze über der anzeigbaren Höhe!');
-            }
-            else{
-                fogLayer.setUrl('');
-                error.showError('Nebelgrenze unter der anzeigbaren Höhe!');
+                error.showError('Fehler beim Abrufen der Nebelgrenze!');
             }
         });
     }

@@ -31,9 +31,9 @@ $(document).ready(function () {
     var peaks_group = new L.markerClusterGroup({
         maxClusterRadius: 40,
         iconCreateFunction: function(cluster) {
-            return new L.DivIcon({className: "peaks",
+            return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/peak.png" >' +
+                '<img class="icon" src="img/peak.svg" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
@@ -58,7 +58,7 @@ $(document).ready(function () {
     // Add current fog overlay
     var now = new Date();
     fog.updateFog(now, fogLayer);
-    peaks.loadPeaks(now, peaks_group);
+    pois.loadPeaks(now, peaks_group);
 
     position.setStartPosition(map);
     // initiate position updater

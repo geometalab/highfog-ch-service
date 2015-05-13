@@ -28,7 +28,15 @@ $(document).ready(function () {
     });
 
     // markerClusterGroups for displayed points
-    var peaks_group = new L.markerClusterGroup();
+    var peaks_group = new L.markerClusterGroup({
+        maxClusterRadius: 40,
+        iconCreateFunction: function(cluster) {
+            return new L.DivIcon({className: "peaks",
+                html: '<div><span>' +
+                '<img class="icon" src="img/peak.png" >' +
+                '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
+        }
+    });
     var stops_group = new L.markerClusterGroup();
 
     // initiate map
@@ -50,7 +58,7 @@ $(document).ready(function () {
     // Add current fog overlay
     var now = new Date();
     fog.updateFog(now, fogLayer);
-    peaks.loadPeaks(now, peaks_group, map);
+    peaks.loadPeaks(now, peaks_group);
 
     position.setStartPosition(map);
     // initiate position updater

@@ -8,13 +8,27 @@ html, body, #map {
     width:100%;
 }
 
+/* Control elements */
 .zoomposition{
     font-size:25px;
 }
 
 
+/* Markers */
 .leaflet-popup-content{
     text-align:center;
+}
+
+.icon{
+    position: relative;
+    width: 28px;
+    height: 28px;
+}
+
+.count{
+    position: absolute;
+    top: 0;
+    left: 3px;
 }
 
 /* Error field */

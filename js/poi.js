@@ -79,7 +79,7 @@ var pois = (function(){
 
      function loadStops(date_time, stops_group, bounds, zoom_level){
          // only load POIS from zoom-level 14 on
-         if(zoom_level > 8) {
+         if(zoom_level > 13) {
              var day = date_time.getDate(),
              // month +1 because getMonth() returns a value starting at 0
                  month = date_time.getMonth() + 1,

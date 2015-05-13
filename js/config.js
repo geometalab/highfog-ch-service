@@ -32,6 +32,7 @@ var config = {
 
     // OSM URL to link to a certain node with its OSM ID
     osm_node_url:"http://www.openstreetmap.org/node/",
+    min_node_value:400000000,
 
     // highfog-ch webservice URLs
     heights_url:"http://sifsv-80047.hsr.ch/v1/heights/",
@@ -43,5 +44,7 @@ var config = {
 
     // Forecast hourly step and days to future settings
     forecast_step_hour:3,
-    forecast_days:2
+    forecast_days:2,
+
+    earth_radius:6378137
 };

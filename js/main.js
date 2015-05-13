@@ -2,6 +2,8 @@
  * Created by dligtenb on 07.05.2015.
  * Main JavaScript file, Initializes map
  */
+// globals
+ids = [];
 
 $(document).ready(function () {
 
@@ -37,7 +39,15 @@ $(document).ready(function () {
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
-    var stops_group = new L.markerClusterGroup();
+    var stops_group = new L.markerClusterGroup({
+        maxClusterRadius: 40,
+        iconCreateFunction: function(cluster) {
+            return new L.DivIcon({className: "pois",
+                html: '<div><span>' +
+                '<img class="icon" src="img/stop.svg" >' +
+                '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
+        }
+    });
 
     // initiate map
     var map = baseMap.createMap(swissStyle, fogLayer, peaks_group, stops_group);
@@ -70,6 +80,10 @@ $(document).ready(function () {
 
         L.ZoomToLocation = mapControls.zoomToLocation(e, map);
         map.addControl(new L.ZoomToLocation());
+    });
+
+    map.on('moveend', function(){
+        pois.loadStops(now, stops_group, map.getBounds(), map.getZoom());
     });
 
     L.FitBounds = mapControls.boundControl(baseMap.createBounds());

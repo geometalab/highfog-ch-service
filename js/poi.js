@@ -26,13 +26,13 @@ var pois = (function(){
     }
 
     // Loads peaks from the webservice into a layergroup
-    function loadPeaks(date_time, peaks_group){
-        var day = date_time.getDate(),
+    function loadPeaks(peaks_group){
+        var day = forecast.getDate(),
             // month +1 because getMonth() returns a value starting at 0
-            month = date_time.getMonth() + 1,
+            month = forecast.getMonth() + 1,
             // round the hourly forecast to 3 hours
-            hour = 3 * Math.round(date_time.getHours() / 3),
-            year = date_time.getFullYear();
+            hour = 3 * Math.round(forecast.getHours() / 3),
+            year = forecast.getFullYear();
 
         // build URL
         var url = config.peaks_url +
@@ -77,15 +77,16 @@ var pois = (function(){
         });
     }
 
-     function loadStops(date_time, stops_group, bounds, zoom_level){
+     function loadStops(stops_group, bounds, zoom_level){
+         console.log(zoom_level);
          // only load POIS from zoom-level 14 on
          if(zoom_level > 13) {
-             var day = date_time.getDate(),
+             var day = forecast.getDate(),
              // month +1 because getMonth() returns a value starting at 0
-                 month = date_time.getMonth() + 1,
+                 month = forecast.getMonth() + 1,
              // round the hourly forecast to 3 hours
-                 hour = 3 * Math.round(date_time.getHours() / 3),
-                 year = date_time.getFullYear();
+                 hour = 3 * Math.round(forecast.getHours() / 3),
+                 year = forecast.getFullYear();
 
              // convert the latLng bounds to mercator
              var min = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
@@ -107,13 +108,12 @@ var pois = (function(){
                  iconUrl: "img/stop.svg",
                  iconSize: [20, 20]
              });
-
+             console.log(url);
              // asynchronous AJAX request to retreive and display mountain pois
              $.ajax({
                  url: url,
                  dataType: 'json',
                  success: function (response) {
-                     console.log('------');
                      response = removeDuplicates(response);
                      var peaks = L.geoJson(response, {
                          // bind a popup on each marker with a link to the node on OSM
@@ -154,8 +154,16 @@ var pois = (function(){
          }
     }
 
+    function reloadPois(stops_group, peaks_group, map){
+        ids = [];
+        stops_group.clearLayers();
+        loadStops(stops_group, map.getBounds(), map.getZoom());
+        loadPeaks(peaks_group)
+    }
+
     return{
         loadPeaks:loadPeaks,
-        loadStops:loadStops
+        loadStops:loadStops,
+        reloadPois:reloadPois
     }
 })();

@@ -65,3 +65,53 @@ var mapControls = (function(){
     };
 
 })();
+
+var dateTimePicker = (function(){
+
+    function mapControl(){
+        L.DateTimePicker = L.Control.extend({
+
+            // position the element in the topleft corner of the map under the zoom controls
+            options: {
+                position: 'topleft'
+            },
+
+            onAdd: function () {
+                // createMap control element with standard leaflet control styling
+                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar datetimepicker'),
+                    link = L.DomUtil.createMap('a', '', container);
+                link.href = '#';
+                link.title = 'Prognosedatum und Uhrzeit auswählen';
+                link.innerHTML = 'DT';
+
+                return container;
+            }
+        });
+        return L.DateTimePicker;
+    }
+
+    function updateLayers(fogLayer, peaks_group, stops_groups, bounds, zoom_level){
+        fog.updateFog(fogLayer);
+        pois.reloadPois(stops_groups, peaks_group, bounds, zoom_level);
+    }
+
+    function initiatePicker(fogLayer, peaks_group, stops_groups, map){
+        $('.datetimepicker').datetimepicker({
+            allowTimes: [
+                '00:00', '03:00', '06:00',
+                '09:00', '12:00', '15:00', '18:00', '21:00'
+            ],
+            minDate:'0',
+            maxDate:'+1970/01/03',
+            onClose:function(date_time){
+                forecast = date_time;
+                updateLayers(fogLayer, peaks_group, stops_groups, map)
+            }
+        });
+    }
+
+    return{
+        mapControl:mapControl,
+        initiatePicker:initiatePicker
+    }
+})();

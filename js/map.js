@@ -57,13 +57,13 @@ var baseMap = (function(){
 // module for updating the overlay fog
 var fog = (function(){
 
-    function updateFog(date_time, fogLayer){
-        var day = date_time.getDate(),
+    function updateFog(fogLayer){
+        var day = forecast.getDate(),
             // month +1 because getMonth() returns a value starting at 0
-            month = date_time.getMonth() + 1,
+            month = forecast.getMonth() + 1,
             // round the hourly forecast to 3 hours
-            hour = 3 * Math.round(date_time.getHours() / 3),
-            year = date_time.getFullYear();
+            hour = 3 * Math.round(forecast.getHours() / 3),
+            year = forecast.getFullYear();
 
         var url = config.height_at_time_url +
                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';

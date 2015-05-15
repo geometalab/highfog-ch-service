@@ -3,7 +3,8 @@
  * Main JavaScript file, Initializes map
  */
 // globals
-ids = [];
+var ids = [];
+var forecast = new Date();
 
 $(document).ready(function () {
 
@@ -66,9 +67,8 @@ $(document).ready(function () {
     };
 
     // Add current fog overlay
-    var now = new Date();
-    fog.updateFog(now, fogLayer);
-    pois.loadPeaks(now, peaks_group);
+    fog.updateFog(fogLayer);
+    pois.loadPeaks(peaks_group);
 
     position.setStartPosition(map);
     // initiate position updater
@@ -83,12 +83,16 @@ $(document).ready(function () {
     });
 
     map.on('moveend', function(){
-        pois.loadStops(now, stops_group, map.getBounds(), map.getZoom());
+        pois.loadStops(stops_group, map.getBounds(), map.getZoom());
     });
 
     L.FitBounds = mapControls.boundControl(baseMap.createBounds());
+    L.DateTimePicker = dateTimePicker.mapControl();
     // add control elements to the map
     L.control.layers(baseMaps, overlayMaps).addTo(map);
     map.addControl(new L.FitBounds());
+    map.addControl(new L.DateTimePicker());
+
+    dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map)
 
 });

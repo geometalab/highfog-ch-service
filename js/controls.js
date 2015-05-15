@@ -66,8 +66,10 @@ var mapControls = (function(){
 
 })();
 
+// module for the datetime picker
 var dateTimePicker = (function(){
 
+    // returns a new leaflet control element for de picker
     function mapControl(){
         L.DateTimePicker = L.Control.extend({
 
@@ -82,7 +84,7 @@ var dateTimePicker = (function(){
                     link = L.DomUtil.createMap('a', '', container);
                 link.href = '#';
                 link.title = 'Prognosedatum und Uhrzeit auswählen';
-                link.innerHTML = 'DT';
+                link.innerHTML = '&#128336;';
 
                 return container;
             }
@@ -90,12 +92,15 @@ var dateTimePicker = (function(){
         return L.DateTimePicker;
     }
 
+    // updates all layers with the new forecast date
     function updateLayers(fogLayer, peaks_group, stops_groups, bounds, zoom_level){
         fog.updateFog(fogLayer);
         pois.reloadPois(stops_groups, peaks_group, bounds, zoom_level);
     }
 
+    // initiate the datetime picker and add its event litener
     function initiatePicker(fogLayer, peaks_group, stops_groups, map){
+        // limit the picker to 3 full hours and the next 3 days (including the current one)
         $('.datetimepicker').datetimepicker({
             allowTimes: [
                 '00:00', '03:00', '06:00',
@@ -103,11 +108,14 @@ var dateTimePicker = (function(){
             ],
             minDate:'0',
             maxDate:'+1970/01/03',
+            // update layers and set new global forecast date when the picker is closed
             onClose:function(date_time){
-                forecast = date_time;
+                FORECAST_DATE = date_time;
                 updateLayers(fogLayer, peaks_group, stops_groups, map)
             }
         });
+
+        // show the picker when the user clicks on the control element
         $('.datetimepicker').click(function(){
             $('.datetimepicker').datetimepicker('show'); //support hide,show and destroy command
         });

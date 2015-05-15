@@ -14,12 +14,12 @@ var pois = (function(){
     // removes already loaded Features from a geojson
     function removeDuplicates(geojson){
         for (var i=0; i < geojson.features.length; i++){
-            // check if id is already in the array of loaded ids - if not add it to the array
-            if ($.inArray(geojson.features[i].id, ids) > -1){
+            // check if id is already in the array of loaded IDS - if not add it to the array
+            if ($.inArray(geojson.features[i].id, IDS) > -1){
                 geojson.features.splice(i);
             }
             else{
-                ids.push(geojson.features[i].id);
+                IDS.push(geojson.features[i].id);
             }
         }
         return geojson
@@ -27,18 +27,17 @@ var pois = (function(){
 
     // Loads peaks from the webservice into a layergroup
     function loadPeaks(peaks_group){
-        var day = forecast.getDate(),
+        var day = FORECAST_DATE.getDate(),
             // month +1 because getMonth() returns a value starting at 0
-            month = forecast.getMonth() + 1,
-            // round the hourly forecast to 3 hours
-            hour = 3 * Math.round(forecast.getHours() / 3),
-            year = forecast.getFullYear();
+            month = FORECAST_DATE.getMonth() + 1,
+            // round the hourly FORECAST_DATE to 3 hours
+            hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
+            year = FORECAST_DATE.getFullYear();
 
         // build URL
         var url = config.peaks_url +
             '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';
-        // empty pois
-        peaks_group.clearLayers();
+
         // asynchronous AJAX request to retreive and display mountain pois
         $.ajax({
             url:url,
@@ -80,12 +79,12 @@ var pois = (function(){
      function loadStops(stops_group, bounds, zoom_level){
          // only load POIS from zoom-level 14 on
          if(zoom_level > 13) {
-             var day = forecast.getDate(),
+             var day = FORECAST_DATE.getDate(),
              // month +1 because getMonth() returns a value starting at 0
-                 month = forecast.getMonth() + 1,
-             // round the hourly forecast to 3 hours
-                 hour = 3 * Math.round(forecast.getHours() / 3),
-                 year = forecast.getFullYear();
+                 month = FORECAST_DATE.getMonth() + 1,
+             // round the hourly FORECAST_DATE to 3 hours
+                 hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
+                 year = FORECAST_DATE.getFullYear();
 
              // convert the latLng bounds to mercator
              var min = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
@@ -153,9 +152,12 @@ var pois = (function(){
          }
     }
 
+    // method to reload all pois
     function reloadPois(stops_group, peaks_group, map){
-        ids = [];
+        // empty added public transport ids list and remove all pois from the map before loading them
+        IDS = [];
         stops_group.clearLayers();
+        peaks_group.clearLayers();
         loadStops(stops_group, map.getBounds(), map.getZoom());
         loadPeaks(peaks_group)
     }

@@ -12,7 +12,9 @@ html, body, #map {
 .zoomposition{
     font-size:25px;
 }
-
+.datetimepicker{
+    font-size:20px;
+}
 
 /* Markers */
 .leaflet-popup-content{

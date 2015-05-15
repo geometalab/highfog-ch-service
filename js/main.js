@@ -2,9 +2,10 @@
  * Created by dligtenb on 07.05.2015.
  * Main JavaScript file, Initializes map
  */
-// globals
-var ids = [];
-var forecast = new Date();
+// global List of public transport ids that have already been added to the map
+var IDS = [];
+// global currently selected forecast date, default now
+var FORECAST_DATE = new Date();
 
 $(document).ready(function () {
 

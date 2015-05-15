@@ -31,13 +31,13 @@ var baseMap = (function(){
         });
     }
 
-    // createMap a predefined attribution with a given url and text
+    // createMap a predefined attribution with a given url and text for the background map copyright
     function createAttribution (url, urlText){
         return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>About this map</a> | " +
-            "Map data &copy; <a href=" + url + ">" + urlText + "</a> | " +
-            "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | " +
-            "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a> | " +
-            "<a href='http://twitter.com/geometalab'>t</a>";
+            "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
+            "Weather &copy; <a href='http://www.meteogroup.com/'>MeteoGroup</a> | " +
+            "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
+            "Map &copy; <a href=" + url + ">" + urlText + "</a>";
     }
 
     // createMap background layers
@@ -58,12 +58,12 @@ var baseMap = (function(){
 var fog = (function(){
 
     function updateFog(fogLayer){
-        var day = forecast.getDate(),
+        var day = FORECAST_DATE.getDate(),
             // month +1 because getMonth() returns a value starting at 0
-            month = forecast.getMonth() + 1,
-            // round the hourly forecast to 3 hours
-            hour = 3 * Math.round(forecast.getHours() / 3),
-            year = forecast.getFullYear();
+            month = FORECAST_DATE.getMonth() + 1,
+            // round the hourly FORECAST_DATE to 3 hours
+            hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
+            year = FORECAST_DATE.getFullYear();
 
         var url = config.height_at_time_url +
                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';

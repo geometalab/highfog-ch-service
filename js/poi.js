@@ -121,10 +121,8 @@ var pois = (function(){
                                  osm = '';
 
                              if (feature.properties.uic_name) {
-                                 var encodedURL = encodeURIComponent(feature.properties.uic_name);
-                                 console.log(encodedURL);
                                  sbb = '  <a target="_blak" href="' + config.sbb_url
-                                 + '' + encodedURL + '">SBB Fahrplan</a>';
+                                 + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
                              }
                              if (feature.properties.name){
                                 name = feature.properties.name;

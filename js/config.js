@@ -9,7 +9,7 @@ var config = {
         swiss_style:{
             url:"http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png",
             attribution_url:"http://www.openstreetmap.org/copyright",
-            attribution_text:"OSM"
+            attribution_text:"OpenStreetMap"
         },
         mapbox_satellite: {
             url:"http://api.tiles.mapbox.com/v4/sfkeller.k0onh2me/{z}/{x}/{y}.png" +

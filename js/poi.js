@@ -103,10 +103,9 @@ var pois = (function(){
                  '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '' +
                  '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
              var icon = new L.icon({
-                 iconUrl: "img/stop.svg",
+                 iconUrl: "img/stop.gif",
                  iconSize: [20, 20]
              });
-             console.log(url);
              // asynchronous AJAX request to retreive and display mountain pois
              $.ajax({
                  url: url,
@@ -122,8 +121,10 @@ var pois = (function(){
                                  osm = '';
 
                              if (feature.properties.uic_name) {
+                                 var encodedURL = encodeURIComponent(feature.properties.uic_name);
+                                 console.log(encodedURL);
                                  sbb = '  <a target="_blak" href="' + config.sbb_url
-                                 + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
+                                 + '' + encodedURL + '">SBB Fahrplan</a>';
                              }
                              if (feature.properties.name){
                                 name = feature.properties.name;

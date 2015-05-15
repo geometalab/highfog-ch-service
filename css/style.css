@@ -42,6 +42,7 @@ html, body, #map {
     background:rgba(255, 255, 255, 0.7);
     padding:0 5px;
     font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size:11px;
 }
 
 /* Error field */

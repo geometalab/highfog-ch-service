@@ -46,13 +46,15 @@ $(document).ready(function () {
         iconCreateFunction: function(cluster) {
             return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/stop.svg" >' +
+                '<img class="icon" src="img/stop.gif" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
 
     // initiate map
     var map = baseMap.createMap(swissStyle, fogLayer, peaks_group, stops_group);
+    // rmove "Leaflet" prefix from attributions
+    map.attributionControl.setPrefix("");
 
     // background map control group
     var baseMaps={
@@ -62,9 +64,9 @@ $(document).ready(function () {
 
     // overlay map control group
     var overlayMaps={
-        "Nebel":fogLayer,
-        "Bergspitzen":peaks_group,
-        "Oev-Haltestellen":stops_group
+        "Nebel (prognostiziert)":fogLayer,
+        "Berggipfel":peaks_group,
+        "OeV-Haltestellen":stops_group
     };
 
     // Add current fog overlay
@@ -94,6 +96,5 @@ $(document).ready(function () {
     map.addControl(new L.FitBounds());
     map.addControl(new L.DateTimePicker());
 
-    dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map)
-
+    dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map);
 });

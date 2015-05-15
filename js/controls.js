@@ -47,7 +47,6 @@ var mapControls = (function(){
                 link.href = '#';
                 link.title = 'Zur momentanen Position zoomen';
                 link.innerHTML = '&#8982;';
-
                 // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
                     map.setView(e.latlng, 14)
@@ -117,7 +116,7 @@ var dateTimePicker = (function(){
 
         // show the picker when the user clicks on the control element
         $('.datetimepicker').click(function(){
-            $('.datetimepicker').datetimepicker('show'); //support hide,show and destroy command
+            $('.datetimepicker').datetimepicker('show');
         });
     }
 

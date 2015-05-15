@@ -74,6 +74,10 @@ var fog = (function(){
             success:function(response){
                 // round the fog to 20
                 var rounded_height = (20 * Math.round(response.height / 20));
+
+                // update the displayed fogheight in the bottom left corner
+                $('#height').html('Die Hochnebelgrenze beträgt ' + rounded_height +' m ü. M');
+
                 // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL
                 if (rounded_height <= 2000 &&rounded_height >= 500) {
                     var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
@@ -89,7 +93,9 @@ var fog = (function(){
                 }
             },
             error:function(){
+                // don't show any fog and fogheight if error occurs
                 fogLayer.setUrl('');
+                $('#height').html('');
                 error.showError('Fehler beim Abrufen der Nebelgrenze!');
             }
         });

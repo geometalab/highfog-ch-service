@@ -78,7 +78,7 @@ var pois = (function(){
 
      function loadStops(stops_group, bounds, zoom_level){
          // only load POIS from zoom-level 14 on
-         if(zoom_level > 12) {
+         if(zoom_level > config.show_stops_from_zoom - 1) {
              var day = FORECAST_DATE.getDate(),
              // month +1 because getMonth() returns a value starting at 0
                  month = FORECAST_DATE.getMonth() + 1,

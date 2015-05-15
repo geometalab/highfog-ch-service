@@ -27,6 +27,9 @@ var config = {
     min_zoom:9,
     max_zoom:19,
 
+    // Zoom level after witch the stops are displayed
+    show_stops_from_zoom:14,
+
     // SBB URL to link to a timetable with prefilled destination
     sbb_url:"http://fahrplan.sbb.ch/bin/query.exe/dl?Z=",
 

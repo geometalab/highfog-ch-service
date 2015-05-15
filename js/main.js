@@ -89,12 +89,34 @@ $(document).ready(function () {
         pois.loadStops(stops_group, map.getBounds(), map.getZoom());
     });
 
+
+    // show public transport from after zoom-level 14 and on, keeps display state after zooming out and in again
+    var zoomStart = 0;
+    var haslayer = true;
+    // save the display state on most outer level
+    map.on('zoomstart', function(){
+        zoomStart = map.getZoom();
+        if(zoomStart >= config.show_stops_from_zoom) {
+            haslayer = map.hasLayer(stops_group)
+        }
+    });
+    // on zoomend remove stops if zoom is smaller than set display level and show if its larger and haslayer is true
+    map.on('zoomend', function(){
+        if(map.getZoom() < config.show_stops_from_zoom){
+            map.removeLayer(stops_group)
+        }
+        else if(haslayer == true && map.getZoom() >= config.show_stops_from_zoom){
+            map.addLayer(stops_group)
+        }
+    });
+
+    // add control elements to the map
     L.FitBounds = mapControls.boundControl(baseMap.createBounds());
     L.DateTimePicker = dateTimePicker.mapControl();
-    // add control elements to the map
     L.control.layers(baseMaps, overlayMaps).addTo(map);
     map.addControl(new L.FitBounds());
     map.addControl(new L.DateTimePicker());
 
+    // initiate datetime picker after the control button has been created
     dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map);
 });

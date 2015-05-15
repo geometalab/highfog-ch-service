@@ -78,7 +78,6 @@ var pois = (function(){
     }
 
      function loadStops(stops_group, bounds, zoom_level){
-         console.log(zoom_level);
          // only load POIS from zoom-level 14 on
          if(zoom_level > 13) {
              var day = forecast.getDate(),

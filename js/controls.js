@@ -108,6 +108,9 @@ var dateTimePicker = (function(){
                 updateLayers(fogLayer, peaks_group, stops_groups, map)
             }
         });
+        $('.datetimepicker').click(function(){
+            $('.datetimepicker').datetimepicker('show'); //support hide,show and destroy command
+        });
     }
 
     return{

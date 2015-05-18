@@ -91,12 +91,6 @@ var dateTimePicker = (function(){
         return L.DateTimePicker;
     }
 
-    // updates all layers with the new forecast date
-    function updateLayers(fogLayer, peaks_group, stops_groups, bounds, zoom_level){
-        fog.updateFog(fogLayer);
-        pois.reloadPois(stops_groups, peaks_group, bounds, zoom_level);
-    }
-
     // initiate the datetime picker and add its event litener
     function initiatePicker(fogLayer, peaks_group, stops_groups, map){
         // limit the picker to 3 full hours and the next 3 days (including the current one)
@@ -110,7 +104,8 @@ var dateTimePicker = (function(){
             // update layers and set new global forecast date when the picker is closed
             onClose:function(date_time){
                 FORECAST_DATE = date_time;
-                updateLayers(fogLayer, peaks_group, stops_groups, map)
+                fog.updateFog(fogLayer);
+                pois.reloadPois(stops_groups, peaks_group, map);
             }
         });
 

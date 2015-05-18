@@ -9,11 +9,13 @@ html, body, #map {
 }
 
 /* Control elements */
-.zoomposition{
-    font-size:30px;
+.zoomposition img{
+    width:26px;
+    height:26px
 }
-.datetimepicker{
-    font-size:20px;
+.datetimepicker img{
+    width:26px;
+    height:26px
 }
 
 /* Markers */

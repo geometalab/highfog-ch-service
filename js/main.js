@@ -7,13 +7,13 @@ var IDS = [];
 // global currently selected forecast date, default now
 var FORECAST_DATE = new Date();
 
-$(document).ready(function () {
+function main(){
 
     // Swiss Style background map
     var swissStyle = baseMap.createLayer(
-       config.background_maps.swiss_style.url,
-       config.background_maps.swiss_style.attribution_url,
-       config.background_maps.swiss_style.attribution_text
+        config.background_maps.swiss_style.url,
+        config.background_maps.swiss_style.attribution_url,
+        config.background_maps.swiss_style.attribution_text
     );
 
     // Mapbox Satellite background map
@@ -119,4 +119,7 @@ $(document).ready(function () {
 
     // initiate datetime picker after the control button has been created
     dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map);
-});
+
+}
+
+$(document).ready(main);

@@ -9,16 +9,10 @@ html, body, #map {
 }
 
 /* Control elements */
-.zoomposition img{
+.controlicon img{
     width:24px;
     height:24px;
-    padding-top:1px;
-}
-
-.datetimepicker img{
-    width:24px;
-    height:24px;
-    padding-top:1px;
+    vertical-align:middle;
 }
 
 /* Markers */

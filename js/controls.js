@@ -43,7 +43,7 @@ var mapControls = (function(){
             onAdd: function () {
                 // createMap control element with standard leaflet control styling
                 var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar zoomposition'),
-                    link = L.DomUtil.createMap('a', '', container);
+                    link = L.DomUtil.createMap('a', 'controlicon', container);
                 link.href = '#';
                 link.title = 'Zur momentanen Position zoomen';
                 link.innerHTML = '<img src="img/locate.png">';
@@ -80,7 +80,7 @@ var dateTimePicker = (function(){
             onAdd: function () {
                 // createMap control element with standard leaflet control styling
                 var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar datetimepicker'),
-                    link = L.DomUtil.createMap('a', '', container);
+                    link = L.DomUtil.createMap('a', 'controlicon', container);
                 link.href = '#';
                 link.title = 'Prognosedatum und Uhrzeit auswählen';
                 link.innerHTML = '<img src="img/clock.png">';

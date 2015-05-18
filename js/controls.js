@@ -46,7 +46,7 @@ var mapControls = (function(){
                     link = L.DomUtil.createMap('a', '', container);
                 link.href = '#';
                 link.title = 'Zur momentanen Position zoomen';
-                link.innerHTML = '&#8982;';
+                link.innerHTML = '<img src="img/locate.png" style="width:20px;height:20px">';
                 // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
                     map.setView(e.latlng, 14)
@@ -83,7 +83,7 @@ var dateTimePicker = (function(){
                     link = L.DomUtil.createMap('a', '', container);
                 link.href = '#';
                 link.title = 'Prognosedatum und Uhrzeit auswählen';
-                link.innerHTML = '&#128336;';
+                link.innerHTML = '<img src="img/watch.png" style="width:25px;height:25px">';
 
                 return container;
             }

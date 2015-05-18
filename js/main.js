@@ -59,14 +59,14 @@ $(document).ready(function () {
     // background map control group
     var baseMaps={
         "OSM Swiss-Style":swissStyle,
-        "Mapbox Satellite":mapbox
+        "MapBox Satellite":mapbox
     };
 
     // overlay map control group
     var overlayMaps={
         "Nebel (prognostiziert)":fogLayer,
         "Berggipfel":peaks_group,
-        "OeV-Haltestellen":stops_group
+        "OeV-Haltestellen (ab Zoom 14)":stops_group
     };
 
     // Add current fog overlay
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     map.locate();
     map.on('locationfound', function(e){
-        L.marker(e.latlng).addTo(map);
+        L.marker(e.latlng).addTo(map).bindPopup("Ihr Standort.").openPopup();
 
         L.ZoomToLocation = mapControls.zoomToLocation(e, map);
         map.addControl(new L.ZoomToLocation());

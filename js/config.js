@@ -49,5 +49,6 @@ var config = {
     forecast_step_hour:3,
     forecast_days:2,
 
+    // earth radius in meters for CRS reprojecting
     earth_radius:6378137
 };

@@ -61,8 +61,7 @@ var fog = (function(){
         var day = FORECAST_DATE.getDate(),
             // month +1 because getMonth() returns a value starting at 0
             month = FORECAST_DATE.getMonth() + 1,
-            // round the hourly FORECAST_DATE to 3 hours
-            hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
+            hour = FORECAST_DATE.getHours(),
             year = FORECAST_DATE.getFullYear();
 
         var url = config.height_at_time_url +

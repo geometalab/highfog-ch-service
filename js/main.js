@@ -6,7 +6,9 @@
 var IDS = [];
 // global currently selected forecast date, default now
 var FORECAST_DATE = new Date();
-
+FORECAST_DATE.setHours(3 * Math.round(FORECAST_DATE.getHours() / 3));
+FORECAST_DATE.setMinutes(0);
+FORECAST_DATE.setSeconds(0);
 function main(){
 
     // Swiss Style background map

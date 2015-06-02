@@ -28,7 +28,7 @@ var pois = (function(){
     // Loads peaks from the webservice into a layergroup
     function loadPeaks(peaks_group){
         var day = FORECAST_DATE.getDate(),
-            // month +1 because getMonth() returns a value starting at 0
+        // month +1 because getMonth() returns a value starting at 0
             month = FORECAST_DATE.getMonth() + 1,
             hour = FORECAST_DATE.getHours(),
             year = FORECAST_DATE.getFullYear();
@@ -44,7 +44,7 @@ var pois = (function(){
             success:function(response){
                 // Leaflet icon that will represent the points on the map
                 var icon = new L.icon({
-                    iconUrl:"img/peak.svg",
+                    iconUrl:"img/peak.png",
                     iconSize:[20,20]
                 });
                 var peaks = L.geoJson(response, {
@@ -75,79 +75,79 @@ var pois = (function(){
         });
     }
 
-     function loadStops(stops_group, bounds, zoom_level){
-         // only load POIS from zoom-level 14 on
-         if(zoom_level > config.show_stops_from_zoom - 1) {
-             var day = FORECAST_DATE.getDate(),
-             // month +1 because getMonth() returns a value starting at 0
-                 month = FORECAST_DATE.getMonth() + 1,
-             // round the hourly FORECAST_DATE to 3 hours
-                 hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
-                 year = FORECAST_DATE.getFullYear();
+    function loadStops(stops_group, bounds, zoom_level){
+        // only load POIS from zoom-level 14 on
+        if(zoom_level > config.show_stops_from_zoom - 1) {
+            var day = FORECAST_DATE.getDate(),
+            // month +1 because getMonth() returns a value starting at 0
+                month = FORECAST_DATE.getMonth() + 1,
+            // round the hourly FORECAST_DATE to 3 hours
+                hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
+                year = FORECAST_DATE.getFullYear();
 
-             // convert the latLng bounds to mercator
-             var min = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
-             var max = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
+            // convert the latLng bounds to mercator
+            var min = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
+            var max = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
 
-             var mercator_min = L.Projection.SphericalMercator.project(min);
-             var mercator_max = L.Projection.SphericalMercator.project(max);
+            var mercator_min = L.Projection.SphericalMercator.project(min);
+            var mercator_max = L.Projection.SphericalMercator.project(max);
 
-             var minx = mercator_min.x * config.earth_radius,
-                 miny = mercator_min.y * config.earth_radius,
-                 maxx = mercator_max.x * config.earth_radius,
-                 maxy = mercator_max.y * config.earth_radius;
+            var minx = mercator_min.x * config.earth_radius,
+                miny = mercator_min.y * config.earth_radius,
+                maxx = mercator_max.x * config.earth_radius,
+                maxy = mercator_max.y * config.earth_radius;
 
-             // build URL
-             var url = config.public_transport_url +
-                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '' +
-                 '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
-             var icon = new L.icon({
-                 iconUrl: "img/stop.gif",
-                 iconSize: [20, 20]
-             });
-             // asynchronous AJAX request to retreive and display mountain pois
-             $.ajax({
-                 url: url,
-                 dataType: 'json',
-                 success: function (response) {
-                     response = removeDuplicates(response);
-                     var peaks = L.geoJson(response, {
-                         // bind a popup on each marker with a link to the node on OSM
-                         onEachFeature: function (feature, layer) {
-                             // don't show a sbb url if no uic_name is given
-                             var sbb = '',
-                                 name = '-',
-                                 osm = '';
+            // build URL
+            var url = config.public_transport_url +
+                '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '' +
+                '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
+            var icon = new L.icon({
+                iconUrl: "img/stop.gif",
+                iconSize: [20, 20]
+            });
+            // asynchronous AJAX request to retreive and display mountain pois
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                success: function (response) {
+                    response = removeDuplicates(response);
+                    var peaks = L.geoJson(response, {
+                        // bind a popup on each marker with a link to the node on OSM
+                        onEachFeature: function (feature, layer) {
+                            // don't show a sbb url if no uic_name is given
+                            var sbb = '',
+                                name = '-',
+                                osm = '';
 
-                             if (feature.properties.uic_name) {
-                                 sbb = '  <a target="_blak" href="' + config.sbb_url
-                                 + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
-                             }
-                             if (feature.properties.name){
+                            if (feature.properties.uic_name) {
+                                sbb = '  <a target="_blak" href="' + config.sbb_url
+                                + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
+                            }
+                            if (feature.properties.name){
                                 name = feature.properties.name;
-                             }
-                             // only link to OSM if point is a node ism OSM for sure
-                             if (feature.id > config.min_node_value){
+                            }
+                            // only link to OSM if point is a node ism OSM for sure
+                            if (feature.id > config.min_node_value){
                                 osm = '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">OSM</a>'
-                             }
-                             layer.bindPopup('' + name + '<br />' + osm + sbb + '');
-                         },
-                         // add the points to the layer, but first reproject the coordinates to WGS 84
-                         pointToLayer: function (feature, latlng) {
-                             var newlatlng = unproject(latlng);
-                             return L.marker(newlatlng, {
-                                 icon:icon
-                             });
-                         }
+                            }
+                            layer.bindPopup('' + name + '<br />' + osm + sbb + '');
+                        },
+                        // add the points to the layer, but first reproject the coordinates to WGS 84
+                        pointToLayer: function (feature, latlng) {
+                            var newlatlng = unproject(latlng);
+                            return L.marker(newlatlng, {
+                                icon:icon
+                            });
+                        }
 
-                     });
-                     peaks.addTo(stops_group);
-                 },
-                 error: function () {
-                     error.showError('Fehler beim Abrufen der Bergspitzen!');
-                 }
-             });
-         }
+                    });
+                    peaks.addTo(stops_group);
+                },
+                error: function () {
+                    error.showError('Fehler beim Abrufen der Bergspitzen!');
+                }
+            });
+        }
     }
 
     // method to reload all pois

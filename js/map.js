@@ -83,7 +83,7 @@ var fog = (function(){
                     var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
                     fogLayer.setUrl(url);
                 }
-                else if(rounded_height <= 2000){
+                else if(rounded_height > 2000){
                     fogLayer.setUrl('');
                     error.showError('Nebelgrenze über der anzeigbaren Höhe!');
                 }

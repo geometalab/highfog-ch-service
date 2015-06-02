@@ -39,7 +39,7 @@ function main(){
         iconCreateFunction: function(cluster) {
             return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/peak.svg" >' +
+                '<img class="icon" src="img/peak.png" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
@@ -66,7 +66,7 @@ function main(){
 
     // overlay map control group
     var overlayMaps={
-        "Nebel (prognostiziert)":fogLayer,
+        "Hochnebel (prognostiziert)":fogLayer,
         "Berggipfel":peaks_group,
         "OeV-Haltestellen (ab Zoom 14)":stops_group
     };

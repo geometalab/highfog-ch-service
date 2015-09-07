@@ -100,7 +100,7 @@ var dateTimePicker = (function(){
                 '09:00', '12:00', '15:00', '18:00', '21:00'
             ],
             minDate:'0',
-            maxDate:'+1970/01/03',
+            maxDate:'+1970/01/04',
             // update layers and set new global forecast date when the picker is closed
             onClose:function(date_time){
                 FORECAST_DATE = date_time;

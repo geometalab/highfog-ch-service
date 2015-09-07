@@ -25,15 +25,15 @@ def update_heights(table):
         x, y = transform(proj1, proj2, x, y)
 
         try:
-            url = 'http://localhost:60000/dtm/v1/elevation?lat=' + str(y) + '&lon=' + str(x) + ''
+            url = 'http://height-service.dev.ifs.hsr.ch/dtm/v1/elevation?lat=' + str(y) + '&lon=' + str(x) + ''
             response = urllib2.urlopen(url).read()
             heightdict = ast.literal_eval(response)
         # Set height to 0 if a HTTPError occurs
         except urllib2.HTTPError:
-            heightdict = {'coordinates': [0, 0, 0]}
+            heightdict = {'geometry': {'coordinates': [0, 0, 0]}}
         print heightdict
         result = db.session.query(table).filter(table.osm_id == res[2]).first()
-        result.height = heightdict['coordinates'][2]
+        result.height = heightdict['geometry']['coordinates'][2]
         db.session.commit()
 
 update_heights(Pois)

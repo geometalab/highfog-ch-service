@@ -75,8 +75,9 @@ var fog = (function(){
                 var rounded_height = (20 * Math.round(response.height / 20));
 
                 // update the displayed fogheight in the bottom left corner
-                $('#height').html('Hochnebelgrenze ' + FORECAST_DATE.toLocaleString() +
-                ' Uhr, ' + rounded_height +' m ü. M. (+/-100m)');
+                $('#height').html('Hochnebelgrenze ' + FORECAST_DATE.getDay() + '.' + FORECAST_DATE.getMonth() + '.' +
+                    FORECAST_DATE.getFullYear() + ', ' + FORECAST_DATE.getHours() + 'h, '
+                    + rounded_height +' m ü. M. (+/-100m)');
 
                 // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL
                 if (rounded_height <= 2000 &&rounded_height >= 500) {

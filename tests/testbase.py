@@ -21,16 +21,10 @@ class BaseTestCase(TestCase):
         app.config.from_object('config.TestConfig')
         return app
 
-class DatabaseTestCase(TestCase):
+class DatabaseTestCase(BaseTestCase):
     '''
     Creates app with DB connection
     '''
-    def create_app(self):
-        '''
-        Creates app with test config
-        '''
-        app.config.from_object('config.TestConfig')
-        return app
 
     def setUp(self):
         '''

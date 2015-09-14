@@ -5,7 +5,8 @@ Unittests for views
 '''
 from tests.testbase import DatabaseTestCase
 from webservice.models import Heights, db
-from webservice.update_fog_height import UpdateFogHeight
+from webservice.update_fog_height import UpdateFogHeightForecast
+import ext_config
 
 
 class TestViews(DatabaseTestCase):
@@ -14,9 +15,9 @@ class TestViews(DatabaseTestCase):
     '''
 
     def test_update(self):
-        update = UpdateFogHeight()
+        update = UpdateFogHeightForecast()
         testfile = self.get_test_file()
-        data = update.csv_file_to_list(testfile)
+        data = update.convert_csv_file_to_list(testfile)
         data = update.pressure_to_height(data)
         update.update_database(data)
         old_date = db.session.query(Heights).first().date
@@ -25,9 +26,9 @@ class TestViews(DatabaseTestCase):
         self.assertTrue(db.session.query(Heights).first().date != old_date)
 
     def test_heights(self):
-        update = UpdateFogHeight()
+        update = UpdateFogHeightForecast()
         testfile = self.get_test_file()
-        data = update.csv_file_to_list(testfile)
+        data = update.convert_csv_file_to_list(testfile)
         data = update.pressure_to_height(data)
         update.update_database(data)
 
@@ -35,7 +36,7 @@ class TestViews(DatabaseTestCase):
         self.assertEqual(response['heights'][0]['height'], 1017.48886368041)
 
     def test_pois(self):
-        update = UpdateFogHeight()
+        update = UpdateFogHeightForecast()
         update.update()
         url = '/v1/pois/?minx=874586.691776&miny=5935368.32345&maxx=1053008.39186&maxy=6065208.87423&y=2015&m=04&d=16&h=18' \
               '&y=2015&m=04&d=16&h=18'

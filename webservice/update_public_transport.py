@@ -15,7 +15,7 @@ db.app = app
 conn = psycopg2.connect(EOSM_LOGIN)
 cursor = conn.cursor()
 cursor.execute("""
-    SELECT DISTINCT ON (osm_id) osm_id, name, ST_AsText (way), tags -> 'uic_name' as uic_name
+    SELECT DISTINCT ON (osm_id) osm_id, name, ST_AsText (way), tags -> 'uic_name' as uic_name, gtype
     FROM osm_poi
     WHERE
     tags @> hstore('highway', 'bus_stop')
@@ -32,6 +32,7 @@ if cursor.rowcount:
             name=row[1],
             geometry=row[2],
             uic_name=row[3],
+            gtype=row[4]
         )
         db.session.add(new_entry)
         db.session.commit()

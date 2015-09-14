@@ -6,8 +6,6 @@ Models for DB OR mapping
 from data import db
 from geoalchemy2 import Geometry
 
-db = db
-
 
 class Heights(db.Model):
     __tablename__ = 'heights'
@@ -34,3 +32,4 @@ class PublicTransport(db.Model):
     geometry = db.Column(Geometry('POINT'))
     uic_name = db.Column(db.Text)
     height = db.Column(db.Float)
+    gtype = db.Column(db.Text)

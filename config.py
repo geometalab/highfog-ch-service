@@ -13,7 +13,6 @@ class BaseConfig(object):
     )
     SQLALCHEMY_ECHO = False
 
-
 class TestConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (

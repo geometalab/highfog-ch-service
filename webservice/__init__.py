@@ -9,7 +9,7 @@ from data import db
 
 
 app = Flask(__name__)
-app.config.from_object('config.BaseConfig')
+app.config.from_object('config.flask_config.BaseConfig')
 app.register_blueprint(webservice)
 
 db.init_app(app)

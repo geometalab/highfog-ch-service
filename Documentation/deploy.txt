@@ -1,4 +1,4 @@
-Create file 'ext_config.py' in the same dir as config.py
+Create file 'ext_config.py' in the config directory
 Add following lines:
 FTP_URL = '<<FTP Server URL>>'
 FTP_USER = '<<FTP login Username>>'

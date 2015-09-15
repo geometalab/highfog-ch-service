@@ -6,7 +6,6 @@ Unittests for views
 from tests.testbase import DatabaseTestCase
 from webservice.models import Heights, db
 from webservice.update_fog_height import UpdateFogHeightForecast
-import ext_config
 
 
 class TestViews(DatabaseTestCase):

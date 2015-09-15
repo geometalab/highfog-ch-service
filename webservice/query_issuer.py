@@ -2,14 +2,16 @@
 Created: 08.04.2015
 @author: Dennis Ligtenberg
 '''
-from models import db, Heights, Pois, PublicTransport
+from datetime import timedelta
+
 from shapely.geometry import geo
 from geoalchemy2 import func
 from geoalchemy2.shape import to_shape
 from shapely.wkt import dumps
 from geojson import Feature, FeatureCollection
-from datetime import timedelta
-from ext_config import FORECAST_INTERVAL
+
+from models import db, Heights, Pois, PublicTransport
+from config.ext_config import FORECAST_INTERVAL
 
 
 def get_heights():

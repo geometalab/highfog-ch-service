@@ -5,9 +5,11 @@ Script for updating EOSMDBone Data
 This will take a while to execute!
 '''
 import psycopg2
-from ext_config import EOSM_LOGIN
+
+from config.ext_config import EOSM_LOGIN
 from models import Pois, db
 from webservice import app
+
 
 
 # Register an app for SQLAlchemy so this script can be executed standalone

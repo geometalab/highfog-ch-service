@@ -7,7 +7,7 @@ from datetime import datetime
 from tests.testbase import DatabaseTestCase
 from webservice.update_fog_height import UpdateFogHeightForecast
 from webservice.models import Heights, db
-import ext_config
+from config import ext_config
 
 
 class TestUpdateFogHeightTest(DatabaseTestCase):

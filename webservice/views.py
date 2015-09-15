@@ -8,24 +8,25 @@ from update_fog_height import UpdateFogHeightForecast
 from crossdomain import crossdomain
 from query_issuer import get_peaks_at_forecasted_date, get_heights, get_stops_within_bounds_at_forecasted_date, get_max_forecasted_height_by_time
 from datetime import datetime
-import ext_config
+from config import api_config
+
 webservice = Blueprint("webservice", __name__)
 
 
-@webservice.route('/' + ext_config.REST_API_VERSION + '/' + ext_config.UPDATE_URL)
+@webservice.route(api_config.UPDATE_URL)
 @crossdomain(origin='*')
 def update():
     UpdateFogHeightForecast().update()
     return 'Data Updated'
 
 
-@webservice.route('/' + ext_config.REST_API_VERSION + '/' + ext_config.HEIGHTS_FORECAST_URL)
+@webservice.route(api_config.HEIGHTS_FORECAST_URL)
 @crossdomain(origin='*')
 def heights():
     return jsonify(heights=get_heights())
 
 
-@webservice.route('/' + ext_config.REST_API_VERSION + '/' + ext_config.FORECASTED_PEAKS_URL + '/')
+@webservice.route(api_config.FORECASTED_PEAKS_URL + '/')
 @crossdomain(origin='*')
 def get_pois():
     try:
@@ -40,7 +41,7 @@ def get_pois():
         abort(400)
 
 
-@webservice.route('/' + ext_config.REST_API_VERSION + '/' + ext_config.FORECASTED_PUBLIC_TRANSPORT_URL + '/')
+@webservice.route(api_config.FORECASTED_PUBLIC_TRANSPORT_URL + '/')
 @crossdomain(origin='*')
 def public_transport():
     # Dict with Bounds (minx, miny, maxx, maxy from the GET parameters)
@@ -64,7 +65,7 @@ def public_transport():
         abort(400)
 
 
-@webservice.route('/' + ext_config.REST_API_VERSION + '/' + ext_config.FORECASTED_HEIGHTS_URL + '/')
+@webservice.route(api_config.FORECASTED_HEIGHTS_URL + '/')
 @crossdomain(origin='*')
 def height_at_time():
     try:

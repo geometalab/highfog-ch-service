@@ -6,8 +6,9 @@ Class to get a .csv file from a FTP server and read and process the containing d
 from ftplib import FTP
 from StringIO import StringIO
 import math
-import ext_config
 from datetime import datetime
+
+from config import ext_config
 from models import Heights, db
 
 

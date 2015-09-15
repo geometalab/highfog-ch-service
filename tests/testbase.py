@@ -18,7 +18,7 @@ class BaseTestCase(TestCase):
         '''
         Creates app with test config
         '''
-        app.config.from_object('config.TestConfig')
+        app.config.from_object('config.flask_config.TestConfig')
         return app
 
 class DatabaseTestCase(BaseTestCase):

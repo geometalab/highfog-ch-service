@@ -127,8 +127,11 @@ var pois = (function(){
                                 name = feature.properties.name;
                             }
                             // only link to OSM if point is a node ism OSM for sure
-                            if (feature.id > config.min_node_value){
+                            if (feature.properties.gtype == 'pt'){
                                 osm = '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">OSM</a>'
+                            }
+                            else if (feature.properties.gtype == 'po'){
+                                osm = '<a target="_blank" href="' + config.osm_way_url + '' + feature.id + '">OSM</a>'
                             }
                             layer.bindPopup('' + name + '<br />' + osm + sbb + '');
                         },

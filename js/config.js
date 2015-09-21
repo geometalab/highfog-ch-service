@@ -34,7 +34,7 @@ var config = {
 
     // OSM URL to link to a certain node with its OSM ID
     osm_node_url:"http://www.openstreetmap.org/node/",
-    min_node_value:400000000,
+    osm_way_url:"http://www.openstreetmap.org/way/",
 
     // highfog-ch webservice URLs
     heights_url:HIGHFOG_SERVICE_URL + "v1/heights/",

@@ -7,7 +7,7 @@ var mapControls = (function(){
 
     // control element to zoom the map view to the full extent of switzerland
     function fitBoundControl(bounds){
-        L.FitBounds = L.Control.extend({
+        return L.Control.extend({
 
             // position the element in the topleft corner of the map under the zoom controls
             options: {
@@ -30,11 +30,10 @@ var mapControls = (function(){
                 return container;
             }
         });
-        return L.FitBounds;
     }
 
     function zoomToLocation(e, map){
-        L.ZoomToLocation = L.Control.extend({
+        return L.Control.extend({
             // position the element in the topleft corner of the map under the zoom controls
             options: {
                 position: 'topleft'
@@ -55,7 +54,6 @@ var mapControls = (function(){
                 return container;
             }
         });
-        return L.ZoomToLocation;
     }
 
     return{

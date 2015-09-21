@@ -77,7 +77,7 @@ var pois = (function(){
 
     function loadStops(stops_group, bounds, zoom_level){
         // only load POIS from zoom-level 14 on
-        if(zoom_level > config.show_stops_from_zoom - 1) {
+        if(zoom_level > config.show_stops_from_zoom_level - 1) {
             var day = FORECAST_DATE.getDate(),
             // month +1 because getMonth() returns a value starting at 0
                 month = FORECAST_DATE.getMonth() + 1,
@@ -114,13 +114,13 @@ var pois = (function(){
                     var peaks = L.geoJson(response, {
                         // bind a popup on each marker with a link to the node on OSM
                         onEachFeature: function (feature, layer) {
-                            // don't show a sbb url if no uic_name is given
+                            // don't show a sbb tile_url if no uic_name is given
                             var sbb = '',
                                 name = '-',
                                 osm = '';
 
                             if (feature.properties.uic_name) {
-                                sbb = '  <a target="_blak" href="' + config.sbb_url
+                                sbb = '  <a target="_blak" href="' + config.timetable_url
                                 + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
                             }
                             if (feature.properties.name){

@@ -31,7 +31,7 @@ var baseMap = (function(){
         });
     }
 
-    // createMap a predefined attribution with a given url and text for the background map copyright
+    // createMap a predefined attribution with a given tile_url and text for the background map copyright
     function createAttribution (url, urlText){
         return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>About this map</a> | " +
             "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
@@ -86,18 +86,18 @@ var fog = (function(){
                 }
                 else if(rounded_height > 2000){
                     fogLayer.setUrl('');
-                    error.showError('Nebelgrenze über der anzeigbaren Höhe!');
+                    error.showError('Hochnebelgrenze über der anzeigbaren Höhe!');
                 }
                 else{
                     fogLayer.setUrl('');
-                    error.showError('Nebelgrenze unter der anzeigbaren Höhe!');
+                    error.showError('Hochnebelgrenze unter der anzeigbaren Höhe!');
                 }
             },
             error:function(){
                 // don't show any fog and fogheight if error occurs
                 fogLayer.setUrl('');
                 $('#height').html('');
-                error.showError('Fehler beim Abrufen der Nebelgrenze!');
+                error.showError('Fehler beim Abrufen der Hochnebelgrenze!');
             }
         });
     }

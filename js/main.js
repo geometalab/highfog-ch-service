@@ -13,14 +13,14 @@ function main(){
 
     // Swiss Style background map
     var swissStyle = baseMap.createLayer(
-        config.background_maps.swiss_style.url,
+        config.background_maps.swiss_style.tile_url,
         config.background_maps.swiss_style.attribution_url,
         config.background_maps.swiss_style.attribution_text
     );
 
     // Mapbox Satellite background map
     var mapbox = baseMap.createLayer(
-        config.background_maps.mapbox_satellite.url,
+        config.background_maps.mapbox_satellite.tile_url,
         config.background_maps.mapbox_satellite.attribution_url,
         config.background_maps.mapbox_satellite.attribution_text
     );
@@ -98,16 +98,16 @@ function main(){
     // save the display state on most outer level
     map.on('zoomstart', function(){
         zoomStart = map.getZoom();
-        if(zoomStart >= config.show_stops_from_zoom) {
+        if(zoomStart >= config.show_stops_from_zoom_level) {
             haslayer = map.hasLayer(stops_group)
         }
     });
     // on zoomend remove stops if zoom is smaller than set display level and show if its larger and haslayer is true
     map.on('zoomend', function(){
-        if(map.getZoom() < config.show_stops_from_zoom){
+        if(map.getZoom() < config.show_stops_from_zoom_level){
             map.removeLayer(stops_group)
         }
-        else if(haslayer == true && map.getZoom() >= config.show_stops_from_zoom){
+        else if(haslayer == true && map.getZoom() >= config.show_stops_from_zoom_level){
             map.addLayer(stops_group)
         }
     });

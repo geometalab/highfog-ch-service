@@ -5,7 +5,7 @@
 
 var position = (function(){
 
-    // returns true if url hash exists and is valid, false if not
+    // returns true if tile_url hash exists and is valid, false if not
     function checkUrl(){
         // get hash  the URL
         var hash = window.location.hash;
@@ -60,7 +60,7 @@ var position = (function(){
 
     // get the start Position either from the URL or the cookies
     function setStartPosition(map){
-        // if no url parameters given or parameters are faulty
+        // if no tile_url parameters given or parameters are faulty
         if(!checkUrl()){
             var center = centerFromCookies();
             // initiate leafelt.hash plugin, but overwrite its center

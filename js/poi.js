@@ -43,10 +43,15 @@ var pois = (function(){
             dataType:'json',
             success:function(response){
                 // Leaflet icon that will represent the points on the map
-                var icon = new L.icon({
+                var no_fog_icon = new L.icon({
                     iconUrl:"img/peak.png",
                     iconSize:[20,20]
                 });
+                var fog_icon = new L.icon({
+                    iconUrl:"img/peak_fog.png",
+                    iconSize:[20,20]
+                });
+
                 var peaks = L.geoJson(response, {
                     // bind a popup on each marker with a link to the node on OSM
                     onEachFeature: function(feature, layer){
@@ -61,6 +66,13 @@ var pois = (function(){
                     // add the points to the layer, but first reproject the coordinates to WGS 84
                     pointToLayer: function (feature, latlng) {
                         var newlatlng = unproject(latlng);
+                        //check if point is above fog and assign an icon with fog if it's above
+                        if(feature.properties.above_fog){
+                            var icon=no_fog_icon
+                        }
+                        else{
+                            var icon=fog_icon
+                        }
                         return L.marker(newlatlng, {
                             icon:icon
                         });
@@ -101,9 +113,14 @@ var pois = (function(){
             var url = config.public_transport_url +
                 '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '' +
                 '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
-            var icon = new L.icon({
-                iconUrl: "img/stop.gif",
-                iconSize: [20, 20]
+
+            var no_fog_icon = new L.icon({
+                iconUrl:"img/stop.png",
+                iconSize:[20,20]
+            });
+            var fog_icon = new L.icon({
+                iconUrl:"img/stop_fog.png",
+                iconSize:[20,20]
             });
             // asynchronous AJAX request to retreive and display mountain pois
             $.ajax({
@@ -138,6 +155,13 @@ var pois = (function(){
                         // add the points to the layer, but first reproject the coordinates to WGS 84
                         pointToLayer: function (feature, latlng) {
                             var newlatlng = unproject(latlng);
+                            //check if point is above fog and assign an icon with fog if it's above
+                            if(feature.properties.above_fog){
+                                var icon=no_fog_icon
+                            }
+                            else{
+                                var icon=fog_icon
+                            }
                             return L.marker(newlatlng, {
                                 icon:icon
                             });
@@ -147,7 +171,7 @@ var pois = (function(){
                     peaks.addTo(stops_group);
                 },
                 error: function () {
-                    error.showError('Fehler beim Abrufen der Bergspitzen!');
+                    error.showError('Fehler beim Abrufen der OeV-Haltestellen!');
                 }
             });
         }

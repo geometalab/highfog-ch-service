@@ -1,4 +1,4 @@
-HIGHFOG_SERVICE_URL = "http://sifsv-80047.hsr.ch/";
+HIGHFOG_SERVICE_URL = "http://localhost:8888/"; //http://sifsv-80047.hsr.ch/
 /**
  * JSON object for storing configuration data for the app
  */
@@ -23,7 +23,7 @@ var config = {
     swiss_center:[46.8259, 8.2000],
 
     // Zoom settings
-    min_zoom:9,
+    min_zoom:7,
     max_zoom:19,
 
     // Zoom level after witch the stops are displayed

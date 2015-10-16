@@ -9,6 +9,10 @@ var FORECAST_DATE = new Date();
 FORECAST_DATE.setHours(3 * Math.round(FORECAST_DATE.getHours() / 3));
 FORECAST_DATE.setMinutes(0);
 FORECAST_DATE.setSeconds(0);
+var FORECAST_HEIGHT = 0;
+// used to save the source type of the forecast currently displayed
+var FORECAST_TYPE;
+
 function main(){
 
     // Swiss Style background map
@@ -48,7 +52,7 @@ function main(){
         iconCreateFunction: function(cluster) {
             return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/stop.gif" >' +
+                '<img class="icon" src="img/stop.png" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
@@ -72,6 +76,7 @@ function main(){
     };
 
     // Add current fog overlay
+    FORECAST_TYPE = 'actual';
     fog.updateFog(fogLayer);
     pois.loadPeaks(peaks_group);
 
@@ -122,6 +127,29 @@ function main(){
     // initiate datetime picker after the control button has been created
     dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map);
 
+    // add Leaflet slider to the map
+    // don't change the attribute at first initiation or if the slider value gets updated from the actual forecast
+    var first_load = true;
+    slider = L.control.slider(function(value) {
+        var url = config.fog_tiles_url + '' + value + '/{z}/{x}/{y}.png';
+        fogLayer.setUrl(url);
+        if(FORECAST_TYPE != "actual" || first_load) {
+            $('#height').html('Hochnebel auf ' + value + 'm wird simuliert.');
+
+        }
+        first_load = false;
+    }, {
+        max: 2000,
+        position: 'topright',
+        min: 500,
+        step: 20,
+        value: 0,
+        logo: '<i>S</i>',
+        orientation:'vertical',
+        id: 'slider',
+        increment:true,
+        collapsed:false
+    }).addTo(map);
 }
 
 $(document).ready(main);

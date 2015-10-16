@@ -16,8 +16,8 @@ var mapControls = (function(){
 
             onAdd: function (map) {
                 // createMap control element with standard leaflet control styling
-                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar fitbounds'),
-                    link = L.DomUtil.createMap('a', '', container);
+                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar fitbounds'),
+                    link = L.DomUtil.create('a', '', container);
                 link.href = '#';
                 link.title = 'Zur gesamten Schweiz zoomen';
                 link.innerHTML = 'CH';
@@ -41,8 +41,8 @@ var mapControls = (function(){
 
             onAdd: function () {
                 // createMap control element with standard leaflet control styling
-                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar zoomposition'),
-                    link = L.DomUtil.createMap('a', 'controlicon', container);
+                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar zoomposition'),
+                    link = L.DomUtil.create('a', 'controlicon', container);
                 link.href = '#';
                 link.title = 'Zur momentanen Position zoomen';
                 link.innerHTML = '<img src="img/locate.png">';
@@ -77,8 +77,8 @@ var dateTimePicker = (function(){
 
             onAdd: function () {
                 // createMap control element with standard leaflet control styling
-                var container = L.DomUtil.createMap('div', 'leaflet-control leaflet-bar datetimepicker'),
-                    link = L.DomUtil.createMap('a', 'controlicon', container);
+                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar datetimepicker'),
+                    link = L.DomUtil.create('a', 'controlicon', container);
                 link.href = '#';
                 link.title = 'Prognosedatum und Uhrzeit auswählen';
                 link.innerHTML = '<img src="img/clock.png">';
@@ -101,9 +101,12 @@ var dateTimePicker = (function(){
             maxDate:'+1970/01/04',
             // update layers and set new global forecast date when the picker is closed
             onClose:function(date_time){
+                FORECAST_TYPE = "actual";
                 FORECAST_DATE = date_time;
                 fog.updateFog(fogLayer);
                 pois.reloadPois(stops_groups, peaks_group, map);
+                $("#slider").val(FORECAST_HEIGHT);
+                slider._updateValue();
             }
         });
 

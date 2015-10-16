@@ -75,14 +75,18 @@ var fog = (function(){
                 var rounded_height = (20 * Math.round(response.height / 20));
 
                 // update the displayed fogheight in the bottom left corner
-                $('#height').html('Hochnebelgrenze ' + FORECAST_DATE.getDay() + '.' + FORECAST_DATE.getMonth() + '.' +
-                    FORECAST_DATE.getFullYear() + ', ' + FORECAST_DATE.getHours() + 'h, '
+                $('#height').html('Hochnebelgrenze ' + day + '.' + month + '.' +
+                    year + ', ' + hour + 'h, '
                     + rounded_height +' m ü. M. (+/-100m)');
+                FORECAST_HEIGHT = rounded_height;
 
                 // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL
                 if (rounded_height <= 2000 &&rounded_height >= 500) {
                     var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
                     fogLayer.setUrl(url);
+                    $("#slider").val(FORECAST_HEIGHT);
+                    slider._updateValue();
+                    FORECAST_TYPE = 'custom';
                 }
                 else if(rounded_height > 2000){
                     fogLayer.setUrl('');

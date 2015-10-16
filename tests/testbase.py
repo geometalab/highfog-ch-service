@@ -5,7 +5,7 @@ Setup for unit tests
 '''
 from flask_testing import TestCase
 from webservice import app, db
-from webservice.models import Heights, Peaks
+from webservice.models import Heights, Peaks, PublicTransport
 from StringIO import StringIO
 
 
@@ -32,7 +32,8 @@ class DatabaseTestCase(BaseTestCase):
         '''
         db.metadata.create_all(db.engine, tables=[
             Heights.__table__,
-            Peaks.__table__
+            Peaks.__table__,
+            PublicTransport.__table__
         ])
 
     @staticmethod

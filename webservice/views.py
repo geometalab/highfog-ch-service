@@ -38,34 +38,21 @@ def heights():
 
 @webservice.route(api_config.FORECASTED_PEAKS_URL)
 @crossdomain(origin='*')
-def get_pois():
+def peaks():
     try:
-        year = request.args.get('y')
-        month = request.args.get('m')
-        day = request.args.get('d')
-        hour = request.args.get('h')
-        timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
-        timestamp = round_timestamp(timestamp)
-
+        forecasted_height = float(request.args.get('height'))
         results = get_peaks()
-        max_forecasted_fog_height = get_max_forecasted_height_by_time(timestamp)
-
-        return jsonify(Peaks.to_geojson(results, max_forecasted_fog_height))
+        return jsonify(Peaks.to_geojson(results, forecasted_height))
     except TypeError:
         abort(400)
 
 
 @webservice.route(api_config.FORECASTED_PUBLIC_TRANSPORT_URL)
 @crossdomain(origin='*')
-def public_transport():
+def get_public_transport():
     # Dict with Bounds (minx, miny, maxx, maxy from the GET parameters)
     try:
-        year = request.args.get('y')
-        month = request.args.get('m')
-        day = request.args.get('d')
-        hour = request.args.get('h')
-        timestamp = round_timestamp(datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H'))
-
+        forecasted_height = float(request.args.get('height'))
         bounds = {
             'minx': float(request.args.get('minx')),
             'miny': float(request.args.get('miny')),
@@ -73,9 +60,8 @@ def public_transport():
             'maxy': float(request.args.get('maxy'))
         }
         stops = get_stops_within_bounds(bounds)
-        max_forecasted_fog_height = get_max_forecasted_height_by_time(timestamp)
 
-        return jsonify(PublicTransport.to_geojson(stops, max_forecasted_fog_height))
+        return jsonify(PublicTransport.to_geojson(stops, forecasted_height))
 
     except TypeError:
         abort(400)
@@ -83,7 +69,7 @@ def public_transport():
 
 @webservice.route(api_config.FORECASTED_HEIGHTS_URL)
 @crossdomain(origin='*')
-def height_at_time():
+def get_height_at_time():
     try:
         year = request.args.get('y')
         month = request.args.get('m')

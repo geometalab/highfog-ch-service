@@ -90,7 +90,7 @@ var dateTimePicker = (function(){
     }
 
     // initiate the datetime picker and add its event litener
-    function initiatePicker(fogLayer, peaks_group, stops_groups, map){
+    function initiatePicker(fogLayer, peaks_group, stops_group, map){
         // limit the picker to 3 full hours and the next 3 days (including the current one)
         $('.datetimepicker').datetimepicker({
             allowTimes: [
@@ -104,7 +104,7 @@ var dateTimePicker = (function(){
                 FORECAST_TYPE = "actual";
                 FORECAST_DATE = date_time;
                 fog.updateFog(fogLayer);
-                pois.reloadPois(stops_groups, peaks_group, map);
+                pois.reloadPois(stops_group, peaks_group, map);
                 $("#slider").val(FORECAST_HEIGHT);
                 slider._updateValue();
             }

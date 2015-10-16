@@ -77,8 +77,7 @@ function main(){
 
     // Add current fog overlay
     FORECAST_TYPE = 'actual';
-    fog.updateFog(fogLayer);
-    pois.loadPeaks(peaks_group);
+    fog.updateFog(fogLayer, stops_group, peaks_group, map);
 
     position.setStartPosition(map);
     // initiate position updater
@@ -133,9 +132,14 @@ function main(){
     slider = L.control.slider(function(value) {
         var url = config.fog_tiles_url + '' + value + '/{z}/{x}/{y}.png';
         fogLayer.setUrl(url);
-        if(FORECAST_TYPE != "actual" || first_load) {
+        if(FORECAST_TYPE != "actual") {
+            FORECAST_HEIGHT = value;
+            pois.reloadPois(stops_group, peaks_group, map);
             $('#height').html('Hochnebel auf ' + value + 'm wird simuliert.');
-
+        }
+        else if(first_load){
+            FORECAST_HEIGHT = value;
+            $('#height').html('Hochnebel auf ' + value + 'm wird simuliert.');
         }
         first_load = false;
     }, {

@@ -1,4 +1,4 @@
-HIGHFOG_SERVICE_URL = "http://localhost:8888/"; //http://sifsv-80047.hsr.ch/
+HIGHFOG_SERVICE_URL = "http://sifsv-80047.hsr.ch/highfog/";
 /**
  * JSON object for storing configuration data for the app
  */
@@ -39,7 +39,7 @@ var config = {
     // highfog-ch webservice URLs
     heights_url:HIGHFOG_SERVICE_URL + "v1/heights/",
     height_at_time_url:HIGHFOG_SERVICE_URL + "v1/height_at_time/",
-    peaks_url:HIGHFOG_SERVICE_URL + "v1/pois/",
+    peaks_url:HIGHFOG_SERVICE_URL + "v1/peaks/",
     public_transport_url:HIGHFOG_SERVICE_URL + "v1/public_transport/",
 
     fog_tiles_url:"http://sifsv-80047.hsr.ch/tiles/",

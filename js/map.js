@@ -57,7 +57,7 @@ var baseMap = (function(){
 // module for updating the overlay fog
 var fog = (function(){
 
-    function updateFog(fogLayer){
+    function updateFog(fogLayer, stops_groups, peaks_group, map){
         var day = FORECAST_DATE.getDate(),
             // month +1 because getMonth() returns a value starting at 0
             month = FORECAST_DATE.getMonth() + 1,
@@ -84,18 +84,22 @@ var fog = (function(){
                 if (rounded_height <= 2000 &&rounded_height >= 500) {
                     var url = config.fog_tiles_url + '' + rounded_height + '/{z}/{x}/{y}.png';
                     fogLayer.setUrl(url);
-                    $("#slider").val(FORECAST_HEIGHT);
-                    slider._updateValue();
-                    FORECAST_TYPE = 'custom';
                 }
                 else if(rounded_height > 2000){
                     fogLayer.setUrl('');
                     error.showError('Hochnebelgrenze über der anzeigbaren Höhe!');
+                    FORECAST_HEIGHT = 0;
+
                 }
                 else{
                     fogLayer.setUrl('');
                     error.showError('Hochnebelgrenze unter der anzeigbaren Höhe!');
+                    FORECAST_HEIGHT =0;
                 }
+                pois.reloadPois(stops_groups, peaks_group, map);
+                $("#slider").val(FORECAST_HEIGHT);
+                slider._updateValue();
+                FORECAST_TYPE = 'custom';
             },
             error:function(){
                 // don't show any fog and fogheight if error occurs

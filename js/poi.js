@@ -27,16 +27,8 @@ var pois = (function(){
 
     // Loads peaks from the webservice into a layergroup
     function loadPeaks(peaks_group){
-        var day = FORECAST_DATE.getDate(),
-        // month +1 because getMonth() returns a value starting at 0
-            month = FORECAST_DATE.getMonth() + 1,
-            hour = FORECAST_DATE.getHours(),
-            year = FORECAST_DATE.getFullYear();
-
-        // build URL
-        var url = config.peaks_url +
-            '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '';
-
+        // build URL with current forecast height
+        var url = config.peaks_url + '?height=' + FORECAST_HEIGHT;
         // asynchronous AJAX request to retreive and display mountain pois
         $.ajax({
             url:url,
@@ -90,13 +82,6 @@ var pois = (function(){
     function loadStops(stops_group, bounds, zoom_level){
         // only load POIS from zoom-level 14 on
         if(zoom_level > config.show_stops_from_zoom_level - 1) {
-            var day = FORECAST_DATE.getDate(),
-            // month +1 because getMonth() returns a value starting at 0
-                month = FORECAST_DATE.getMonth() + 1,
-            // round the hourly FORECAST_DATE to 3 hours
-                hour = 3 * Math.round(FORECAST_DATE.getHours() / 3),
-                year = FORECAST_DATE.getFullYear();
-
             // convert the latLng bounds to mercator
             var min = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
             var max = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
@@ -110,8 +95,9 @@ var pois = (function(){
                 maxy = mercator_max.y * config.earth_radius;
 
             // build URL
+            console.log(FORECAST_HEIGHT);
             var url = config.public_transport_url +
-                '?y=' + year + '&m=' + month + '&d=' + day + '&h=' + hour + '' +
+                '?height=' + FORECAST_HEIGHT +
                 '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
 
             var no_fog_icon = new L.icon({

@@ -34,10 +34,10 @@ class TestViews(DatabaseTestCase):
         response = self.client.get('/v1/heights').json
         self.assertEqual(response['heights'][0]['height'], 1017.48886368041)
 
-    def test_pois(self):
+    def test_peaks(self):
         update = UpdateFogHeightForecast()
         update.update()
-        url = '/v1/pois/?minx=874586.691776&miny=5935368.32345&maxx=1053008.39186&maxy=6065208.87423&y=2015&m=04&d=16&h=18' \
+        url = '/v1/peaks/?minx=874586.691776&miny=5935368.32345&maxx=1053008.39186&maxy=6065208.87423&y=2015&m=04&d=16&h=18' \
               '&y=2015&m=04&d=16&h=18'
         response = self.client.get(url).json
         self.assertEqual(response['type'], 'FeatureCollection')

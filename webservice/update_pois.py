@@ -7,7 +7,7 @@ This will take a while to execute!
 import psycopg2
 
 from config.ext_config import EOSM_LOGIN
-from models import Pois, db
+from models import Peaks, db
 from webservice import app
 
 
@@ -47,10 +47,10 @@ cursor.execute("""
     ORDER BY 2;
 """)
 if cursor.rowcount:
-    db.session.query(Pois).delete()
+    db.session.query(Peaks).delete()
     for row in cursor:
         print row
-        new_entry = Pois(
+        new_entry = Peaks(
             osm_id=row[3],
             name=row[1],
             height=row[2],

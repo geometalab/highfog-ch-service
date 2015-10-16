@@ -12,7 +12,7 @@ from datetime import datetime
 from config import api_config
 from config.ext_config import FORECAST_INTERVAL
 from datetime import timedelta
-from models import Pois, PublicTransport
+from models import Peaks, PublicTransport
 
 webservice = Blueprint("webservice", __name__)
 
@@ -50,7 +50,7 @@ def get_pois():
         results = get_peaks()
         max_forecasted_fog_height = get_max_forecasted_height_by_time(timestamp)
 
-        return jsonify(Pois.to_geojson(results, max_forecasted_fog_height))
+        return jsonify(Peaks.to_geojson(results, max_forecasted_fog_height))
     except TypeError:
         abort(400)
 

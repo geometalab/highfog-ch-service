@@ -3,7 +3,7 @@ Created: 22.04.2015
 @author: Dennis Ligtenberg
 Executing this will take a very long time!
 '''
-from models import db, Pois, PublicTransport
+from models import db, Peaks, PublicTransport
 from webservice import app
 from geoalchemy2 import func
 import urllib2
@@ -36,6 +36,6 @@ def update_heights(table):
         result.height = heightdict['geometry']['coordinates'][2]
         db.session.commit()
 
-update_heights(Pois)
+update_heights(Peaks)
 update_heights(PublicTransport)
 print 'Done!'

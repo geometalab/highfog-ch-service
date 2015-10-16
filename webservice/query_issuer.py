@@ -7,7 +7,7 @@ from datetime import timedelta
 from shapely.geometry import geo
 from geoalchemy2 import func
 from shapely.wkt import dumps
-from models import db, Heights, Pois, PublicTransport
+from models import db, Heights, Peaks, PublicTransport
 from config.ext_config import FORECAST_INTERVAL
 
 
@@ -33,7 +33,7 @@ def get_max_forecasted_height_by_time(time):
 
 def get_peaks():
     # Returns a FeatureCollection with all peaks forecasted to be above the fog hours from now.
-    results = db.session.query(Pois).all()
+    results = db.session.query(Peaks).all()
     return results
 
 def get_stops_within_bounds(bounds):

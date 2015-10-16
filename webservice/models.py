@@ -18,8 +18,8 @@ class Heights(db.Model):
 
 
 
-class Pois(db.Model):
-    __tablename__ = 'pois'
+class Peaks(db.Model):
+    __tablename__ = 'peaks'
 
     osm_id = db.Column(db.BigInteger, primary_key=True)
     name = db.Column(db.Text)

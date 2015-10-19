@@ -71,6 +71,7 @@ var pois = (function(){
                     }
 
                 });
+                peaks_group.clearLayers();
                 peaks.addTo(peaks_group);
             },
             error:function(){
@@ -168,7 +169,6 @@ var pois = (function(){
         // empty added public transport ids list and remove all pois from the map before loading them
         IDS = [];
         stops_group.clearLayers();
-        peaks_group.clearLayers();
         loadStops(stops_group, map.getBounds(), map.getZoom());
         loadPeaks(peaks_group)
     }

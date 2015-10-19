@@ -21,8 +21,25 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <!-- Container for the actual map added by Leaflet -->
-        <div id="map"></div>
+        <div id="flex-container">
+            <!-- Container for the header -->
+            <div id="header" class="header">
+                <div id="title">
+                    Hochnebelkarte Schweiz
+                </div>
+                <div id="info">
+                    Vorhersage für 19.10.2015 12h<br>
+                    1050 m.ü.M. (+/- 100m)
+                </div>
+                <div id="hsr-logo">
+                    <a href="http://i.hsr.ch">
+                        <img src="img/HSR_Logo.jpg" alt="HSR Hochschule für Technik Rapperswil">
+                    </a>
+                </div>
+            </div>
+            <!-- Container for the actual map added by Leaflet -->
+            <div id="map"></div>
+        </div>
 
         <!-- Container for displaying the height in the bottom left corner -->
         <div id="height"></div>

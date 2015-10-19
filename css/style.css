@@ -3,9 +3,75 @@ body {
     padding:0;
     margin:0;
 }
-html, body, #map {
+
+
+
+html, body {
     height:100%;
     width:100%;
+}
+
+#flex-container{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#flex-container > .header, #map {
+    flex: 1 100%;
+}
+
+/* Map */
+#map {
+    display: flex;
+    height:95%;
+    width:100%;
+}
+
+/* Header */
+.header{
+    display: flex;
+    height:5%;
+    width:100%;
+    background-color:#0065A3;
+    font-family: "Arial", serif;
+    color:white;
+    align-items: center;
+}
+
+#title{
+    order:1;
+    padding-left:10px;
+    width:33%;
+    font-size: 1.6em;
+    vertical-align:middle;
+}
+
+#info{
+    order:2;
+    text-align: center;
+    vertical-align:middle;
+    width:33%;
+}
+
+#hsr-logo{
+    order:3;
+    text-align: right;
+    width:33%;
+    padding:5px;
+}
+
+#hsr-logo img{
+    max-width: 122px;
+    vertical-align:middle;
 }
 
 /* Control elements */
@@ -46,7 +112,7 @@ html, body, #map {
 
 /* Error field */
 #error{
-    font-family: "Arial", Times, serif;
+    font-family: "Arial", serif;
     color:white;
     display:none;
     position:absolute;
@@ -77,4 +143,58 @@ html, body, #map {
 #error a:visited {
     color:white;
     text-decoration:none;
+}
+
+
+/* Change height dynamically */
+@media all and (max-width: 1060px) {
+    .header { height: 5%;}
+    #map {height: 95%; }
+}
+@media all and (max-height: 1082px) {
+    .header { height: 6%;}
+    #map {height: 94%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 905px) {
+    .header { height: 7%;}
+    #map {height: 93%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 790px) {
+    .header { height: 8%;}
+    #map {height: 92%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 700px) {
+    .header { height: 9%;}
+    #map {height: 91%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 600px) {
+    .header { height: 10%;}
+    #map {height: 90%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 535px) {
+    .header { height: 12%;}
+    #map {height: 88%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 445px) {
+    .header { height: 15%;}
+    #map {height: 85%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 380px) {
+    .header { height: 18%;}
+    #map {height: 82%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+
+/*css for mobile Landscape*/
+@media all and (max-width: 600px) {
+    #title{ font-size: 0.8em; }
+    #info{ font-size: 0.5em; }
+    #hsr-logo img{ max-width: 100px; }
 }

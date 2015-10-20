@@ -11,20 +11,6 @@ var pois = (function(){
         return L.Projection.SphericalMercator.unproject(point.divideBy(config.earth_radius));
     }
 
-    // removes already loaded Features from a geojson
-    function removeDuplicates(geojson){
-        for (var i=0; i < geojson.features.length; i++){
-            // check if id is already in the array of loaded IDS - if not add it to the array
-            if ($.inArray(geojson.features[i].id, IDS) > -1){
-                geojson.features.splice(i);
-            }
-            else{
-                IDS.push(geojson.features[i].id);
-            }
-        }
-        return geojson
-    }
-
     // Loads peaks from the webservice into a layergroup
     function loadPeaks(peaks_group){
         // build URL with current forecast height
@@ -114,8 +100,7 @@ var pois = (function(){
                 url: url,
                 dataType: 'json',
                 success: function (response) {
-                    response = removeDuplicates(response);
-                    var peaks = L.geoJson(response, {
+                    var stops = L.geoJson(response, {
                         // bind a popup on each marker with a link to the node on OSM
                         onEachFeature: function (feature, layer) {
                             // don't show a sbb tile_url if no uic_name is given
@@ -155,7 +140,8 @@ var pois = (function(){
                         }
 
                     });
-                    peaks.addTo(stops_group);
+                    stops_group.clearLayers();
+                    stops.addTo(stops_group);
                 },
                 error: function () {
                     error.showError('Fehler beim Abrufen der OeV-Haltestellen!');
@@ -168,7 +154,6 @@ var pois = (function(){
     function reloadPois(stops_group, peaks_group, map){
         // empty added public transport ids list and remove all pois from the map before loading them
         IDS = [];
-        stops_group.clearLayers();
         loadStops(stops_group, map.getBounds(), map.getZoom());
         loadPeaks(peaks_group)
     }

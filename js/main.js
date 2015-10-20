@@ -72,7 +72,6 @@ function main(){
     var overlayMaps={
         "Hochnebel (prognostiziert)":fogLayer,
         "Berggipfel":peaks_group,
-        "OeV-Haltestellen (ab Zoom 14)":stops_group
     };
 
     // Add current fog overlay

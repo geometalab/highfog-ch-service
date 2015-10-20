@@ -82,7 +82,6 @@ var pois = (function(){
                 maxy = mercator_max.y * config.earth_radius;
 
             // build URL
-            console.log(FORECAST_HEIGHT);
             var url = config.public_transport_url +
                 '?height=' + FORECAST_HEIGHT +
                 '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '';
@@ -153,7 +152,6 @@ var pois = (function(){
     // method to reload all pois
     function reloadPois(stops_group, peaks_group, map){
         // empty added public transport ids list and remove all pois from the map before loading them
-        IDS = [];
         loadStops(stops_group, map.getBounds(), map.getZoom());
         loadPeaks(peaks_group)
     }

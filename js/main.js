@@ -71,7 +71,7 @@ function main(){
     // overlay map control group
     var overlayMaps={
         "Hochnebel (prognostiziert)":fogLayer,
-        "Berggipfel":peaks_group,
+        "Berggipfel":peaks_group
     };
 
     // Add current fog overlay
@@ -153,6 +153,10 @@ function main(){
         increment:true,
         collapsed:false
     }).addTo(map);
+
+    $('.leaflet-control-layers-overlays').after('<div class="leaflet-control-layers-separator"></div>' +
+        '<div class="leaflet-control-layers-custom">' +
+        '<label><span>  Haltestellen (ab Zoomstufe 14)</span></label></div>');
 }
 
 $(document).ready(main);

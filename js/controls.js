@@ -103,8 +103,7 @@ var dateTimePicker = (function(){
             onClose:function(date_time){
                 FORECAST_TYPE = "actual";
                 FORECAST_DATE = date_time;
-                fog.updateFog(fogLayer);
-                pois.reloadPois(stops_group, peaks_group, map);
+                fog.updateFog(fogLayer, stops_group, peaks_group, map);
                 $("#slider").val(FORECAST_HEIGHT);
                 slider._updateValue();
             }

@@ -75,7 +75,7 @@ var fog = (function(){
                 var rounded_height = (20 * Math.round(response.height / 20));
 
                 // update the displayed fogheight in the bottom left corner
-                $('#info').html('Theoretisch berechnet für ' + day + '.' + month + '.' +
+                $('#info').html('Prognostiziert für ' + day + '.' + month + '.' +
                     year + ', ' + hour + ' Uhr<br>'
                     + rounded_height +' m.ü.M. (+/- 100m)');
                 FORECAST_HEIGHT = rounded_height;

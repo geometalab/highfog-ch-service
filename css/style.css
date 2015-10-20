@@ -81,6 +81,10 @@ html, body {
     vertical-align:middle;
 }
 
+.fitbounds a{
+    font-weight: 900;
+}
+
 /* Markers */
 .leaflet-popup-content{
     text-align:center;
@@ -145,8 +149,7 @@ html, body {
     text-decoration:none;
 }
 
-
-/* Change height dynamically */
+/* Change header height dynamically */
 @media all and (max-width: 1060px) {
     .header { height: 5%;}
     #map {height: 95%; }

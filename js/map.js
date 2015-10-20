@@ -33,9 +33,9 @@ var baseMap = (function(){
 
     // createMap a predefined attribution with a given tile_url and text for the background map copyright
     function createAttribution (url, urlText){
-        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>About this map</a> | " +
+        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>Über...</a> | " +
             "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
-            "Weather &copy; <a href='http://www.meteogroup.com/'>MeteoGroup</a> | " +
+            "Weather &copy; <a href='http://www.meteocentrale.ch/de/wetter/freizeitwetter/hochnebelobergrenze.html'>MeteoGroup</a> | " +
             "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
             "Map &copy; <a href=" + url + ">" + urlText + "</a>";
     }
@@ -75,9 +75,9 @@ var fog = (function(){
                 var rounded_height = (20 * Math.round(response.height / 20));
 
                 // update the displayed fogheight in the bottom left corner
-                $('#height').html('Hochnebelgrenze ' + day + '.' + month + '.' +
-                    year + ', ' + hour + 'h, '
-                    + rounded_height +' m ü. M. (+/-100m)');
+                $('#info').html('Theoretisch berechnet für ' + day + '.' + month + '.' +
+                    year + ', ' + hour + ' Uhr<br>'
+                    + rounded_height +' m.ü.M. (+/- 100m)');
                 FORECAST_HEIGHT = rounded_height;
 
                 // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL

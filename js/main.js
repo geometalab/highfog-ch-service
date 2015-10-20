@@ -135,11 +135,11 @@ function main(){
         if(FORECAST_TYPE != "actual") {
             FORECAST_HEIGHT = value;
             pois.reloadPois(stops_group, peaks_group, map);
-            $('#height').html('Hochnebel auf ' + value + 'm wird simuliert.');
+            $('#info').html('Nebel-Simulation<br>' + value + ' m.ü.M.');
         }
         else if(first_load){
             FORECAST_HEIGHT = value;
-            $('#height').html('Hochnebel auf ' + value + 'm wird simuliert.');
+            $('#info').html('Nebel-Simulation<br>' + value + ' m.ü.M.');
         }
         first_load = false;
     }, {

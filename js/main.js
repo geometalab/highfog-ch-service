@@ -2,16 +2,20 @@
  * Created by dligtenb on 07.05.2015.
  * Main JavaScript file, Initializes map
  */
-// global List of public transport ids that have already been added to the map
-var IDS = [];
 // global currently selected forecast date, default now
 var FORECAST_DATE = new Date();
-FORECAST_DATE.setHours(3 * Math.round(FORECAST_DATE.getHours() / 3));
-FORECAST_DATE.setMinutes(0);
-FORECAST_DATE.setSeconds(0);
+// global current forecast height
 var FORECAST_HEIGHT = 0;
 // used to save the source type of the forecast currently displayed
 var FORECAST_TYPE;
+
+// sets the forecast date to the current rounded date
+function forecast_date_now(){
+    FORECAST_DATE = new Date();
+    FORECAST_DATE.setHours(3 * Math.round(FORECAST_DATE.getHours() / 3));
+    FORECAST_DATE.setMinutes(0);
+    FORECAST_DATE.setSeconds(0);
+}
 
 function main(){
 
@@ -70,10 +74,11 @@ function main(){
 
     // overlay map control group
     var overlayMaps={
-        "Hochnebel (prognostiziert)":fogLayer,
+        "Hochnebel":fogLayer,
         "Berggipfel":peaks_group
     };
-
+    // Set the forecast date to now
+    forecast_date_now();
     // Add current fog overlay
     FORECAST_TYPE = 'actual';
     fog.updateFog(fogLayer, stops_group, peaks_group, map);
@@ -134,11 +139,11 @@ function main(){
         if(FORECAST_TYPE != "actual") {
             FORECAST_HEIGHT = value;
             pois.reloadPois(stops_group, peaks_group, map);
-            $('#info').html('Nebel-Simulation<br>' + value + ' m.ü.M.');
+            $('#info').html('Nebel-Simulation<br>' + value + ' m ü.M.');
         }
         else if(first_load){
             FORECAST_HEIGHT = value;
-            $('#info').html('Nebel-Simulation<br>' + value + ' m.ü.M.');
+            $('#info').html('Nebel-Simulation<br>' + value + ' m ü.M.');
         }
         first_load = false;
     }, {
@@ -154,9 +159,18 @@ function main(){
         collapsed:false
     }).addTo(map);
 
+    // Add zoom level to the layer control (without checkbox)
     $('.leaflet-control-layers-overlays').after('<div class="leaflet-control-layers-separator"></div>' +
         '<div class="leaflet-control-layers-custom">' +
-        '<label><span>  Haltestellen (ab Zoomstufe 14)</span></label></div>');
+        '<label><span>  Haltestellen (ab Zoom-Stufe 14)</span></label></div>');
+
+    // Update the forecast to the current date if the title is clicked
+    $("#title").click(function(){
+        forecast_date_now();
+        FORECAST_TYPE = 'actual';
+        fog.updateFog(fogLayer, stops_group, peaks_group, map);
+        console.log('hi');
+    });
 }
 
 $(document).ready(main);

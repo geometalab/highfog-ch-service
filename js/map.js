@@ -37,7 +37,8 @@ var baseMap = (function(){
             "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
             "Weather &copy; <a href='http://www.meteocentrale.ch/de/wetter/freizeitwetter/hochnebelobergrenze.html'>MeteoGroup</a> | " +
             "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
-            "Map &copy; <a href=" + url + ">" + urlText + "</a>";
+            "Map &copy; <a href=" + url + ">" + urlText + "</a> | " +
+            "<a href='http://www.openstreetmap.org/fixthemap'>Verbessere die Karte</a>";
     }
 
     // createMap background layers
@@ -77,7 +78,7 @@ var fog = (function(){
                 // update the displayed fogheight in the bottom left corner
                 $('#info').html('Prognostiziert für ' + day + '.' + month + '.' +
                     year + ', ' + hour + ' Uhr<br>'
-                    + rounded_height +' m.ü.M. (+/- 100m)');
+                    + rounded_height +' m ü.M. (+/- 100m)');
                 FORECAST_HEIGHT = rounded_height;
 
                 // load fog (set new URL) if its inside the displayable range, show error if not and set empty URL

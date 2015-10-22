@@ -123,9 +123,11 @@ function main(){
     // add control elements to the map
     L.FitBounds = mapControls.boundControl(baseMap.createBounds());
     L.DateTimePicker = dateTimePicker.mapControl();
+    L.InfoButton = mapControls.infoButton();
     L.control.layers(baseMaps, overlayMaps).addTo(map);
     map.addControl(new L.FitBounds());
     map.addControl(new L.DateTimePicker());
+    map.addControl(new L.InfoButton);
 
     // initiate datetime picker after the control button has been created
     dateTimePicker.initiatePicker(fogLayer, peaks_group, stops_group, map);

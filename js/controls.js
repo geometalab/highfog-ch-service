@@ -56,9 +56,31 @@ var mapControls = (function(){
         });
     }
 
+    function infoButton(){
+        return L.Control.extend({
+            // position the element in the topleft corner of the map under the zoom controls
+            options: {
+                position: 'topleft'
+            },
+
+            onAdd: function () {
+                // createMap control element with standard leaflet control styling
+                var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar about'),
+                    link = L.DomUtil.create('a', 'controlicon', container);
+                link.href = 'http://giswiki.hsr.ch/Hochnebelkarte';
+                link.title = 'Über diese Karte';
+                link.innerHTML = 'i';
+
+                return container;
+            }
+        });
+    }
+
+
     return{
         boundControl:fitBoundControl,
-        zoomToLocation:zoomToLocation
+        zoomToLocation:zoomToLocation,
+        infoButton:infoButton
     };
 
 })();

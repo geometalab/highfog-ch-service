@@ -88,7 +88,14 @@ html, body {
 }
 
 .fitbounds a{
-    font-weight: 900;
+    font-weight:900;
+}
+
+.about a{
+    font-weight:900;
+    font-size:2em;
+    font-family:"Times New Roman", Times, serif;
+    color:blue;
 }
 
 /* Markers */
@@ -97,7 +104,7 @@ html, body {
 }
 
 .icon{
-    position: relative;
+    position:relative;
     width:20px;
     height:20px;
 }

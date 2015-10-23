@@ -33,7 +33,7 @@ var baseMap = (function(){
 
     // createMap a predefined attribution with a given tile_url and text for the background map copyright
     function createAttribution (url, urlText){
-        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>Über...</a> |" +
+        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>Über...</a> | " +
             "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
             "Weather &copy; <a href='http://www.meteocentrale.ch/de/wetter/freizeitwetter/hochnebelobergrenze.html'>MeteoGroup</a> | " +
             "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
@@ -77,7 +77,7 @@ var fog = (function(){
 
                 // update the displayed fogheight in the bottom left corner
                 $('#info').html('Prognostiziert für ' + day + '.' + month + '.' +
-                    year + ', ' + hour + ' Uhr (&plusmn 1.5h)<br>'
+                    year + ', ' + hour + ' Uhr (&plusmn 1.5 h)<br>'
                     + rounded_height +' m ü.M. (&plusmn 100 m)');
                 FORECAST_HEIGHT = rounded_height;
 

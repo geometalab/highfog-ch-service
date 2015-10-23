@@ -47,7 +47,7 @@ function main(){
         iconCreateFunction: function(cluster) {
             return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/peak.png" >' +
+                '<img class="peak-icon" src="img/Npeak.png" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
@@ -56,7 +56,7 @@ function main(){
         iconCreateFunction: function(cluster) {
             return new L.DivIcon({className: "pois",
                 html: '<div><span>' +
-                '<img class="icon" src="img/stop.png" >' +
+                '<img class="stop-icon" src="img/Nstop.png" >' +
                 '<div class="count">' + cluster.getChildCount() + '</div></span></div>' });
         }
     });
@@ -83,6 +83,8 @@ function main(){
     FORECAST_TYPE = 'actual';
     fog.updateFog(fogLayer, stops_group, peaks_group, map);
 
+    // Show info bar if new session
+    position.showInfoBarOnNewSession();
     position.setStartPosition(map);
     // initiate position updater
     position.updateCookies(map);
@@ -172,6 +174,12 @@ function main(){
         FORECAST_TYPE = 'actual';
         fog.updateFog(fogLayer, stops_group, peaks_group, map);
         console.log('hi');
+    });
+
+    // Hide the info box on click
+    document.cookie = 'clicked_splash=true';
+    $(document).click(function() {
+        $("#splash").fadeOut( "slow", function(){});
     });
 }
 

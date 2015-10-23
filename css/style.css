@@ -94,7 +94,7 @@ html, body {
 .about a{
     font-weight:900;
     font-size:2em;
-    font-family:"Times New Roman", Times, serif;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
     color:blue;
 }
 
@@ -103,10 +103,16 @@ html, body {
     text-align:center;
 }
 
-.icon{
+.peak-icon{
     position:relative;
-    width:20px;
-    height:20px;
+    width:34px;
+    height:25px;
+}
+
+.stop-icon{
+    position:relative;
+    width:36px;
+    height:25px;
 }
 
 .count{
@@ -125,6 +131,19 @@ html, body {
     padding:0 5px;
     font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size:11px;
+}
+
+/* Info Splash */
+#splash{
+    display:none;
+    position:absolute;
+    top:60px;
+    left:45px;
+    right:55px;
+    padding:2px;
+    background-color:rgba(211,211,211,0.7);
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+    z-index:1000;
 }
 
 /* Error field */

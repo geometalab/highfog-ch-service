@@ -81,20 +81,28 @@ var position = (function(){
         }
     }
 
+    function showInfoBarOnNewSession(map){
+        if(!readCookie('clicked_splash', document.cookie)){
+            $("#splash").show();
+        }
+    }
+
+
     // save the position to the clients cookies after every move event
     function updateCookies(map){
         map.on('moveend', function() {
             var center = map.getCenter(),
                 zoom = map.getZoom();
-            document.cookie = 'lat= ' + center.lat + ';';
-            document.cookie = 'lng=' + center.lng + ';';
-            document.cookie = 'zoom=' + zoom + ';';
+            document.cookie = 'lat= ' + center.lat + '; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
+            document.cookie = 'lng=' + center.lng + '; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
+            document.cookie = 'zoom=' + zoom + '; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
         });
     }
 
     return{
         setStartPosition:setStartPosition,
-        updateCookies:updateCookies
+        updateCookies:updateCookies,
+        showInfoBarOnNewSession:showInfoBarOnNewSession
     };
 
 })();

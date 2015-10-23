@@ -71,6 +71,10 @@ var mapControls = (function(){
                 link.title = 'Über diese Karte';
                 link.innerHTML = 'i';
 
+                L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
+                    $("#splash").show();
+                });
+
                 return container;
             }
         });

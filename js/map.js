@@ -33,7 +33,8 @@ var baseMap = (function(){
 
     // createMap a predefined attribution with a given tile_url and text for the background map copyright
     function createAttribution (url, urlText){
-        return "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
+        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>Über...</a> |" +
+            "<a href='http://geometalab.tumblr.com/'>Blog</a> | " +
             "Weather &copy; <a href='http://www.meteocentrale.ch/de/wetter/freizeitwetter/hochnebelobergrenze.html'>MeteoGroup</a> | " +
             "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
             "Map &copy; <a href=" + url + ">" + urlText + "</a> | " +

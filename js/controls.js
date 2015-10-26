@@ -67,9 +67,8 @@ var mapControls = (function(){
                 // createMap control element with standard leaflet control styling
                 var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar about'),
                     link = L.DomUtil.create('a', 'controlicon', container);
-                link.href = 'http://giswiki.hsr.ch/Hochnebelkarte';
                 link.title = 'Über diese Karte';
-                link.innerHTML = 'i';
+                link.innerHTML = '<img src="img/info.png">';
 
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {
                     $("#splash").show();

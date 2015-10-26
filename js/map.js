@@ -74,7 +74,6 @@ var fog = (function(){
             success:function(response){
                 // round the fog to 20
                 var rounded_height = (20 * Math.round(response.height / 20));
-                console.log(typeof(hour));
                 // update the displayed fogheight in the bottom left corner
                 var hour_plus_3 = hour+3;
                 $('#info').html('Prognostiziert für ' + day + '.' + month + '.' +

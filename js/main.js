@@ -12,7 +12,7 @@ var FORECAST_TYPE;
 // sets the forecast date to the current rounded date
 function forecast_date_now(){
     FORECAST_DATE = new Date();
-    FORECAST_DATE.setHours(3 * Math.round(FORECAST_DATE.getHours() / 3));
+    FORECAST_DATE.setHours(Math.floor(FORECAST_DATE.getHours()/3.0) * 3);
     FORECAST_DATE.setMinutes(0);
     FORECAST_DATE.setSeconds(0);
 }
@@ -63,7 +63,7 @@ function main(){
 
     // initiate map
     var map = baseMap.createMap(swissStyle, fogLayer, peaks_group, stops_group);
-    // rmove "Leaflet" prefix from attributions
+    // remove "Leaflet" prefix from attributions
     map.attributionControl.setPrefix("");
 
     // background map control group
@@ -88,39 +88,6 @@ function main(){
     position.setStartPosition(map);
     // initiate position updater
     position.updateCookies(map);
-
-    map.locate();
-    map.on('locationfound', function(e){
-        L.marker(e.latlng).addTo(map).bindPopup("Ihr Standort.").openPopup();
-
-        L.ZoomToLocation = mapControls.zoomToLocation(e, map);
-        map.addControl(new L.ZoomToLocation());
-    });
-
-    map.on('moveend', function(){
-        pois.loadStops(stops_group, map.getBounds(), map.getZoom());
-    });
-
-
-    // show public transport from after zoom-level 14 and on, keeps display state after zooming out and in again
-    var zoomStart = 0;
-    var haslayer = true;
-    // save the display state on most outer level
-    map.on('zoomstart', function(){
-        zoomStart = map.getZoom();
-        if(zoomStart >= config.show_stops_from_zoom_level) {
-            haslayer = map.hasLayer(stops_group)
-        }
-    });
-    // on zoomend remove stops if zoom is smaller than set display level and show if its larger and haslayer is true
-    map.on('zoomend', function(){
-        if(map.getZoom() < config.show_stops_from_zoom_level){
-            map.removeLayer(stops_group)
-        }
-        else if(haslayer == true && map.getZoom() >= config.show_stops_from_zoom_level){
-            map.addLayer(stops_group)
-        }
-    });
 
     // add control elements to the map
     L.FitBounds = mapControls.boundControl(baseMap.createBounds());
@@ -166,20 +133,9 @@ function main(){
     // Add zoom level to the layer control (without checkbox)
     $('.leaflet-control-layers-overlays').after('<div class="leaflet-control-layers-separator"></div>' +
         '<div class="leaflet-control-layers-custom">' +
-        '<label><span>  Haltestellen (ab Zoom-Stufe 14)</span></label></div>');
-
-    // Update the forecast to the current date if the title is clicked
-    $("#title").click(function(){
-        forecast_date_now();
-        FORECAST_TYPE = 'actual';
-        fog.updateFog(fogLayer, stops_group, peaks_group, map);
-    });
-
-    // Hide the info box on click
-    document.cookie = 'clicked_splash=true';
-    $(document).click(function() {
-        $("#splash").fadeOut( "slow", function(){});
-    });
+        '<label><span>  Haltestellen (ab Zoom-Stufe 14)</span></label></div>'
+    );
+    listeners(map, stops_group, peaks_group, fogLayer);
 }
 
 $(document).ready(main);

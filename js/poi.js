@@ -38,8 +38,8 @@ var pois = (function(){
                         if (feature.properties.name){
                             name = feature.properties.name
                         }
-                        layer.bindPopup('' + name + '<br />' +
-                        '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">OSM </a>');
+                        layer.bindPopup('' + name + ' (' + feature.properties.height + ' m ü.M.)<br>' +
+                        '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">Zu OpenStreetMap...</a>');
                     },
                     // add the points to the layer, but first reproject the coordinates to WGS 84
                     pointToLayer: function (feature, latlng) {

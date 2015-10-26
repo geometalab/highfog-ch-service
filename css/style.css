@@ -98,6 +98,15 @@ html, body {
     color:blue;
 }
 
+.leaflet-control-slider-minus{
+    cursor: pointer;
+}
+
+.leaflet-control-slider-plus{
+    cursor: pointer;
+}
+
+
 /* Markers */
 .leaflet-popup-content{
     text-align:center;

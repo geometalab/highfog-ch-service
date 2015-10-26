@@ -173,7 +173,6 @@ function main(){
         forecast_date_now();
         FORECAST_TYPE = 'actual';
         fog.updateFog(fogLayer, stops_group, peaks_group, map);
-        console.log('hi');
     });
 
     // Hide the info box on click

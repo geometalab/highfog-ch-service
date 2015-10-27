@@ -1,9 +1,10 @@
 '''
 Created: 22.04.2015
 @author: Dennis Ligtenberg
+Script for updating poi heights using the elevation webservice
 Executing this will take a very long time!
 '''
-from models import db, Peaks, PublicTransport
+from webservice.models import db, Peaks, PublicTransport
 from webservice import app
 from geoalchemy2 import func
 import urllib2

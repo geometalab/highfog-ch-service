@@ -1,13 +1,12 @@
 '''
 Created: 01.04.2015
 @author: Dennis Ligtenberg
-Script for updating EOSMDBone Data
-This will take a while to execute!
+Script for updating peaks from EOSMDBOne
 '''
 import psycopg2
 
 from config.ext_config import EOSM_LOGIN
-from models import Peaks, db
+from webservice.models import Peaks, db
 from webservice import app
 
 

@@ -1,11 +1,12 @@
 '''
 Created: 08.04.2015
 @author: Dennis Ligtenberg
+Script for updating public transport stops from EOSMDBOne
 '''
 import psycopg2
 
 from config.ext_config import EOSM_LOGIN
-from models import PublicTransport, db
+from webservice.models import PublicTransport, db
 from webservice import app
 
 

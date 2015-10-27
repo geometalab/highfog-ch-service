@@ -109,17 +109,17 @@ var pois = (function(){
 
                             if (feature.properties.uic_name) {
                                 sbb = '  <a target="_blak" href="' + config.timetable_url
-                                + '' + feature.properties.uic_name + '">SBB Fahrplan</a>';
+                                + '' + feature.properties.uic_name + '">Fahrplan</a>';
                             }
                             if (feature.properties.name){
                                 name = feature.properties.name;
                             }
                             // only link to OSM if point is a node ism OSM for sure
                             if (feature.properties.gtype == 'pt'){
-                                osm = '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">OSM</a>'
+                                osm = '<a target="_blank" href="' + config.osm_node_url + '' + feature.id + '">OpenStreetMap</a>'
                             }
                             else if (feature.properties.gtype == 'po'){
-                                osm = '<a target="_blank" href="' + config.osm_way_url + '' + feature.id + '">OSM</a>'
+                                osm = '<a target="_blank" href="' + config.osm_way_url + '' + feature.id + '">OpenStreetMap</a>'
                             }
                             layer.bindPopup('' + name + '<br />' + osm + sbb + '');
                         },

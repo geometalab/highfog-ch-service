@@ -3,6 +3,7 @@ HIGHFOG_SERVICE_URL = "http://sifsv-80047.hsr.ch/highfog/"; //http://sifsv-80047
  * JSON object for storing configuration data for the app
  */
 var config = {
+    version:"1.1",
     // Background map URLs, attribution URL and attribution Text
     background_maps: {
         swiss_style:{

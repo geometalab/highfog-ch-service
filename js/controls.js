@@ -44,7 +44,7 @@ var mapControls = (function(){
                 var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar zoomposition'),
                     link = L.DomUtil.create('a', 'controlicon', container);
                 link.href = '#';
-                link.title = 'Zur momentanen Position zoomen';
+                link.title = 'Aktueller Standort anzeigen';
                 link.innerHTML = '<img src="img/locate.png">';
                 // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {

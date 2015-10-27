@@ -50,7 +50,7 @@ html, body {
 #title{
     order:1;
     padding-left:5px;
-    width:33%;
+    width:30%;
     font-size: 1.6em;
     vertical-align:middle;
     font-weight:bold;
@@ -65,13 +65,13 @@ html, body {
     order:2;
     text-align: center;
     vertical-align:middle;
-    width:33%;
+    width:40%;
 }
 
 #hsr-logo{
     order:3;
     text-align: right;
-    width:33%;
+    width:30%;
     padding:5px;
 }
 

@@ -1,0 +1,16 @@
+How to render white Tiles that simulate a flooded Switzerlad using a GeoTiff height model
+
+1. Cut out switzerland + buffer from your GeoTiff
+- Get the Swiss boundaries in the shapefile format here: https://github.com/interactivethings/swiss-maps/tree/master/src/swissBOUNDARIES3D/2015
+- Open most the recent shapefile containing "LANDESGEBIET" in its filename in QGIS.
+- Merge all Polygons by selecting all Polygons, enabling editing and clicking Merge selected features in the toolbar.
+- Now add a bufer under Vector->Geoprocessing Tools->Buffer(s)...
+- Select your shapefile as input, 1000 as buffer distance and a output file.
+- Add the GeoTiff file to the QGIS project.
+- Lastly clip the GeoTiff by opening Raster->Extraction->Clipper...
+- Add an output file. Be shure to set "No data value" to 0. In clipping mode choose Mask layer and your buffered shapefile. Now Click OK to clip the GeoTiff.
+
+2. Create map tiles
+- To create the tiles you have to run the tiler.py script. Be shure to have MapTiler Pro and GDAL installed on your device and added to the PATH variable.
+- Run tiler.py with following parameters:
+tiler.py calc inputfile outputdirectory min_height max_height step min_zoom max_zoom

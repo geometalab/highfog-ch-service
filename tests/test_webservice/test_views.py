@@ -4,7 +4,7 @@ Created: 19.03.2015
 Unittests for views
 '''
 from tests.testbase import DatabaseTestCase
-from webservice.models import Heights, db
+from webservice.models import Height, db
 from webservice.update_fog_height import UpdateFogHeightForecast
 from config import api_config
 
@@ -20,10 +20,10 @@ class TestViews(DatabaseTestCase):
         data = update.convert_csv_file_to_list(testfile)
         data = update.pressure_to_height(data)
         update.update_database(data)
-        old_date = db.session.query(Heights).first().date
+        old_date = db.session.query(Height).first().date
 
         self.client.get('/v1/update')
-        self.assertTrue(db.session.query(Heights).first().date != old_date)
+        self.assertTrue(db.session.query(Height).first().date != old_date)
 
     def test_heights_view(self):
         update = UpdateFogHeightForecast()

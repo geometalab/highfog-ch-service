@@ -6,7 +6,7 @@ from datetime import datetime
 
 from tests.testbase import DatabaseTestCase
 from webservice.update_fog_height import UpdateFogHeightForecast
-from webservice.models import Heights, db
+from webservice.models import Height, db
 from config import ext_config
 
 
@@ -42,8 +42,8 @@ class TestUpdateFogHeightTest(DatabaseTestCase):
         data = update.pressure_to_height(data)
         update.update_database(data)
 
-        self.assertEquals(db.session.query(Heights).count(), 48)
-        self.assertEquals(db.session.query(Heights).all()[0].height, 1017.48886368041)
+        self.assertEquals(db.session.query(Height).count(), 48)
+        self.assertEquals(db.session.query(Height).all()[0].height, 1017.48886368041)
 
         update.update_database(data)
-        self.assertEquals(db.session.query(Heights).count(), 48)
+        self.assertEquals(db.session.query(Height).count(), 48)

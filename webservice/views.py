@@ -12,7 +12,7 @@ from datetime import datetime
 from config import api_config
 from config.ext_config import FORECAST_INTERVAL
 from datetime import timedelta
-from models import Peaks, PublicTransport
+from models import Peak, PublicTransport
 
 webservice = Blueprint("webservice", __name__)
 
@@ -42,7 +42,7 @@ def peaks():
     try:
         forecasted_height = float(request.args.get('height'))
         results = get_peaks()
-        return jsonify(Peaks.to_geojson(results, forecasted_height))
+        return jsonify(Peak.to_geojson(results, forecasted_height))
     except TypeError:
         abort(400)
 

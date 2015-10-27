@@ -5,7 +5,7 @@ Setup for unit tests
 '''
 from flask_testing import TestCase
 from webservice import app, db
-from webservice.models import Heights, Peaks, PublicTransport
+from webservice.models import Height, Peak, PublicTransport
 from StringIO import StringIO
 
 
@@ -31,8 +31,8 @@ class DatabaseTestCase(BaseTestCase):
         Setup Database with all tables from model
         '''
         db.metadata.create_all(db.engine, tables=[
-            Heights.__table__,
-            Peaks.__table__,
+            Height.__table__,
+            Peak.__table__,
             PublicTransport.__table__
         ])
 
@@ -41,7 +41,7 @@ class DatabaseTestCase(BaseTestCase):
         '''
         Returns a StringIO object of a sample CSV file with pressure data
         '''
-        a = open("test_webservice/forecast_201503160900.csv")
+        a = open("forecast_201503160900.csv")
         testfile = StringIO()
         testfile.write(a.read())
         a.close()
@@ -53,6 +53,6 @@ class DatabaseTestCase(BaseTestCase):
         '''
         db.session.remove()
         db.metadata.drop_all(db.engine, tables=[
-            Heights.__table__,
-            Peaks.__table__
+            Height.__table__,
+            Peak.__table__
         ])

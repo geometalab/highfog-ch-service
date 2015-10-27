@@ -6,7 +6,7 @@ Script for updating peaks from EOSMDBOne
 import psycopg2
 
 from config.ext_config import EOSM_LOGIN
-from webservice.models import Peaks, db
+from webservice.models import Peak, db
 from webservice import app
 
 
@@ -46,10 +46,10 @@ cursor.execute("""
     ORDER BY 2;
 """)
 if cursor.rowcount:
-    db.session.query(Peaks).delete()
+    db.session.query(Peak).delete()
     for row in cursor:
         print row
-        new_entry = Peaks(
+        new_entry = Peak(
             osm_id=row[3],
             name=row[1],
             height=row[2],

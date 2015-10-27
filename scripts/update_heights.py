@@ -4,7 +4,7 @@ Created: 22.04.2015
 Script for updating poi heights using the elevation webservice
 Executing this will take a very long time!
 '''
-from webservice.models import db, Peaks, PublicTransport
+from webservice.models import db, Peak, PublicTransport
 from webservice import app
 from geoalchemy2 import func
 import urllib2
@@ -37,6 +37,6 @@ def update_heights(table):
         result.height = heightdict['geometry']['coordinates'][2]
         db.session.commit()
 
-update_heights(Peaks)
+update_heights(Peak)
 update_heights(PublicTransport)
 print 'Done!'

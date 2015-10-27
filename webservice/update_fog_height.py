@@ -9,7 +9,7 @@ import math
 from datetime import datetime
 
 from config import ext_config
-from models import Heights, db
+from models import Height, db
 
 
 class UpdateFogHeightForecast(object):
@@ -54,9 +54,9 @@ class UpdateFogHeightForecast(object):
         '''
         Deletes old entries and enters new data in the DB
         '''
-        db.session.query(Heights).delete()
+        db.session.query(Height).delete()
         for row in calculated_result_list:
-            new_entry = Heights(
+            new_entry = Height(
                 height=row[1],
                 date=row[0]
             )

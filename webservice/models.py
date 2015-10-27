@@ -9,7 +9,7 @@ from geoalchemy2.shape import to_shape
 from geojson import Feature, FeatureCollection
 
 
-class Heights(db.Model):
+class Height(db.Model):
     __tablename__ = 'heights'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +18,7 @@ class Heights(db.Model):
 
 
 
-class Peaks(db.Model):
+class Peak(db.Model):
     __tablename__ = 'peaks'
 
     osm_id = db.Column(db.BigInteger, primary_key=True)

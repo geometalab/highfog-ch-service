@@ -17,10 +17,10 @@ var mapControls = (function(){
             onAdd: function (map) {
                 // createMap control element with standard leaflet control styling
                 var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar fitbounds'),
-                    link = L.DomUtil.create('a', '', container);
+                    link = L.DomUtil.create('a', 'controlicon', container);
                 link.href = '#';
                 link.title = 'Zur gesamten Schweiz zoomen';
-                link.innerHTML = 'CH';
+                link.innerHTML = '<img src="img/swissMap.png">';
 
                 // use leaflets fitBounds method to fit view to the createBounds
                 L.DomEvent.on(link, 'click', L.DomEvent.stop).on(link, 'click', function () {

@@ -33,7 +33,7 @@ var baseMap = (function(){
 
     // createMap a predefined attribution with a given tile_url and text for the background map copyright
     function createAttribution (url, urlText){
-        return "<a href='http://giswiki.hsr.ch/Hochnebelkarte'>Über...</a> | " +
+        return "<a href='http://giswiki.hsr.ch/Nebelkarte'>Über...</a> | " +
             "<a href='http://geometalab.tumblr.com/'>Blog</a> | v" + config.version + " | " +
             "Weather &copy; <a href='http://www.meteocentrale.ch/de/wetter/freizeitwetter/hochnebelobergrenze.html'>MeteoGroup</a> | " +
             "Hillshade &copy; <a href='http://www2.jpl.nasa.gov/srtm/'>NASA</a> | " +
@@ -76,8 +76,8 @@ var fog = (function(){
                 var rounded_height = (20 * Math.round(response.height / 20));
                 // update the displayed fogheight in the bottom left corner
                 var hour_plus_3 = hour+3;
-                $('#info').html('Potentielle Hochnebelobergrenze ' + day + '.' + month + '.' +
-                    year + ', ' + hour + '-' + hour_plus_3 + ' Uhr<br>'
+                $('#info').html('Potentielle Nebelobergrenze ' + day + '.' + month + '.' +
+                    year + ' ' + hour + '-' + hour_plus_3 + ' Uhr<br>'
                     + rounded_height +' m ü.M. (&plusmn 100 m)');
                 FORECAST_HEIGHT = rounded_height;
 
@@ -88,13 +88,13 @@ var fog = (function(){
                 }
                 else if(rounded_height > 2000){
                     fogLayer.setUrl('');
-                    error.showError('Hochnebelgrenze über der anzeigbaren Höhe!');
+                    error.showError('Nebelobergrenze über der anzeigbaren Höhe!');
                     FORECAST_HEIGHT = 0;
 
                 }
                 else{
                     fogLayer.setUrl('');
-                    error.showError('Hochnebelgrenze unter der anzeigbaren Höhe!');
+                    error.showError('Nebelobergrenze unter der anzeigbaren Höhe!');
                     FORECAST_HEIGHT =0;
                 }
                 pois.reloadPois(stops_groups, peaks_group, map);
@@ -106,7 +106,7 @@ var fog = (function(){
                 // don't show any fog and fogheight if error occurs
                 fogLayer.setUrl('');
                 $('#height').html('');
-                error.showError('Fehler beim Abrufen der Hochnebelgrenze!');
+                error.showError('Fehler beim Abrufen der Nebelobergrenze!');
             }
         });
     }

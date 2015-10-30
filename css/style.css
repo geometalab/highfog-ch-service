@@ -4,11 +4,10 @@ body {
     margin:0;
 }
 
-
-
 html, body {
     height:100%;
     width:100%;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 #flex-container{
@@ -42,7 +41,6 @@ html, body {
     height:5%;
     width:100%;
     background-color:#0065A3;
-    font-family: "Arial", serif;
     color:white;
     align-items: center;
 }
@@ -89,7 +87,6 @@ html, body {
 .about a{
     font-weight:900;
     font-size:2em;
-    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
     color:blue;
 }
 
@@ -133,7 +130,6 @@ html, body {
     left:0;
     background:rgba(255, 255, 255, 0.7);
     padding:0 5px;
-    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size:11px;
 }
 
@@ -146,13 +142,11 @@ html, body {
     right:55px;
     padding:2px;
     background-color:rgba(211,211,211,0.7);
-    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
     z-index:1000;
 }
 
 /* Error field */
 #error{
-    font-family: "Arial", serif;
     color:white;
     display:none;
     position:absolute;

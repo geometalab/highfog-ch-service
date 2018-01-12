@@ -1,4 +1,4 @@
-HIGHFOG_SERVICE_URL = "http://sifsv-80047.hsr.ch/highfog/"; //http://sifsv-80047.hsr.ch/highfog/
+HIGHFOG_SERVICE_URL = "https://hochnebel.sifs0003.infs.ch/";
 /**
  * JSON object for storing configuration data for the app
  */

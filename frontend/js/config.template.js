@@ -1,5 +1,4 @@
-var HIGHFOG_SERVICE_URL = "https://hochnebel.sifs0003.infs.ch/";
-
+var HIGHFOG_SERVICE_URL = "$EXTERNAL_HIGHFOG_SERVICE_URL";
 /**
  * JSON object for storing configuration data for the app
  */
@@ -44,7 +43,7 @@ var config = {
     peaks_url:HIGHFOG_SERVICE_URL + "v1/peaks/",
     public_transport_url:HIGHFOG_SERVICE_URL + "v1/public_transport/",
 
-    fog_tiles_url:"http://sifsv-80047.hsr.ch/tiles/",
+    fog_tiles_url:"$FOG_TILES_URL",
 
     // Forecast hourly step and days to future settings
     forecast_step_hour:3,

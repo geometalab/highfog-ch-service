@@ -1,0 +1,15 @@
+{
+  "short_name": "Nebelkarte CH",
+  "name": "Nebelkarte Schweiz",
+
+  "icons": [
+    {
+      "src": "img/peak.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+    ],
+
+  "start_url": "index.html",
+  "display": "standalone"
+}

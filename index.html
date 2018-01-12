@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head lang="de">
+        <meta charset="UTF-8">
+        <meta name="author" content="Dennis Ligtenberg">
+        <meta name="description" content="Hochnebelkarte - Eine interaktive Schweizer Freizeit-Wetterkarte als mobiles Web App">
+        <meta name="keywords" content="Hochnebel, Karte, Hochnebelkarte, Nebelkarte, Nebel, Schweiz, fog, Suisse, brouillard">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="robots" content="index,follow" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="title" content="Nebelkarte Schweiz" />
+
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/png" href="img/peak.png"/>
+        <link rel="apple-touch-startup-image" href="img/peak.png" />
+        <link rel="apple-touch-icon" href="img/peak.png" />
+
+        <!-- Open Graph protocol metadata -->
+        <meta property="og:image" content="http://nebelkarte.ch/img/nebelkarte.png"/>
+        <meta property="og:title" content="Hochnebelkarte Schweiz"/>
+        <meta property="og:url" content="http://nebelkarte.ch/"/>
+        <meta property="og:site_name" content="Hochnebelkarte Schweiz"/>
+        <meta property="og:type" content="website"/>
+
+        <!-- Twitter metadata -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:creator" content="@geometalab">
+        <meta name="twitter:title" content="Hochnebelkarte Schweiz">
+        <meta name="twitter:description" content="Hochnebelkarte - Eine interaktive Schweizer Freizeit-Wetterkarte als mobiles Web App">
+        <meta name="twitter:image" content="http://nebelkarte.ch/img/nebelkarte.png">
+
+        <!-- Tells the mobile browser not to do any unwanted scaling -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <title>Nebelkarte Schweiz</title>
+
+        <!-- Libs css -->
+        <link rel="stylesheet" href="libs/leaflet/leaflet.css">
+        <link rel="stylesheet" href="libs/leaflet/MarkerCluster.css">
+        <link rel="stylesheet" href="libs/jquery/jquery.datetimepicker.css">
+        <link rel="stylesheet" href="libs/leaflet/leaflet-slider.css">
+        <!-- Self css -->
+
+        <link rel="stylesheet" href="css/style.css">
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="http://log.hsr.ch/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', '55']);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        <noscript><p><img src="//log.hsr.ch/piwik.php?idsite=55" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+    </head>
+    <body>
+        <div id="flex-container">
+            <!-- Container for the header -->
+            <div id="header" class="header">
+                <div id="title">
+                    <a href="#8/46.826/8.200">Nebelkarte Schweiz</a>
+                </div>
+                <div id="info">
+                </div>
+                <div id="hsr-logo">
+                    <a href="http://i.hsr.ch">
+                        <img src="img/HSR_Logo.jpg" alt="HSR Hochschule für Technik Rapperswil">
+                    </a>
+                </div>
+            </div>
+            <!-- Container for the actual map added by Leaflet -->
+            <div id="map"></div>
+        </div>
+
+        <!-- Container for info splash -->
+        <div id="splash">
+            <p>Boden- und Hochnebel vorherzusagen ist schwierig.
+            Diese Karte berücksichtigt nur einen Faktor und berechnet eine Nebelobergrenze auch wenn das Wetter schön ist.
+            Erkundigen Sie sich zusätzlich bei einem Wetterdienst (z. B. MeteoCentrale),
+            ob mit einer Nebellage zu rechnen ist (v. a. stationäre Hochdrucklage zwischen Anfang Oktober und Mitte März).
+            Die Prognose deckt 4 Tage ab in einer Auflösung von 3 Stunden und einer Genauigkeit von &plusmn; 100 Höhenmetern.
+            (Hier klicken, um dieses Fenster zu schliessen).</p>
+        </div>
+
+        <!-- Container for errorbar -->
+        <div id="error">
+            <div id="message"></div>
+            <a id="close" href="#">x Schliessen</a>
+        </div>
+
+        <!-- Libs js-->
+        <script src="libs/jquery/jquery-2.1.4.min.js"></script>
+        <script src="libs/jquery/jquery.datetimepicker.js"></script>
+        <script src="libs/leaflet/leaflet.js"></script>
+        <script src="libs/leaflet/leaflet-hash.js"></script>
+        <script src="libs/leaflet/leaflet.markercluster.js"></script>
+        <script src="libs/leaflet/leaflet-slider.js"></script>
+
+        <!-- Self js -->
+        <script src="js/config.js"></script>
+        <script src="js/error.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/position.js"></script>
+        <script src="js/controls.js"></script>
+        <script src="js/poi.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/listeners.js"></script>
+    </body>
+</html>

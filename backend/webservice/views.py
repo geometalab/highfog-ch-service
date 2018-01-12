@@ -79,3 +79,10 @@ def get_height_at_time():
         return jsonify({'height': get_max_forecasted_height_by_time(timestamp)})
     except TypeError:
         abort(400)
+
+
+@webservice.route(api_config.HOME_URL)
+@crossdomain(origin='*')
+def home():
+    return 'Server is up'
+

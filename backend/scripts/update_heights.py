@@ -4,12 +4,16 @@ Created: 22.04.2015
 Script for updating poi heights using the elevation webservice
 Executing this will take a very long time!
 '''
-from webservice.models import db, Peak, PublicTransport
-from webservice import app
-from geoalchemy2 import func
-import urllib2
 import ast
+import urllib2
+import os
+
 from pyproj import Proj, transform
+from geoalchemy2 import func
+
+from config.ext_config import ELEVATION_SERVICE_URL
+from webservice import app
+from webservice.models import Peak, PublicTransport, db
 
 # Register an app for SQLAlchemy so this script can be executed standalone
 db.init_app(app)
@@ -26,7 +30,7 @@ def update_heights(table):
         x, y = transform(proj1, proj2, x, y)
 
         try:
-            url = 'http://height-service.dev.ifs.hsr.ch/dtm/v1/elevation?lat=' + str(y) + '&lon=' + str(x) + ''
+            url = ELEVATION_SERVICE_URL + '?lat=' + str(y) + '&lon=' + str(x) + ''
             response = urllib2.urlopen(url).read()
             heightdict = ast.literal_eval(response)
         # Set height to 0 if a HTTPError occurs

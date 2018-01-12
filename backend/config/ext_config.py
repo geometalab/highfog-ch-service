@@ -1,0 +1,14 @@
+import os
+env = os.environ
+
+FTP_URL = env.get('FTP_URL')
+FTP_USER = env.get('FTP_USER')
+FTP_PW = env.get('FTP_PW')
+
+FORECAST_INTERVAL = 3
+
+DATABASE_URL = env.get('DATABASE_URL')
+TEST_DATABASE_URL = env.get('TEST_DATABASE_URL')
+EOSM_LOGIN = env.get('EOSM_LOGIN')
+
+ELEVATION_SERVICE_URL = env.get('ELEVATION_SERVICE_URL')

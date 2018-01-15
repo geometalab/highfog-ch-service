@@ -8,7 +8,7 @@ How to render white Tiles that simulate a flooded Switzerlad using a GeoTiff hei
 - Select your shapefile as input, 1000 as buffer distance and a output file.
 - Add the GeoTiff file to the QGIS project.
 - Lastly clip the GeoTiff by opening Raster->Extraction->Clipper...
-- Add an output file. Be shure to set "No data value" to 0. In clipping mode choose Mask layer and your buffered shapefile. Now Click OK to clip the GeoTiff.
+- Add an output file. Be sure to set "No data value" to 0. In clipping mode choose Mask layer and your buffered shapefile. Now Click OK to clip the GeoTiff.
 
 2. Create map tiles
 - To create the tiles you have to run the tiler.py script. Be shure to have MapTiler Pro and GDAL installed on your device and added to the PATH variable.

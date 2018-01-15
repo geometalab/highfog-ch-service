@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  tiler:
+    build: .
+    environment:
+      CUTLINE_AREA_SHP: "data/area.shp"
+      TIF_SOURCE: "data/eu_dem_v11_E40N20.TIF"
+      RESULT_DIR: "data/result"
+    volumes:
+      - .:/code

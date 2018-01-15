@@ -1,58 +1,74 @@
-'''
-Creates maptiles from a GeoTiff using MapTiler pro.
-'''
-import sys
-import os
+#!/usr/bin/env python3
 
-def main(argv):
-    if os.path.isfile(argv[0]):
-        input_file = argv[0]
-    else:
-        exit_script(argv[0] + ' is not a file!')
-    if os.path.isdir(argv[1]):
-        if os.listdir(argv[1]) == []:
-            output_dir = argv[1]
-        else:
-            exit_script(argv[1] + ' is not an empty directory!')
-    else:
-        exit_script(argv[1] + ' is not a directory!')
-        
-    min_height = int(argv[2])
-    max_height = int(argv[3])
-    step = int(argv[4])
-    min_zoom = argv[5]
-    max_zoom = argv[6]
-    
-    create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom)  
+"""
+Creates maptiles from a GeoTiff using MapTiler pro.
+"""
+import os
+import subprocess
+import shlex
+
+COLOR_CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.realpath("__file__")), "col.txt")
+
+def run_with_log(command):
+    # TODO: use actual logging!
+    try:
+        run = subprocess.run(shlex.split(command), check=True)
+    except subprocess.CalledProcessError as err:
+        print(err)
+        raise
+    print(run.stdout)
+    print(run.stderr)
+
 
 def create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom):
     for height in range(min_height, max_height + step, step):
-        print "Creating tiles for " + str(height) + " metres above sea level."
-        
+        print(f"Creating tiles for {height} metres above sea level.")
+
+        calculated_temp_tif = f'{output_dir}/fog{height}.tif'
+        relief_temp_tif = f'{output_dir}/fog{height}colored.tif'
+
         # Create 8bit GeoTiff. "Flooded" areas are assigned the Value 1, others 0/NoData using gdal_calc.py.
-        calc_command = "gdal_calc.py -A " + input_file + " --type=Byte  --outfile=" + output_dir + "/fog" + str(height) + ".tif --calc=\"A<=" + str(height) + "\" NotDataValue=0"
-        os.system(calc_command)
+        calc_command = f'gdal_calc.py -A {input_file} --type=Byte --outfile={calculated_temp_tif} --calc="A<={height}" NotDataValue=0'
+        run_with_log(calc_command)
         
         # Color areas with the values 1 white and others black using gdaldem.
-        color_config = os.path.dirname(os.path.realpath("__file__")) + "\col.txt"
-        color_command = "gdaldem color-relief " + output_dir + "/fog" + str(height) + ".tif " + color_config + " " + output_dir + "/fog" + str(height) + "colored.tif"
-        os.system(color_command)
+        color_command = f'gdaldem color-relief {calculated_temp_tif} {COLOR_CONFIG_FILE_PATH} {relief_temp_tif}'
+        run_with_log(color_command)
         
         # Create map tiles using maptiler, black areas will be made transparent.
-        command3 = "maptiler -o " + output_dir + "/"+ str(height) + " " + output_dir + "/fog" + str(height) + "colored.tif -zoom " + min_zoom + " " + max_zoom +" -nodata 0 0 0"
-        os.system(command3)
+        if not os.path.exists(f'{output_dir}/{height}/'):
+            os.makedirs(f'{output_dir}/{height}/', exist_ok=True)
+        tiles_generation = f'gdal2tiles.py --profile=mercator --zoom={min_zoom}-{max_zoom} --srcnodata=0 {relief_temp_tif} {output_dir}/{height}/'
+
+        run_with_log(tiles_generation)
         
         # Remove temporary files
-        os.remove( output_dir + "/fog" + str(height) + ".tif") 
-        os.remove(output_dir + "/fog" + str(height) + "colored.tif")
+        os.remove(calculated_temp_tif)
+        os.remove(relief_temp_tif)
 
-def exit_script(message):
-    print "Usage: tiler.py calc inputfile outputdirectory min_height max_height step min_zoom max_zoom\n"
-    print message
-    sys.exit()  
-    
+
 if __name__ == "__main__":
-    if len(sys.argv) == 8:
-        main(sys.argv[1:])
-    else:
-        exit_script('Wrong amount of arguments given!')
+    import argparse
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("input_file", type=str, help="input file (GeoTIF)")
+    parser.add_argument("output_dir", type=str, help="empty(!) output directory")
+
+    parser.add_argument("min_height", type=int, help="Height range: minimum elevation")
+    parser.add_argument("max_height", type=int, help="Height range: maximum elevation")
+    parser.add_argument("step", type=int, help="steps for elevation size")
+    parser.add_argument("min_zoom", type=int, help="zoom-level start")
+    parser.add_argument("max_zoom", type=int, help="zoom-level end")
+
+
+    args = parser.parse_args()
+    input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom = \
+        args.input_file, args.output_dir, args.min_height, args.max_height, args.step, args.min_zoom, args.max_zoom
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
+    assert os.path.isfile(input_file)
+    assert os.path.isdir(output_dir)
+
+    create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom)

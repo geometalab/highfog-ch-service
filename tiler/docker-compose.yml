@@ -3,8 +3,8 @@ services:
   tiler:
     build: .
     environment:
-      CUTLINE_AREA_SHP: "data/area.shp"
-      TIF_SOURCE: "data/eu_dem_v11_E40N20.TIF"
-      RESULT_DIR: "data/result"
+      CUTLINE_AREA_SHP: "/code/data/area.shp"
+      TIF_SOURCE: "/code/data/eu_dem_v11_E40N20.TIF"
+      RESULT_DIR: "/code/data/result"
     volumes:
       - .:/code

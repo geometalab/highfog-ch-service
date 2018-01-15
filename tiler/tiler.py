@@ -6,6 +6,7 @@ Creates maptiles from a GeoTiff using MapTiler pro.
 import os
 import subprocess
 import shlex
+import uuid
 
 COLOR_CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.realpath("__file__")), "col.txt")
 
@@ -24,24 +25,26 @@ def create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom,
     for height in range(min_height, max_height + step, step):
         print(f"Creating tiles for {height} metres above sea level.")
 
-        calculated_temp_tif = f'{output_dir}/fog{height}.tif'
-        relief_temp_tif = f'{output_dir}/fog{height}colored.tif'
+        unique_id = uuid.uuid4()
+
+        calculated_temp_tif = f'{output_dir}/fog{height}{unique_id}.tif'
+        relief_temp_tif = f'{output_dir}/fog{height}{unique_id}colored.tif'
 
         # Create 8bit GeoTiff. "Flooded" areas are assigned the Value 1, others 0/NoData using gdal_calc.py.
         calc_command = f'gdal_calc.py -A {input_file} --type=Byte --outfile={calculated_temp_tif} --calc="A<={height}" NotDataValue=0'
-        run_with_log(calc_command)
-        
+
         # Color areas with the values 1 white and others black using gdaldem.
         color_command = f'gdaldem color-relief {calculated_temp_tif} {COLOR_CONFIG_FILE_PATH} {relief_temp_tif}'
-        run_with_log(color_command)
-        
+
         # Create map tiles using maptiler, black areas will be made transparent.
         if not os.path.exists(f'{output_dir}/{height}/'):
             os.makedirs(f'{output_dir}/{height}/', exist_ok=True)
-        tiles_generation = f'gdal2tiles.py --profile=mercator --zoom={min_zoom}-{max_zoom} --srcnodata=0 {relief_temp_tif} {output_dir}/{height}/'
+        tiles_generation = f'gdal2tiles.py --no-kml --webviewer=none --resume --profile=mercator --zoom={min_zoom}-{max_zoom} --srcnodata=0 {relief_temp_tif} {output_dir}/{height}/'
 
+        run_with_log(calc_command)
+        run_with_log(color_command)
         run_with_log(tiles_generation)
-        
+
         # Remove temporary files
         os.remove(calculated_temp_tif)
         os.remove(relief_temp_tif)

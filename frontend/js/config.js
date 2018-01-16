@@ -44,7 +44,7 @@ var config = {
     peaks_url:HIGHFOG_SERVICE_URL + "v1/peaks/",
     public_transport_url:HIGHFOG_SERVICE_URL + "v1/public_transport/",
 
-    fog_tiles_url:"http://sifsv-80047.hsr.ch/tiles/",
+    fog_tiles_url: "http://hochnebel.sifs0003.infs.ch/tiles/",
 
     // Forecast hourly step and days to future settings
     forecast_step_hour:3,

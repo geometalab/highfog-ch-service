@@ -38,7 +38,8 @@ function main(){
         minZoom: config.min_zoom,
         maxZoom: config.max_zoom,
         maxNativeZoom: 14,
-        opacity: 0.8
+        opacity: 0.8,
+        tms: true
     });
 
     // markerClusterGroups for displayed points

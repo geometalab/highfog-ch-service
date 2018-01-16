@@ -43,7 +43,7 @@ var config = {
     peaks_url:HIGHFOG_SERVICE_URL + "v1/peaks/",
     public_transport_url:HIGHFOG_SERVICE_URL + "v1/public_transport/",
 
-    fog_tiles_url:"$FOG_TILES_URL",
+    fog_tiles_url: "$FOG_TILES_URL",
 
     // Forecast hourly step and days to future settings
     forecast_step_hour:3,

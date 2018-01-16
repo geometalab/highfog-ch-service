@@ -18,7 +18,7 @@ def create_tiles_parallel(input_file, output_dir, min_height, max_height, step, 
                 shlex.split(" ".join([str(i) for i in ['/code/tiler.py', input_file, output_dir, height, height, step, zoom, zoom]]))
             )
     # pprint.pprint(parallel_commands)
-    run_commands_async.run_in_parallel(parallel_commands, max_concurrent_tasks=os.environ.get('NUM_CORES', 1))
+    run_commands_async.run_in_parallel(parallel_commands, max_concurrent_tasks=int(os.environ.get('NUM_CORES', 1)))
 
 
 if __name__ == "__main__":

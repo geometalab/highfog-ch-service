@@ -1,0 +1,7 @@
+.env
+*.pyc
+*.idea
+Dokumentarchiv
+*.bz2
+tiler/
+tiles/

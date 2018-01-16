@@ -6,5 +6,11 @@ services:
       CUTLINE_AREA_SHP: "/code/data/area.shp"
       TIF_SOURCE: "/code/data/eu_dem_v11_E40N20.TIF"
       RESULT_DIR: "/code/data/result"
+      NUM_CORES: 8
+      START_ELEVATION: 180
+      STOP_ELEVATION: 4700
+      STEP_SIZE_ELEVATION: 20
+      ZOOM_LEVEL_MIN: 7
+      ZOOM_LEVEL_MAX: 14
     volumes:
       - .:/code

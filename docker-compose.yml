@@ -35,9 +35,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./tiles:/data/tiles
     ports:
       - "8090:80"
     environment:
       VIRTUAL_HOST: 'localhost,?<domain>.+$$'
       EXTERNAL_HIGHFOG_SERVICE_URL: 'http://localhost:8090/api/'
-      FOG_TILES_URL: 'http://sifsv-80047.hsr.ch/tiles/'
+      FOG_TILES_URL: 'http://localhost:8090/tiles/'

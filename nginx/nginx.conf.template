@@ -65,12 +65,16 @@ server {
     listen 80;
     server_name ${DOMAIN_NAMES};
 
-    root /var/www;
-
     location = /favicon.ico { access_log off; log_not_found off; }
 
     location / {
+        root /var/www;
         index index.html index.htm;
+    }
+
+    location /tiles {
+        alias /data/tiles;
+        try_files $uri /tiles/fallback_empty.png;
     }
 
     location /api {

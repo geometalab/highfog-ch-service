@@ -40,10 +40,10 @@ if cursor.rowcount:
         db.session.add(new_entry)
         db.session.commit()
     cursor.close()
-    print '--------------------------------'
-    print 'Done!'
+    print ('--------------------------------')
+    print ('Done!')
 
 else:
     cursor.close()
-    print '--------------------------------'
-    print 'No results!'
+    print ('--------------------------------')
+    print ('No results!')

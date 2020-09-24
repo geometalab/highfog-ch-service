@@ -7,7 +7,7 @@ from datetime import timedelta
 from shapely.geometry import geo
 from geoalchemy2 import func
 from shapely.wkt import dumps
-from models import db, Height, Peak, PublicTransport
+from .models import db, Height, Peak, PublicTransport
 from config.ext_config import FORECAST_INTERVAL
 
 

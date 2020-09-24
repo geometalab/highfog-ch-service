@@ -3,7 +3,7 @@ Created: 19.03.2015
 @author: Dennis Ligtenberg
 Models for DB OR mapping
 '''
-from data import db
+from .data import db
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import to_shape
 from geojson import Feature, FeatureCollection

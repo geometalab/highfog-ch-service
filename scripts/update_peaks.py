@@ -48,7 +48,7 @@ cursor.execute("""
 if cursor.rowcount:
     db.session.query(Peak).delete()
     for row in cursor:
-        print row
+        print(row)
         new_entry = Peak(
             osm_id=row[3],
             name=row[1],
@@ -58,10 +58,10 @@ if cursor.rowcount:
         db.session.add(new_entry)
         db.session.commit()
     cursor.close()
-    print '--------------------------------'
-    print 'Done!'
+    print ('--------------------------------')
+    print ('Done!')
 
 else:
     cursor.close()
-    print '--------------------------------'
-    print 'No results!'
+    print ('--------------------------------')
+    print ('No results!')

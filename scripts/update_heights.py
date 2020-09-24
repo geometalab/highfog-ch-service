@@ -32,7 +32,7 @@ def update_heights(table):
         # Set height to 0 if a HTTPError occurs
         except urllib2.HTTPError:
             heightdict = {'geometry': {'coordinates': [0, 0, 0]}}
-        print heightdict
+        print(heightdict)
         result = db.session.query(table).filter(table.osm_id == res[2]).first()
         result.height = heightdict['geometry']['coordinates'][2]
         db.session.commit()

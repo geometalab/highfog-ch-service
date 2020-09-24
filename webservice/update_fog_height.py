@@ -4,12 +4,12 @@ Created: 20.03.2015
 Class to get a .csv file from a FTP server and read and process the containing data
 '''
 from ftplib import FTP
-from StringIO import StringIO
+from io import StringIO
 import math
 from datetime import datetime
 
 from config import ext_config
-from models import Height, db
+from .models import Height, db
 
 
 class UpdateFogHeightForecast(object):

@@ -4,15 +4,15 @@ Created: 19.03.2015
 Views for request handling
 '''
 from flask import Blueprint, jsonify, request, abort
-from update_fog_height import UpdateFogHeightForecast
-from crossdomain import crossdomain
-from query_issuer import get_peaks, get_heights, get_stops_within_bounds, \
+from .update_fog_height import UpdateFogHeightForecast
+from .crossdomain import crossdomain
+from .query_issuer import get_peaks, get_heights, get_stops_within_bounds, \
     get_max_forecasted_height_by_time
 from datetime import datetime
 from config import api_config
 from config.ext_config import FORECAST_INTERVAL
 from datetime import timedelta
-from models import Peak, PublicTransport
+from .models import Peak, PublicTransport
 
 webservice = Blueprint("webservice", __name__)
 

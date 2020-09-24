@@ -4,8 +4,8 @@ Created: 19.03.2015
 Create and setup Flask app, register blueprints with views.
 '''
 from flask import Flask
-from views import webservice
-from data import db
+from .views import webservice
+from .data import db
 
 
 app = Flask(__name__)

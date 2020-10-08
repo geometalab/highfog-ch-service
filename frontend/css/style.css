@@ -1,0 +1,233 @@
+/* General */
+body {
+    padding:0;
+    margin:0;
+}
+
+html, body {
+    height:100%;
+    width:100%;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+#flex-container{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#flex-container > .header, #map {
+    flex: 1 100%;
+}
+
+/* Map */
+#map {
+    display: flex;
+    height:95%;
+    width:100%;
+}
+
+/* Header */
+.header{
+    display: flex;
+    height:5%;
+    width:100%;
+    background-color:#0065A3;
+    color:white;
+    align-items: center;
+}
+
+#title{
+    order:1;
+    padding-left:5px;
+    width:30%;
+    font-size: 1.6em;
+    vertical-align:middle;
+    font-weight:bold;
+}
+
+#title a{
+    text-decoration:none;
+    color:white;
+}
+
+#info{
+    order:2;
+    text-align: center;
+    vertical-align:middle;
+    width:40%;
+}
+
+#hsr-logo{
+    order:3;
+    text-align: right;
+    width:30%;
+    padding:5px;
+}
+
+#hsr-logo img{
+    max-width: 122px;
+    vertical-align:middle;
+}
+
+/* Control elements */
+.controlicon img{
+    width:100%;
+    height:100%;
+}
+
+.about a{
+    font-weight:900;
+    font-size:2em;
+    color:blue;
+}
+
+.leaflet-control-slider-minus{
+    cursor: pointer;
+}
+
+.leaflet-control-slider-plus{
+    cursor: pointer;
+}
+
+
+/* Markers */
+.leaflet-popup-content{
+    text-align:center;
+}
+
+.peak-icon{
+    position:relative;
+    width:35px;
+    height:25px;
+}
+
+.stop-icon{
+    position:relative;
+    width:36px;
+    height:25px;
+}
+
+.count{
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Height field */
+#height{
+    position:absolute;
+    bottom:0;
+    left:0;
+    background:rgba(255, 255, 255, 0.7);
+    padding:0 5px;
+    font-size:11px;
+}
+
+/* Info Splash */
+#splash{
+    display:none;
+    position:absolute;
+    top:60px;
+    left:45px;
+    right:55px;
+    padding:2px;
+    background-color:rgba(211,211,211,0.7);
+    z-index:1000;
+}
+
+/* Error field */
+#error{
+    color:white;
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:30px;
+    line-height:30px;
+    background-color:red;
+    text-align:center;
+    opacity:0.8;
+}
+
+#message{
+    display:inline
+}
+
+#close{
+    display:inline;
+    float:right;
+    margin-right:100px;
+}
+
+#error a:link{
+    color:white;
+    text-decoration:none;
+}
+#error a:visited {
+    color:white;
+    text-decoration:none;
+}
+
+/* Change header height dynamically */
+@media all and (max-width: 1060px) {
+    .header { height: 5%;}
+    #map {height: 95%; }
+}
+@media all and (max-height: 1082px) {
+    .header { height: 6%;}
+    #map {height: 94%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 905px) {
+    .header { height: 7%;}
+    #map {height: 93%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 790px) {
+    .header { height: 8%;}
+    #map {height: 92%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 700px) {
+    .header { height: 9%;}
+    #map {height: 91%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 600px) {
+    .header { height: 10%;}
+    #map {height: 90%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 535px) {
+    .header { height: 12%;}
+    #map {height: 88%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 445px) {
+    .header { height: 15%;}
+    #map {height: 85%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+@media all and (max-height: 380px) {
+    .header { height: 18%;}
+    #map {height: 82%; }
+    #hsr-logo img{ max-width: 100px; }
+}
+
+/*css for mobile Landscape*/
+@media all and (max-width: 600px) {
+    #title{ font-size: 0.8em; }
+    #info{ font-size: 0.5em; }
+    #hsr-logo img{ max-width: 100px; }
+}

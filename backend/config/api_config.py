@@ -1,0 +1,8 @@
+REST_API_VERSION = 'v1'
+
+UPDATE_URL = '/' + REST_API_VERSION + '/update'
+HEIGHTS_FORECAST_URL = '/' + REST_API_VERSION + '/heights'
+FORECASTED_PEAKS_URL = '/' + REST_API_VERSION + '/peaks/'
+FORECASTED_PUBLIC_TRANSPORT_URL = '/' + REST_API_VERSION + '/public_transport/'
+FORECASTED_HEIGHTS_URL = '/' + REST_API_VERSION + '/height_at_time/'
+HOME_URL = '/'

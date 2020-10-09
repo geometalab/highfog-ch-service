@@ -17,7 +17,7 @@
 * move the TIF to `data`
   * If you need to use multiple tif, either joine them to one big tiff, or alternatively use a `.vrt` file and adapt the compose file accordingly..
 * Download a Shapefile with the area (ie. Country) and rename it to `area.shp` (all files!) and move them to the data directory
-* Example area.shp is Switzerland (from: https://opendata.swiss/en/dataset/swissboundaries3d-landesgrenzen1/resource/4aa8df61-7513-4b28-aacb-bb0e3632d8dd)
+* Example area.shp is Switzerland (from: https://data.geo.admin.ch/ch.swisstopo.swissboundaries3d-land-flaeche.fill/shp/21781/ch.swisstopo.swissboundaries3d-land-flaeche.fill.zip)
 
 Adapt the environment variables as needed, then run:
 

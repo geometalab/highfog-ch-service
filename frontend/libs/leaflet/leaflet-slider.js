@@ -71,7 +71,7 @@ L.Control.Slider = L.Control.extend({
 
         this._sliderContainer = L.DomUtil.create('div', 'leaflet-slider-container', this._container);
         this.slider = L.DomUtil.create('input', 'leaflet-slider', this._sliderContainer);
-        if (this.options.orientation == 'vertical') {this.slider.setAttribute("orient", "vertical");}
+        if (this.options.orientation == 'vertical') {this.slider.setAttribute("orientation", "vertical");}
         this.slider.setAttribute("title", this.options.title);
         this.slider.setAttribute("id", this.options.id);
         this.slider.setAttribute("type", "range");

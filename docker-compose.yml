@@ -1,10 +1,12 @@
-version: '3.3'
+version: '3.7'
 services:
   backend: &backend
     image: geometalab/fog
     build:
       context: backend
       dockerfile: Dockerfile
+    volumes:
+      - ./backend:/highfog
     env_file:
       - .env
     environment:
@@ -19,13 +21,13 @@ services:
     entrypoint: dockerize -wait http://backend:8080
     command: python run_scheduled.py
   database:
-    image: mdillon/postgis:10
+    image: postgis/postgis:13-3.0
     environment:
       POSTGRES_PASSWORD: 'highfog'
       POSTGRES_USER: 'highfog'
       POSTGRES_DB: 'fog'
   test-database:
-    image: mdillon/postgis:10
+    image: postgis/postgis:13-3.0
     environment:
       POSTGRES_PASSWORD: 'highfog'
       POSTGRES_USER: 'highfog'
@@ -38,7 +40,7 @@ services:
     volumes:
       - ./tiles:/data/tiles
     ports:
-      - "8090:80"
+      - '8090:80'
     environment:
       VIRTUAL_HOST: 'localhost,?<domain>.+$$'
       EXTERNAL_HIGHFOG_SERVICE_URL: 'http://localhost:8090/api/'

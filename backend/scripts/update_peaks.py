@@ -10,7 +10,6 @@ from webservice.models import Peak, db
 from webservice import app
 
 
-
 # Register an app for SQLAlchemy so this script can be executed standalone
 db.init_app(app)
 db.app = app
@@ -48,7 +47,7 @@ cursor.execute("""
 if cursor.rowcount:
     db.session.query(Peak).delete()
     for row in cursor:
-        print row
+        print(row)
         new_entry = Peak(
             osm_id=row[3],
             name=row[1],
@@ -58,10 +57,10 @@ if cursor.rowcount:
         db.session.add(new_entry)
         db.session.commit()
     cursor.close()
-    print '--------------------------------'
-    print 'Done!'
+    print('--------------------------------')
+    print('Done!')
 
 else:
     cursor.close()
-    print '--------------------------------'
-    print 'No results!'
+    print('--------------------------------')
+    print('No results!')

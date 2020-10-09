@@ -7,8 +7,9 @@ from datetime import timedelta
 from shapely.geometry import geo
 from geoalchemy2 import func
 from shapely.wkt import dumps
-from models import db, Height, Peak, PublicTransport
 from config.ext_config import FORECAST_INTERVAL
+
+from .models import db, Height, Peak, PublicTransport
 
 
 def get_heights():
@@ -16,7 +17,8 @@ def get_heights():
     heights = []
     query_result = db.session.query(Height).all()
     for row in query_result:
-        heights.append({'height': row.height, 'date': row.date.strftime("%y-%m-%d %H:%M:%S")})
+        heights.append(
+            {'height': row.height, 'date': row.date.strftime("%y-%m-%d %H:%M:%S")})
     return heights
 
 
@@ -36,7 +38,9 @@ def get_peaks():
     results = db.session.query(Peak).all()
     return results
 
+
 def get_stops_within_bounds(bounds):
     # Returns a FeatureCollection with all public transport stops
-    bbox = geo.box(bounds['minx'], bounds['miny'], bounds['maxx'], bounds['maxy'])
+    bbox = geo.box(bounds['minx'], bounds['miny'],
+                   bounds['maxx'], bounds['maxy'])
     return db.session.query(PublicTransport).filter(func.ST_Within(PublicTransport.geometry, dumps(bbox))).all()

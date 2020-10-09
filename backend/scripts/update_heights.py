@@ -21,7 +21,8 @@ db.app = app
 
 
 def update_heights(table):
-    query = db.session.query(func.ST_X(table.geometry), func.ST_Y(table.geometry), table.osm_id)
+    query = db.session.query(func.ST_X(table.geometry),
+                             func.ST_Y(table.geometry), table.osm_id)
     for res in query:
         x = res[0]
         y = res[1]
@@ -30,17 +31,19 @@ def update_heights(table):
         x, y = transform(proj1, proj2, x, y)
 
         try:
-            url = ELEVATION_SERVICE_URL + '?lat=' + str(y) + '&lon=' + str(x) + ''
+            url = ELEVATION_SERVICE_URL + '?lat=' + \
+                str(y) + '&lon=' + str(x) + ''
             response = urllib2.urlopen(url).read()
             heightdict = ast.literal_eval(response)
         # Set height to 0 if a HTTPError occurs
         except urllib2.HTTPError:
             heightdict = {'geometry': {'coordinates': [0, 0, 0]}}
-        print heightdict
+        print(heightdict)
         result = db.session.query(table).filter(table.osm_id == res[2]).first()
         result.height = heightdict['geometry']['coordinates'][2]
         db.session.commit()
 
+
 update_heights(Peak)
 update_heights(PublicTransport)
-print 'Done!'
+print('Done!')

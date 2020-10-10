@@ -1,5 +1,6 @@
 # FROM osgeo/gdal:ubuntu-small-latest
 # contains gdal 3.1.3
+#  Should be same as FROM osgeo/gdal:ubuntu-full-3.1.3
 FROM osgeo/gdal@sha256:c871dbe3557502f823d39d6d5deae7dcb6716cba51bf8559da89e43da3bab08d
 
 LABEL maintainer="Geometalab <geometalab@hsr.ch>"
@@ -41,4 +42,3 @@ EXPOSE 8080
 ENV PYTHONPATH=${PYTHONPATH}:/highfog SQLALCHEMY_TRACK_MODIFICATIONS=False
 
 CMD ["uwsgi", "--chdir", "/highfog/", "--http", "0.0.0.0:8080", "--wsgi-file", "highfog.wsgi"]
-# uwsgi --chdir /highfog/ --http 0.0.0.0:8080 --wsgi-file highfog.wsgi

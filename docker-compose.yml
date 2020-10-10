@@ -9,16 +9,19 @@ services:
       - ./backend:/highfog
     env_file:
       - .env
+    entrypoint: dockerize -wait tcp://database:5432 -timeout 30s
+    command: python run.py
     environment:
       INTERNAL_UPDATE_HOST: 'http://backend:8080/'
       DATABASE_URL: 'postgresql://highfog:highfog@database:5432/fog'
       TEST_DATABASE_URL: 'postgresql://highfog:highfog@test-database:5432/fog'
+      ELEVATION_SERVICE_URL: http://swiss-heights:5000/dtm/v1/elevation
     depends_on:
       - database
       - test-database
   updater:
     <<: *backend
-    entrypoint: dockerize -wait http://backend:8080
+    entrypoint: dockerize -wait tcp://backend:8080 -timeout 30s
     command: python run_scheduled.py
   database:
     image: postgis/postgis:13-3.0
@@ -32,8 +35,11 @@ services:
       POSTGRES_PASSWORD: 'highfog'
       POSTGRES_USER: 'highfog'
       POSTGRES_DB: 'fog'
+  swiss-heights:
+    image: geometalab/elevation-service:switzerland
   nginx:
     image: geometalab/fog-proxy
+    command: dockerize -wait tcp://backend:8080 -timeout 60s  nginx -g "daemon off;"
     build:
       context: .
       dockerfile: Dockerfile

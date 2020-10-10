@@ -6,7 +6,7 @@ Setup for unit tests
 from flask_testing import TestCase
 from webservice import app, db
 from webservice.models import Height, Peak, PublicTransport
-from StringIO import StringIO
+from io import BytesIO
 
 
 class BaseTestCase(TestCase):
@@ -20,6 +20,7 @@ class BaseTestCase(TestCase):
         '''
         app.config.from_object('config.flask_config.TestConfig')
         return app
+
 
 class DatabaseTestCase(BaseTestCase):
     '''
@@ -39,10 +40,10 @@ class DatabaseTestCase(BaseTestCase):
     @staticmethod
     def get_test_file():
         '''
-        Returns a StringIO object of a sample CSV file with pressure data
+        Returns a BytesIO object of a sample CSV file with pressure data
         '''
-        a = open("forecast_201503160900.csv")
-        testfile = StringIO()
+        a = open("forecast_201503160900.csv", 'rb')
+        testfile = BytesIO()
         testfile.write(a.read())
         a.close()
         return testfile

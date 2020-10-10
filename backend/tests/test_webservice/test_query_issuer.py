@@ -20,10 +20,11 @@ class TestQueryIssuer(DatabaseTestCase):
     def test_get_heights(self):
         self.fill_db_with_pois()
         heights = get_heights()
-        self.assertEqual(heights[0]['height'], 1017.48886368041)
+        self.assertAlmostEqual(
+            heights[0]['height'], 1017.48886368041, places=6)
 
     def test_height_by_time(self):
         self.fill_db_with_pois()
         date = datetime.strptime("2015-03-16 00:00", "%Y-%m-%d %H:%M")
         res = get_max_forecasted_height_by_time(date)
-        self.assertEqual(res, 1017.48886368041)
+        self.assertAlmostEqual(res, 1017.48886368041, places=6)

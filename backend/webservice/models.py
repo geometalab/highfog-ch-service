@@ -3,10 +3,11 @@ Created: 19.03.2015
 @author: Dennis Ligtenberg
 Models for DB OR mapping
 '''
-from data import db
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import to_shape
 from geojson import Feature, FeatureCollection
+
+from .data import db
 
 
 class Height(db.Model):
@@ -15,7 +16,6 @@ class Height(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     height = db.Column(db.Float)
     date = db.Column(db.DateTime(timezone=False))
-
 
 
 class Peak(db.Model):

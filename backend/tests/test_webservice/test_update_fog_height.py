@@ -14,7 +14,8 @@ class TestUpdateFogHeightTest(DatabaseTestCase):
 
     def test_get_file_from_ftp(self):
         update = UpdateFogHeightForecast()
-        fog_file = update.get_file_from_ftp(ext_config.FTP_URL, ext_config.FTP_USER, ext_config.FTP_PW)
+        fog_file = update.get_file_from_ftp(
+            ext_config.FTP_URL, ext_config.FTP_USER, ext_config.FTP_PW)
 
         self.assertTrue(fog_file)
 
@@ -42,8 +43,9 @@ class TestUpdateFogHeightTest(DatabaseTestCase):
         data = update.pressure_to_height(data)
         update.update_database(data)
 
-        self.assertEquals(db.session.query(Height).count(), 48)
-        self.assertEquals(db.session.query(Height).all()[0].height, 1017.48886368041)
+        self.assertEqual(db.session.query(Height).count(), 48)
+        self.assertAlmostEqual(db.session.query(Height).all()
+                               [0].height, 1017.48886368041, places=6)
 
         update.update_database(data)
-        self.assertEquals(db.session.query(Height).count(), 48)
+        self.assertEqual(db.session.query(Height).count(), 48)

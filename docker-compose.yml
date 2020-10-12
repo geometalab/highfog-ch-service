@@ -29,6 +29,14 @@ services:
       POSTGRES_PASSWORD: 'highfog'
       POSTGRES_USER: 'highfog'
       POSTGRES_DB: 'fog'
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@example.com
+      PGADMIN_DEFAULT_PASSWORD: a-secure!password1
+      PGADMIN_LISTEN_PORT: 8999
+    ports:
+      - "8999:8999"
   test-database:
     image: postgis/postgis:13-3.0
     environment:

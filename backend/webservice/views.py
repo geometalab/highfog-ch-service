@@ -4,15 +4,16 @@ Created: 19.03.2015
 Views for request handling
 '''
 from flask import Blueprint, jsonify, request, abort
-from update_fog_height import UpdateFogHeightForecast
-from crossdomain import crossdomain
-from query_issuer import get_peaks, get_heights, get_stops_within_bounds, \
-    get_max_forecasted_height_by_time
 from datetime import datetime
 from config import api_config
 from config.ext_config import FORECAST_INTERVAL
 from datetime import timedelta
-from models import Peak, PublicTransport
+
+from .models import Peak, PublicTransport
+from .update_fog_height import UpdateFogHeightForecast
+from .crossdomain import crossdomain
+from .query_issuer import get_peaks, get_heights, get_stops_within_bounds, \
+    get_max_forecasted_height_by_time
 
 webservice = Blueprint("webservice", __name__)
 
@@ -75,7 +76,8 @@ def get_height_at_time():
         month = request.args.get('m')
         day = request.args.get('d')
         hour = request.args.get('h')
-        timestamp = datetime.strptime(year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
+        timestamp = datetime.strptime(
+            year + "-" + month + "-" + day + " " + hour, '%Y-%m-%d %H')
         return jsonify({'height': get_max_forecasted_height_by_time(timestamp)})
     except TypeError:
         abort(400)
@@ -85,4 +87,3 @@ def get_height_at_time():
 @crossdomain(origin='*')
 def home():
     return 'Server is up'
-

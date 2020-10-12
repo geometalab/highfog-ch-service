@@ -8,7 +8,9 @@ import subprocess
 import shlex
 import uuid
 
-COLOR_CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.realpath("__file__")), "col.txt")
+COLOR_CONFIG_FILE_PATH = os.path.join(
+    os.path.dirname(os.path.realpath("__file__")), "col.txt")
+
 
 def run_with_log(command):
     # TODO: use actual logging!
@@ -21,7 +23,7 @@ def run_with_log(command):
     print(run.stderr)
 
 
-def create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom):
+def create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom, number_processes=None):
     for height in range(min_height, max_height + step, step):
         print(f"Creating tiles for {height} metres above sea level.")
 
@@ -39,7 +41,11 @@ def create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom,
         # Create map tiles using maptiler, black areas will be made transparent.
         if not os.path.exists(f'{output_dir}/{height}/'):
             os.makedirs(f'{output_dir}/{height}/', exist_ok=True)
-        tiles_generation = f'gdal2tiles.py --no-kml --webviewer=none --resume --profile=mercator --zoom={min_zoom}-{max_zoom} --srcnodata=0 {relief_temp_tif} {output_dir}/{height}/'
+        tiles_generation = f'gdal2tiles.py --no-kml --webviewer=none --resume --profile=mercator'
+        tiles_generation += f' --zoom={min_zoom}-{max_zoom} --srcnodata=0 '
+        if number_processes is not None:
+            tiles_generation += f' --processes={number_processes} '
+        tiles_generation += f'{relief_temp_tif} {output_dir}/{height}/'
 
         run_with_log(calc_command)
         run_with_log(color_command)
@@ -55,18 +61,22 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("input_file", type=str, help="input file (GeoTIF)")
-    parser.add_argument("output_dir", type=str, help="empty(!) output directory")
+    parser.add_argument("output_dir", type=str,
+                        help="empty(!) output directory")
 
-    parser.add_argument("min_height", type=int, help="Height range: minimum elevation")
-    parser.add_argument("max_height", type=int, help="Height range: maximum elevation")
+    parser.add_argument("min_height", type=int,
+                        help="Height range: minimum elevation")
+    parser.add_argument("max_height", type=int,
+                        help="Height range: maximum elevation")
     parser.add_argument("step", type=int, help="steps for elevation size")
     parser.add_argument("min_zoom", type=int, help="zoom-level start")
     parser.add_argument("max_zoom", type=int, help="zoom-level end")
-
+    parser.add_argument("number_processes", type=int,
+                        help="roughly number of cores to be used")
 
     args = parser.parse_args()
-    input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom = \
-        args.input_file, args.output_dir, args.min_height, args.max_height, args.step, args.min_zoom, args.max_zoom
+    input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom, number_processes = \
+        args.input_file, args.output_dir, args.min_height, args.max_height, args.step, args.min_zoom, args.max_zoom, args.number_processes
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir, exist_ok=True)
@@ -74,4 +84,5 @@ if __name__ == "__main__":
     assert os.path.isfile(input_file)
     assert os.path.isdir(output_dir)
 
-    create_tiles(input_file, output_dir, min_height, max_height, step, min_zoom, max_zoom)
+    create_tiles(input_file, output_dir, min_height, max_height,
+                 step, min_zoom, max_zoom, number_processes)

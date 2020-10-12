@@ -33,7 +33,8 @@ class TestViews(DatabaseTestCase):
         update.update_database(data)
 
         response = self.client.get('/v1/heights').json
-        self.assertEqual(response['heights'][0]['height'], 1017.48886368041)
+        self.assertAlmostEqual(
+            response['heights'][0]['height'], 1017.48886368041, places=6)
 
     def test_peaks_view(self):
         update = UpdateFogHeightForecast()

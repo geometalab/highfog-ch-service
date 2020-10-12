@@ -3,3 +3,6 @@
 *.idea
 Dokumentarchiv
 *.bz2
+tiles/*
+.vscode/
+result/

@@ -12,9 +12,12 @@ class BaseConfig(object):
         DATABASE_URL
     )
     SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 class TestConfig(BaseConfig):
     TESTING = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = (
         TEST_DATABASE_URL
     )

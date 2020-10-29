@@ -180,10 +180,6 @@ a.leaflet-control-slider-toggle {
   background: #eaeaea;
 }
 
-.leaflet-control-slider.leaflet-control-slider-vertical input[type=range]::-moz-range-track {
-    height: 100%;
-    width: 5px;
-}
 
 /*increment/decrement*/
 
